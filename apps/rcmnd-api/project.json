@@ -1,0 +1,24 @@
+{
+  "name": "rcmnd-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/rcmnd-api/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rcmnd-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rcmnd-api:build:development"
+        },
+        "production": {
+          "buildTarget": "rcmnd-api:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
