@@ -1,0 +1,8 @@
+{
+  "name": "features",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sharemunity/features/src",
+  "projectType": "library",
+  "targets": {},
+  "tags": []
+}
