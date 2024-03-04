@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/apps/sharemunity",
+    "public": "dist/dist/apps/sharemunity",
     "ignore": [
       "firebase.json",
       "**/.*",
