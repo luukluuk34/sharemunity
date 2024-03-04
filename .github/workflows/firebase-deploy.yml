@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: sharemunity
-          path: sharemunity-release.zip
+          path: dist.zip
 
   deploy-frontend:
     runs-on: ubuntu-latest
