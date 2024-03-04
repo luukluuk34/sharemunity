@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies, build and test
         run:  | 
           npm install
-          nx b sharemunity
+          npx nx b sharemunity
           npm run test --if-present
           zip -r dist.zip dist
 
