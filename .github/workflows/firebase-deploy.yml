@@ -1,0 +1,35 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - main
+      - firebase
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 20
+        
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Build Angular app
+        run: nx b sharemunity
+      
+      - name: Deploy to Firebase
+        run: |
+          npm install -g firebase-tools
+          firebase deploy --token "$FIREBASE_TOKEN"
+
+        env:
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+
+        
