@@ -1,10 +1,19 @@
 {
   "hosting": {
-    "public": "dist/apps/sharemunity",
+    "public": "dist/default",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
-  }
+  },
+  "apps":[
+    {
+      "name": "sharemunity",
+      "hosting": {
+        "public": "dist/sharemunity",
+        "project": "firebase-sharemunity" 
+      }
+    }
+  ]
 }
