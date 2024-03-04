@@ -47,7 +47,7 @@ jobs:
 
       - name: Display Files (Optional - for debugging)
         run: |
-          cd dist/dist
+          cd .
           ls -la
 
       - name: Deploy to Firebase
