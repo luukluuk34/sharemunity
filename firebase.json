@@ -11,7 +11,7 @@
     {
       "name": "sharemunity",
       "hosting": {
-        "public": "dist/apps/sharemunity/src",
+        "public": "dist",
         "project": "firebase-sharemunity" 
       }
     }
