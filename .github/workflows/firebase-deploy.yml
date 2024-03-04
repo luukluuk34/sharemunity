@@ -50,7 +50,10 @@ jobs:
 
       - name: Display Files (Optional - for debugging)
         run: |
-          cd .
+          cd ./dist/apps
+          ls -la
+          echo "-----------------------"
+          cd ../../
           ls -la
 
       - name: Deploy to Firebase
