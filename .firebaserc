@@ -4,11 +4,7 @@
   },
   "targets": {
     "firebase-sharemunity": {
-      "hosting": {
-        "sharemunity": [
-          "firebase-sharemunity"
-        ]
-      }
+      "hosting": {}
     }
   },
   "etags": {}

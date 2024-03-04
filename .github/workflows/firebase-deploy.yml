@@ -61,7 +61,7 @@ jobs:
           cd dist/dist/apps/sharemunity
           npm install -g firebase-tools
           firebase use "$APP_NAME"
-          firebase deploy --token "$FIREBASE_TOKEN" --only hosting:sharemunity
+          firebase deploy --token "$FIREBASE_TOKEN" --project firebase-sharemunity --only hosting
         env:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
           APP_NAME: firebase-sharemunity
