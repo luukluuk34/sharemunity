@@ -26,7 +26,7 @@ jobs:
       - name: Zip artifacts for deployment
         run: | 
           echo ${{github.workspace}}
-          cd ${{github.workspace}}/dist/apps/sharemunity && zip ${{github.workspace}}/sharemunity-release.zip ./* -r
+          cd /dist/apps/sharemunity && zip sharemunity-release.zip ./* -r
       
       - name: Upload sharemunity artifact for deployment job
         uses: actions/upload-artifact@v3
