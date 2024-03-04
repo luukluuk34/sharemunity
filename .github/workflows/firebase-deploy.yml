@@ -16,11 +16,6 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: 20
-          
-      - name: Display Files (Optional - for debugging)
-        run: |
-          cd .
-          ls -la
 
       - name: Install Dependencies, build and test
         run:  | 
@@ -41,25 +36,25 @@ jobs:
     environment:
       name: 'Production'
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: sharemunity
       
+      - name: Unzip artifact for deployment
+        run: | 
+          unzip dist.zip -d dist
+
       - name: Display Files (Optional - for debugging)
         run: |
           cd .
           ls -la
 
-      - name: Unzip artifact for deployment
-        run: | 
-          unzip dist.zip -d dist
-
-
-
       - name: Deploy to Firebase
         run: |
-          cd dist
           npm install -g firebase-tools
           firebase use "$APP_NAME"
           firebase deploy --token "$FIREBASE_TOKEN" --only hosting
