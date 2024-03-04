@@ -22,8 +22,17 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      
 
+      - name: Zip artifacts for deployment
+        run: | 
+          echo ${GITHUB_WORKSPACE}
+          cd ${GITHUB_WORKSPACE}/dist/apps/sharemunity && zip ${GITHUB_WORKSPACE}/sharemunity-release.zip ./* -r
+      
+      - name: Upload sharemunity artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: sharemunity
+          path: sharemunity-release.zip
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -32,12 +41,19 @@ jobs:
       name: 'Production'
     
     steps:
-      - name: Build Angular app
-        run: npx nx b sharemunity
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: sharemunity
+      
+      - name: Unzip artifact for deployment
+        run: unzip sharemunity-release.zip
 
       - name: Deploy to Firebase
         run: |
+          cd dist
           npm install -g firebase-tools
+          firebase use sharemunity
           firebase deploy --token "$FIREBASE_TOKEN" --only hosting
         env:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
