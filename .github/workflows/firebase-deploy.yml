@@ -19,70 +19,64 @@ jobs:
 
 
 # ------------------------------------------------------------------------------------------
-      - name: Build and Deploy to Firebase
-        run: |
-          cd apps
-          ls -la
-          npm install -g firebase-tools
+      # - name: Build and Deploy to Firebase
+      #   run: |
+      #     cd dist
+      #     ls -la
+      #     npm install -g firebase-tools
 
-          # Choose the app based on the environment variable
-          if [ "$APP_NAME" == "sharemunity" ]; then
-            firebase use --add "$APP_NAME"
-          elif [ "$APP_NAME" == "data-api" ]; then
-            firebase use --add "$APP_NAME"
-          else
-            firebase use default
-          fi
+      #     # Choose the app based on the environment variable
+      #     if [ "$APP_NAME" == "sharemunity" ]; then
+      #       firebase use --add "$APP_NAME"
+      #     elif [ "$APP_NAME" == "data-api" ]; then
+      #       firebase use --add "$APP_NAME"
+      #     else
+      #       firebase use default
+      #     fi
           
-          firebase deploy --token "$FIREBASE_TOKEN" --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          APP_NAME: firebase-sharemunity
+      #     firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      #     APP_NAME: firebase-sharemunity
 # ------------------------------------------------------------------------------------------
 
-  #     - name: Install Dependencies, build and test
-  #       run:  | 
-  #         npm install
-  #         npx nx b sharemunity
-  #         npm run test --if-present
-  #         zip -r dist.zip dist
+      - name: Install Dependencies, build and test
+        run:  | 
+          npm install
+          npx nx b sharemunity
+          npm run test --if-present
+          zip -r dist.zip dist
 
-  #     # - name: Zip artifacts for deployment
-  #     #   run: | 
-  #     #     echo ${{github.workspace}}
-  #     #     cd ${{github.workspace}}/dist/apps/sharemunity && zip -r ${{github.workspace}}/sharemunity-release.zip
-      
-  #     - name: Upload sharemunity artifact for deployment job
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: sharemunity
-  #         path: dist.zip
+      - name: Upload sharemunity artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: sharemunity
+          path: dist.zip
 
-  # deploy-frontend:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   environment:
-  #     name: 'Production'
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
     
-  #   steps:
-  #     - name: Download artifact from build job
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: sharemunity
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: sharemunity
       
-  #     - name: Unzip artifact for deployment
-  #       run: unzip dist.zip -d dist
+      - name: Unzip artifact for deployment
+        run: | 
+          unzip sharemunity/dist.zip -d dist
 
-  #     - name: Deploy to Firebase
-  #       run: |
-  #         cd dist
-  #         ls -la
-  #         cat firebase.json
-  #         npm install -g firebase-tools
-  #         firebase use "$APP_NAME"
-  #         firebase deploy --token "$FIREBASE_TOKEN" --only hosting
-  #       env:
-  #         FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
-  #         APP_NAME: firebase-sharemunity
+      - name: Deploy to Firebase
+        run: |
+          cd dist
+          npm install -g firebase-tools
+          firebase use "$APP_NAME"
+          firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+        env:
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+          APP_NAME: firebase-sharemunity
 
         
