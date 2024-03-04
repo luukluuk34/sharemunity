@@ -52,8 +52,8 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          cd dist
-          echo "Current Directory: $(pwd)"
+          cd ../
+          for %%f in ( "$(Build.ArtifactStagingDirectory)\*" ) do @echo %%f
           npm install -g firebase-tools
           firebase use "$APP_NAME"
           firebase deploy --token "$FIREBASE_TOKEN" --only hosting
