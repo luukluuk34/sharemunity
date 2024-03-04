@@ -20,13 +20,14 @@ jobs:
       - name: Install Dependencies, build and test
         run:  | 
           npm install
-          npm run build --if-present
+          nx b sharemunity
           npm run test --if-present
+          zip -r dist.zip dist
 
-      - name: Zip artifacts for deployment
-        run: | 
-          echo ${{github.workspace}}
-          cd /dist/apps/sharemunity && zip sharemunity-release.zip ./* -r
+      # - name: Zip artifacts for deployment
+      #   run: | 
+      #     echo ${{github.workspace}}
+      #     cd ${{github.workspace}}/dist/apps/sharemunity && zip -r ${{github.workspace}}/sharemunity-release.zip
       
       - name: Upload sharemunity artifact for deployment job
         uses: actions/upload-artifact@v3
