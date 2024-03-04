@@ -67,7 +67,7 @@ jobs:
       
       - name: Unzip artifact for deployment
         run: | 
-          unzip sharemunity/dist.zip -d dist
+          unzip dist.zip -d dist
 
       - name: Deploy to Firebase
         run: |
