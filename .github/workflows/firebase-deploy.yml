@@ -48,7 +48,7 @@ jobs:
           name: sharemunity
       
       - name: Unzip artifact for deployment
-        run: unzip sharemunity-release.zip
+        run: unzip dist.zip
 
       - name: Deploy to Firebase
         run: |
