@@ -16,6 +16,11 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: 20
+          
+      - name: Display Files (Optional - for debugging)
+        run: |
+          cd .
+          ls -la
 
       - name: Install Dependencies, build and test
         run:  | 
