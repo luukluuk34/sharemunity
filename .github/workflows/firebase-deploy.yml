@@ -50,7 +50,7 @@ jobs:
 
       - name: Display Files (Optional - for debugging)
         run: |
-          cd dist
+          cd dist/dist
           ls -la
           echo "-----------------------"
           cd ../../
