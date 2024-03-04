@@ -16,11 +16,14 @@ jobs:
         uses: actions/setup-node@v3
         with: 
           node-version: 20
-        
+
+
+# ------------------------------------------------------------------------------------------
       - name: Build and Deploy to Firebase
         run: |
           cd apps
-          
+          npm install -g firebase-tools
+
           # Choose the app based on the environment variable
           if [ "$APP_NAME" == "sharemunity" ]; then
             firebase use --add "$APP_NAME"
@@ -30,12 +33,11 @@ jobs:
             firebase use default
           fi
           
-          npm install -g firebase-tools
           firebase deploy --token "$FIREBASE_TOKEN" --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           APP_NAME: firebase-sharemunity
-
+# ------------------------------------------------------------------------------------------
 
   #     - name: Install Dependencies, build and test
   #       run:  | 
