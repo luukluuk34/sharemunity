@@ -6,9 +6,8 @@ on:
       - main
       - firebase
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
