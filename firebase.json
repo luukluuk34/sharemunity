@@ -1,12 +1,11 @@
 {
-  "hosting": [ {
+  "hosting": {
     "site": "firebase-sharemunity",
-    "public": "dist/dist/apps/sharemunity",
+    "public": "./dist/dist/apps/sharemunity",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
   }
-  ]
 }
