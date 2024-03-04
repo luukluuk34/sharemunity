@@ -25,8 +25,8 @@ jobs:
 
       - name: Zip artifacts for deployment
         run: | 
-          echo ${GITHUB_WORKSPACE}
-          cd ${GITHUB_WORKSPACE}/dist/apps/sharemunity && zip ${GITHUB_WORKSPACE}/sharemunity-release.zip ./* -r
+          echo ${{GITHUB_WORKSPACE}}
+          cd $GITHUB_WORKSPACE/dist/apps/sharemunity && zip $GITHUB_WORKSPACE/sharemunity-release.zip ./* -r
       
       - name: Upload sharemunity artifact for deployment job
         uses: actions/upload-artifact@v3
