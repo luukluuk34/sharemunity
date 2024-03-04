@@ -50,7 +50,7 @@ jobs:
 
       - name: Display Files (Optional - for debugging)
         run: |
-          cd dist/apps
+          cd dist
           ls -la
           echo "-----------------------"
           cd ../../
