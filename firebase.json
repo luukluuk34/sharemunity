@@ -1,4 +1,18 @@
 {
+  "hosting": {
+    "public": "dist/apps/sharemunity",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
   "apps":[
     {
       "name": "sharemunity",
