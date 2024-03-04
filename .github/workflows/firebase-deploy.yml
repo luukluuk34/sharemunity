@@ -22,7 +22,7 @@ jobs:
         run: npm install
       
       - name: Build Angular app
-        run: nx b sharemunity
+        run: npx nx b sharemunity
       
       - name: Deploy to Firebase
         run: |
