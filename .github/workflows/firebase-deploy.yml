@@ -41,14 +41,16 @@ jobs:
         with:
           name: sharemunity
       
-      - name: Unzip artifact for deployment
-        run: | 
-          unzip dist.zip -d dist
-
       - name: Display Files (Optional - for debugging)
         run: |
           cd .
           ls -la
+
+      - name: Unzip artifact for deployment
+        run: | 
+          unzip dist.zip -d dist
+
+
 
       - name: Deploy to Firebase
         run: |
