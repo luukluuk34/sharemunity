@@ -79,7 +79,7 @@ jobs:
           cd dist/dist/apps
           ls -la
           echo "-----------------------"
-          cd ../../
+          cd ../../../
           ls -la
 
       - name: Deploy to azure Web App
