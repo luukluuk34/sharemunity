@@ -1,6 +1,7 @@
 {
-  "hosting": [{
-      "target":"sharemunity",
+  "hosting": [
+    {
+      "target": "sharemunity",
       "public": "dist/dist/apps/sharemunity",
       "ignore": [
         "firebase.json",
@@ -9,12 +10,36 @@
       ]
     },
     {
-      "target":"sharemunity-api",
+      "target": "sharemunity-api",
       "public": "dist/dist/apps/data-api",
       "ignore": [
         "firebase.json",
         "**/.*",
         "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/api/**",
+          "function": "app"
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "trigger": {
+        "httpsTrigger": {}
+      },
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
       ]
     }
   ]
