@@ -26,20 +26,20 @@ jobs:
 
       - name: Zip artifacts for deployment
         run: |
-          cd $GITHUB_WORKSPACE/dist/apps/data-api && zip -r $GITHUB_WORKSPACE/data-api-release.zip .
-          cd $GITHUB_WORKSPACE/dist/apps/sharemunity && zip -r $GITHUB_WORKSPACE/sharemunity-release.zip .
+          cd ${GITHUB_WORKSPACE}/dist/apps/data-api && zip -r ${GITHUB_WORKSPACE}/data-api-release.zip .
+          cd ${GITHUB_WORKSPACE}/dist/apps/sharemunity && zip -r ${GITHUB_WORKSPACE}/sharemunity-release.zip .
 
       - name: Upload sharemunity artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: sharemunity
-          path: $GITHUB_WORKSPACE/sharemunity-release.zip
+          path: ${GITHUB_WORKSPACE}/sharemunity-release.zip
 
       - name: Upload data-api artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: data-api
-          path: $GITHUB_WORKSPACE/data-api-release.zip
+          path: ${GITHUB_WORKSPACE}/data-api-release.zip
 
   deploy-frontend:
     runs-on: ubuntu-latest
