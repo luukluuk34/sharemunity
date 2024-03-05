@@ -31,7 +31,10 @@ jobs:
 
       - name: Display Files (Optional - for debugging)
         run: |
-          cd ${GITHUB_WORKSPACE}/dist
+          cd ${GITHUB_WORKSPACE}
+          ls -la
+          echo ------------------------
+          cd ${GITHUB_WORKSPACE}/sharemunity-release.zip
           ls -la
 
       - name: Upload sharemunity artifact for deployment job
