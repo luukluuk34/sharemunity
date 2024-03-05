@@ -54,8 +54,8 @@ jobs:
       name: 'Production'
 
     steps:
-      # - name: Checkout Repository
-      #   uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -64,7 +64,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: | 
-          unzip sharemunity-release.zip
+          unzip sharemunity-release.zip -d dist
 
       - name: Display Files (Optional - for debugging)
         run: |
@@ -73,6 +73,7 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
+          cd ${GITHUB_WORKSPACE}/dist
           npm install -g firebase-tools
           firebase use "$APP_NAME"
           firebase deploy --token "$FIREBASE_TOKEN" --project firebase-sharemunity --only hosting:sharemunity
