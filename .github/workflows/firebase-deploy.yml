@@ -54,8 +54,8 @@ jobs:
       name: 'Production'
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
