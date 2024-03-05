@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - firebase
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with: 
-          node-version: 20
+          node-version: 14 # Adjust the Node.js version as needed
       
       - name: Install Dependencies, build and test
         run: | 
@@ -23,24 +24,22 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      # - name: Zip artifacts for deployment
-      #   run: |
-      #     echo ${ GITHUB_WORKSPACE }
-      #     cd ${ GITHUB_WORKSPACE }/dist/apps/data-api && zip ${ GITHUB_WORKSPACE }/dist/apps/data-api 
-      #     cd ${ GITHUB_WORKSPACE }/dist/apps/sharemunity && zip ${ GITHUB_WORKSPACE }/dist/apps/sharemunity
+      - name: Zip artifacts for deployment
+        run: |
+          cd $GITHUB_WORKSPACE/dist/apps/data-api && zip -r $GITHUB_WORKSPACE/data-api-release.zip .
+          cd $GITHUB_WORKSPACE/dist/apps/sharemunity && zip -r $GITHUB_WORKSPACE/sharemunity-release.zip .
 
+      - name: Upload sharemunity artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: sharemunity
+          path: $GITHUB_WORKSPACE/sharemunity-release.zip
 
-        - name: Upload sharemunity artifact for deployment job
-          uses: actions/upload-artifact@v3
-          with:
-            name: sharemunity
-            path: sharemunity-release.zip
-
-        - name: Upload data-api artifact for deployment job
-          uses: actions/upload-artifact@v3
-          with:
-            name: data-api
-            path: data-api-release.zip
+      - name: Upload data-api artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: data-api
+          path: $GITHUB_WORKSPACE/data-api-release.zip
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -93,7 +92,6 @@ jobs:
       - name: Display Files (Optional - for debugging)
         run: |
           ls -la
-
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
