@@ -1,11 +1,21 @@
 {
-  "hosting": {
-    "target":"sharemunity",
-    "public": "dist/dist/apps/sharemunity",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  }
+  "hosting": [{
+      "target":"sharemunity",
+      "public": "dist/dist/apps/sharemunity",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target":"sharemunity-api",
+      "public": "dist/dist/apps/data-api",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
 }
