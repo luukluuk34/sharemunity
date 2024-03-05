@@ -29,6 +29,10 @@ jobs:
           cd ${GITHUB_WORKSPACE}/dist/apps/data-api && zip -r ${GITHUB_WORKSPACE}/data-api-release.zip .
           cd ${GITHUB_WORKSPACE}/dist/apps/sharemunity && zip -r ${GITHUB_WORKSPACE}/sharemunity-release.zip .
 
+    - name: Display Files (Optional - for debugging)
+      run: |
+        ls -la
+
       - name: Upload sharemunity artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
