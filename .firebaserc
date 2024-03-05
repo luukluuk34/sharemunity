@@ -7,9 +7,6 @@
       "hosting": {
         "sharemunity": [
           "fir-sharemunity"
-        ],
-        "sharemunity-api": [
-          "fir-sharemunity-backend"
         ]
       }
     }
