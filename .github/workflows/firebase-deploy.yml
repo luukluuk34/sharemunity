@@ -31,8 +31,9 @@ jobs:
 
       - name: Display Files (Optional - for debugging)
         run: |
+          cd .
           ls -la
-
+          
       - name: Upload sharemunity artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
