@@ -1,7 +1,7 @@
 {
   "hosting": [{
       "target":"sharemunity",
-      "public": "dist/dist/apps/sharemunity",
+      "public": ".",
       "ignore": [
         "firebase.json",
         "**/.*",
