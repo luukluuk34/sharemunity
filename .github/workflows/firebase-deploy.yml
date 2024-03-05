@@ -82,7 +82,7 @@ jobs:
           cd ../../
           ls -la
 
-        working-directory: dist/dist/apps/data-api
+        # working-directory: dist/dist/apps/data-api
       - name: Deploy to azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
