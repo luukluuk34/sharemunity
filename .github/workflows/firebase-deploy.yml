@@ -110,9 +110,10 @@ jobs:
         run: | 
           unzip data-api-release.zip
       
-      - name: Delete files
-        uses: DeleteFiles@1
-        path: |
+      - task: DeleteFiles@1
+        displayName: Delete files
+        inputs: 
+          contents: |
             apps
             libs
             public
