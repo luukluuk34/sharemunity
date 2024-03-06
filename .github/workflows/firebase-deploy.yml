@@ -100,7 +100,7 @@ jobs:
         run: | 
           unzip data-api-release.zip
       
-      - name: Display Files (Optional - for debugging)
+      - name: Display Files (Optional - for debuging)
         run: |
           ls -la
 
