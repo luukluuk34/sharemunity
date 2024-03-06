@@ -103,9 +103,6 @@ jobs:
       - name: Display Files (Optional - for debugging)
         run: |
           ls -la
-      
-      - name: Install dependencies
-        run: npm install
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
