@@ -8,8 +8,7 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "data-api:build",
-        "generatePackageJson": true
+        "buildTarget": "data-api:build"
       },
       "configurations": {
         "development": {
