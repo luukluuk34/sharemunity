@@ -112,10 +112,9 @@ jobs:
       
       - name: Remove files
         run: |
-          rm -f \
-            apps \
-            dist \
-            public \
+            rm -rf apps
+            rm -rf dist 
+            rm -rf public
 
       - name: Display Files (Optional - for debuging)
         run: |
