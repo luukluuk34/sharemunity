@@ -119,6 +119,13 @@ jobs:
           npm install @nestjs/common
           npm install @nestjs/core
           npm install @nestjs/platform-express
+          npm install axios
+          npm install class-transformer
+          npm install class-validator
+          npm install reflect-metadata
+          npm install rxjs
+          npm install tslib
+          npm install zone.js
 
 
       - name: Deploy to azure Web App
