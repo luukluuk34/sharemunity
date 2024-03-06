@@ -110,6 +110,14 @@ jobs:
         run: | 
           unzip data-api-release.zip
       
+      - name: Delete files
+        tasks: DeleteFiles@1
+        inputs:
+          contents: |
+            apps
+            libs
+            public
+
       - name: Display Files (Optional - for debuging)
         run: |
           ls -la
