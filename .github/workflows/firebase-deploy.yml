@@ -112,7 +112,7 @@ jobs:
       
       - name: Delete files
         tasks: DeleteFiles@1
-        inputs:
+        uses:
           contents: |
             apps
             libs
