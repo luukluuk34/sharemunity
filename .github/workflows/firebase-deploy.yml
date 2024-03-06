@@ -88,13 +88,13 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      # - name: Checkout Repository
-      #   uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with: 
-      #     node-version: 20 # Adjust the Node.js version as needed
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 20 # Adjust the Node.js version as needed
       
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -105,20 +105,20 @@ jobs:
         run: | 
           unzip data-api-release.zip
       
-      # - name: Remove files
-      #   run: |
-      #       rm -rf apps
-      #       rm -rf dist 
-      #       rm -rf public
-      #       rm -rf libs
+      - name: Remove files
+        run: |
+            rm -rf apps
+            rm -rf dist 
+            rm -rf public
+            rm -rf libs
 
-      - name: Display Files (Optional - for debugging)
+      - name: Display Files (Optional - for debuging)
         run: |
           ls -la
 
-      # - name: Install Dependencies, build and test
-      #   run: | 
-      #     npm install
+      - name: Install Dependencies, build and test
+        run: | 
+          npm install
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
