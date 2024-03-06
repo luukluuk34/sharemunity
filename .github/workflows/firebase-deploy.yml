@@ -112,7 +112,7 @@ jobs:
       
       - name: Delete files
         uses: DeleteFiles@1
-        with: |
+        path: |
             apps
             libs
             public
