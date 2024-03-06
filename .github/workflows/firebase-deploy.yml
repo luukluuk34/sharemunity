@@ -111,7 +111,7 @@ jobs:
           unzip data-api-release.zip
       
       - name: Delete files
-        tasks: DeleteFiles@1
+        task: DeleteFiles@1
         uses:
           contents: |
             apps
