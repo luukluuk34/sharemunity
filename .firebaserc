@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "firebase-sharemunity"
+  },
+  "targets": {
+    "firebase-sharemunity": {
+      "hosting": {
+        "sharemunity": [
+          "fir-sharemunity"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
