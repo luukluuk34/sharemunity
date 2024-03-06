@@ -112,7 +112,7 @@ jobs:
       #       rm -rf public
       #       rm -rf libs
 
-      - name: Display Files (Optional - for debuging)
+      - name: Display Files (Optional - for debugging)
         run: |
           ls -la
 
