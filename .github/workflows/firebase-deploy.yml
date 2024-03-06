@@ -102,7 +102,7 @@ jobs:
         run: | 
           unzip data-api-release.zip
 
-    -  name: Remove files
+      - name: Remove files
         run: |
             rm -rf apps
             rm -rf dist 
