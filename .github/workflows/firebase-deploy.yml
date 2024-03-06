@@ -111,6 +111,7 @@ jobs:
             rm -rf dist 
             rm -rf public
             rm -rf libs
+            rm -f data-api-release.zip
 
       - name: Display Files (Optional - for debuging)
         run: |
