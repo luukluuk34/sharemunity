@@ -114,8 +114,11 @@ jobs:
         run: |
           ls -la
 
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Install dependencies
+        run: | 
+          npm install @nestjs/common
+          npm install @nestjs/core
+          npm install @nestjs/platform-express
 
 
       - name: Deploy to azure Web App
