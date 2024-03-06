@@ -104,6 +104,15 @@ jobs:
         run: |
           ls -la
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 20 # Adjust the Node.js version as needed
+      
+      - name: Install Dependencies, build and test
+        run: | 
+          npm install
+
       - name: Deploy to azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
