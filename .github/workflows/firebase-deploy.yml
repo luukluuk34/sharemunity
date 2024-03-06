@@ -88,8 +88,8 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -98,7 +98,7 @@ jobs:
       
       - name: Unzip artifact for deployment
         run: | 
-          unzip data-api-release.zip -d dist
+          unzip data-api-release.zip
       
       - name: Display Files (Optional - for debugging)
         run: |
