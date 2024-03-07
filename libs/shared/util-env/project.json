@@ -1,0 +1,8 @@
+{
+  "name": "util-env",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/util-env/src",
+  "projectType": "library",
+  "targets": {},
+  "tags": ["type:util", "scope:shared"]
+}

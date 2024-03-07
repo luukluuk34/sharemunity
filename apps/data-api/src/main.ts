@@ -9,6 +9,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ApiResponseInterceptor } from '@sharemunity-workspace/backend/dto';
+import { environment} from '@sharemunity/shared/util-env';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
