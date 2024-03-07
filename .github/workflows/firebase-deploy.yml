@@ -85,13 +85,13 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with: 
-          node-version: 20 # Adjust the Node.js version as needed
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with: 
+      #     node-version: 20 # Adjust the Node.js version as needed
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
@@ -102,31 +102,33 @@ jobs:
         run: | 
           unzip data-api-release.zip
 
-      - name: Remove files
-        run: |
-            rm -rf apps
-            rm -rf dist 
-            rm -rf public
-            rm -rf libs
-            rm -f data-api-release.zip
+      # - name: Remove files
+      #   run: |
+      #       rm -rf apps
+      #       rm -rf dist 
+      #       rm -rf public
+      #       rm -rf libs
+      #       rm -f data-api-release.zip
       
       - name: Display Files (Optional - for debuging)
         run: |
           ls -la
 
-      - name: Install dependencies
-        run: | 
-          npm install @nestjs/common
-          npm install @nestjs/core
-          npm install @nestjs/platform-express
-          npm install axios
-          npm install class-transformer
-          npm install class-validator
-          npm install reflect-metadata
-          npm install rxjs
-          npm install tslib
-          npm install zone.js
+      # - name: Install dependencies
+      #   run: | 
+      #     npm install @nestjs/common
+      #     npm install @nestjs/core
+      #     npm install @nestjs/platform-express
+      #     npm install axios
+      #     npm install class-transformer
+      #     npm install class-validator
+      #     npm install reflect-metadata
+      #     npm install rxjs
+      #     npm install tslib
+      #     npm install zone.js
 
+      - name: Install Dependencies
+        run: npm install
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
