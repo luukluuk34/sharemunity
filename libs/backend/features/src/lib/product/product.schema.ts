@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { IUserInfo, ProductStatus } from '@sharemunity-workspace/shared/api';
+import { IImage, IUserInfo, ProductStatus } from '@sharemunity-workspace/shared/api';
 import { IProduct } from '@sharemunity-workspace/shared/api'
 import { IsMongoId } from 'class-validator';
 
@@ -26,8 +26,15 @@ export class Product implements IProduct {
     @Prop({required:true, default: new Date()})
     maxUseTime: Date = new Date();
 
-    @Prop({ required: true, type: Object })
-    status!: ProductStatus;
+    @Prop({
+        default: [],
+        type: [MongooseSchema.Types.ObjectId],
+        ref: 'Images',
+      })
+    images:IImage[] = [];
+
+    @Prop({ required: true, type: ProductStatus })
+    status: ProductStatus = ProductStatus.Available;
 
 }
 

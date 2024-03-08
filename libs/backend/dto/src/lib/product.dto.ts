@@ -13,6 +13,7 @@ import {
     IUserIdentity,
     ProductStatus
 } from '@sharemunity-workspace/shared/api';
+import { Image } from '@sharemunity-workspace/backend/features';
 
 /**
  * Use the `Pick` utility type to extract only the properties we want for
@@ -42,6 +43,10 @@ export class CreateProductDto implements ICreateProduct {
     @IsString()
     @IsNotEmpty()
     status!: ProductStatus;
+
+    @IsNotEmpty()
+    images!: Image[];
+
 }
 
 export class UpsertProductDto implements IUpsertProduct {
@@ -72,6 +77,9 @@ export class UpsertProductDto implements IUpsertProduct {
     @IsString()
     @IsNotEmpty()
     status!: ProductStatus;
+
+    @IsNotEmpty()
+    images!: Image[];
 }
 
 export class UpdateProductDto implements IUpdateProduct {
@@ -94,4 +102,7 @@ export class UpdateProductDto implements IUpdateProduct {
     @IsString()
     @IsNotEmpty()
     status!: ProductStatus;
+
+    @IsNotEmpty()
+    images!: Image[];
 }

@@ -1,4 +1,5 @@
 import {Id} from './id.type';
+import { IImage } from './image.interface';
 import { IUserIdentity } from './user.interface';
 
 export enum ProductStatus {
@@ -19,11 +20,12 @@ export interface IProduct {
     description:string;
     maxUseTime:Date;
     status:ProductStatus;
+    images:IImage[];
 }
 
 export type ICreateProduct = Pick<
     IProduct,
-    'owner'| 'enjoyer' | 'name' | 'description' | 'maxUseTime' | 'status'
+    'owner'| 'enjoyer' | 'name' | 'description' | 'maxUseTime' | 'status' | 'images'
 >;
 
 export type IUpdateProduct = Partial<Omit<IProduct, 'id'>>;
