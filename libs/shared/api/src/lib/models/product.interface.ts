@@ -1,4 +1,5 @@
 import {Id} from './id.type';
+import { IUserIdentity } from './user.interface';
 
 export enum ProductStatus {
     Available = 'Available',
@@ -7,8 +8,8 @@ export enum ProductStatus {
 }
 
 
-type Owner = string;
-type Enjoyer = string;
+type Owner = IUserIdentity;
+type Enjoyer = IUserIdentity;
 
 export interface IProduct {
     id:Id;

@@ -32,6 +32,10 @@ export class UserController {
     async findOne(@Param('id') id: string): Promise<IUser | null> {
         return this.userService.findOne(id);
     }
+    @Get('/email/:email')
+    async findOneByEmail(@Param('email') email: string): Promise<IUserInfo | null> {
+        return this.userService.findOneByEmail(email);
+    }
 
     @Post('')
     @UseGuards(UserExistGuard)

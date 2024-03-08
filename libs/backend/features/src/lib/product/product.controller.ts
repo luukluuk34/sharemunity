@@ -1,24 +1,25 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { IProduct } from '@sharemunity-workspace/shared/api';
 import {CreateProductDto} from '@sharemunity-workspace/backend/dto'
-
+import { AuthGuard } from '@sharemunity-workspace/backend/auth';
 @Controller('product')
 export class ProductController {
     constructor(private productService: ProductService) {}
 
     @Get('')
-    getAll(): IProduct[] {
-        return this.productService.getAll();
+    getAll(): Promise<IProduct[]> {
+        return this.productService.findAll();
     }
 
     @Get(':id')
-    getOne(@Param('id') id: string): IProduct {
-        return this.productService.getOne(id);
+    getOne(@Param('id') id: string): Promise<IProduct | null> {
+        return this.productService.findOne(id);
     }
 
     @Post('')
-    create(@Body() data: CreateProductDto): IProduct {
+    @UseGuards(AuthGuard)
+    create(@Body() data: CreateProductDto): Promise<IProduct | null> {
         return this.productService.create(data);
     }
 

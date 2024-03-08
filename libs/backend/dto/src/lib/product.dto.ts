@@ -10,6 +10,7 @@ import {
     ICreateProduct,
     IUpdateProduct,
     IUpsertProduct,
+    IUserIdentity,
     ProductStatus
 } from '@sharemunity-workspace/shared/api';
 
@@ -18,14 +19,13 @@ import {
  * new to-do items
  */
 export class CreateProductDto implements ICreateProduct {
-    
     @IsString()
     @IsNotEmpty()
-    owner!: string;
+    owner!: IUserIdentity;
 
     @IsString()
     @IsNotEmpty()
-    enjoyer!: string;
+    enjoyer!: IUserIdentity;
 
     @IsString()
     @IsNotEmpty()
@@ -51,11 +51,11 @@ export class UpsertProductDto implements IUpsertProduct {
 
     @IsString()
     @IsNotEmpty()
-    owner!: string;
+    owner!: IUserIdentity;
 
     @IsString()
     @IsNotEmpty()
-    enjoyer!: string;
+    enjoyer!: IUserIdentity;
 
     @IsString()
     @IsNotEmpty()
@@ -77,7 +77,7 @@ export class UpsertProductDto implements IUpsertProduct {
 export class UpdateProductDto implements IUpdateProduct {
     @IsString()
     @IsNotEmpty()
-    enjoyer!: string;
+    enjoyer!: IUserIdentity;
 
     @IsString()
     @IsNotEmpty()

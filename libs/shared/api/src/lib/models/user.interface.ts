@@ -26,7 +26,6 @@ export interface IUserInfo extends IUserRegistration {
     _id: Id;
     address:string;
     role: UserRole;
-
 }
 
 /**

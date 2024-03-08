@@ -1,58 +1,67 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import {IProduct, ProductStatus} from '@sharemunity-workspace/shared/api';
-import { BehaviorSubject } from 'rxjs';
-import { Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Product as ProductModel, ProductDocument } from './product.schema';
+import { IProduct } from '@sharemunity-workspace/shared/api';
+import { CreateProductDto, UpdateProductDto } from '@sharemunity-workspace/backend/dto';
+import {
+    UserDocument,
+    User as UserModel
+} from '@sharemunity-workspace/user';
 
 @Injectable()
 export class ProductService {
-    TAG = 'ProductService';
+    private readonly logger: Logger = new Logger(ProductService.name);
 
-    private product$ = new BehaviorSubject<IProduct[]>([
-        {
-            id: '0',
-            owner: 'productOwnerName',
-            enjoyer: 'productEnjoyer',
-            name: 'BookOne',
-            description: 'this Book has 600 pages',
-            maxUseTime: new Date(),
-            status:ProductStatus.Available,
-        },
-    ]);
-
-    getAll(): IProduct[] {
-        Logger.log('getAll', this.TAG);
-        return this.product$.value;
-    }
-
-    getOne(id: string): IProduct {
-        Logger.log(`getOne(${id})`, this.TAG);
-        const product = this.product$.value.find((td) => td.id === id);
-        if (!product) {
-            throw new NotFoundException(`Product could not be found!`);
-        }
-        return product;
-    }
+    constructor(
+        @InjectModel(ProductModel.name) private productModel: Model<ProductDocument>,
+        @InjectModel(UserModel.name) private userModel: Model<UserDocument>
+    ) {}
 
     /**
-     * Update the arg signature to match the DTO, but keep the
-     * return signature - we still want to respond with the complete
-     * object
+     * Zie https://mongoosejs.com/docs/populate.html#population
+     *
+     * @returns
      */
-    create(product: Pick<IProduct, 'owner'| 'enjoyer' | 'name' | 'description' | 'maxUseTime' | 'status'>): IProduct {
-        Logger.log('create', this.TAG);
-        const current = this.product$.value;
-        // Use the incoming data, a randomized ID, and a default value of `false` to create the new to-do
-        const newProduct: IProduct = {
-            ...product,
-            id: `Product-${Math.floor(Math.random() * 10000)}`,
-            owner: 'productOwnerName',
-            enjoyer: 'productEnjoyer',
-            name: 'BookOne',
-            description: 'this Book has 600 pages',
-            maxUseTime: new Date(),
-            status:ProductStatus.Available,
-        };
-        this.product$.next([...current, newProduct]);
-        return newProduct;
+    async findAll(): Promise<IProduct[]> {
+        this.logger.log(`Finding all items`);
+        const items = await this.productModel
+            .find()
+            .populate('owner', 'name emailAddress address')
+            .exec();
+        return items;
+    }
+
+    async findOne(_id: string): Promise<IProduct | null> {
+        this.logger.log(`finding Product with id ${_id}`);
+        const item = await this.productModel.findOne({ _id }).exec();
+        if (!item) {
+            this.logger.debug('Item not found');
+        }
+        return item;
+    }
+
+    async create(req: any): Promise<IProduct | null> {
+        const product = req.body;
+        const user_id = req.user.user_id;
+
+        if (product && user_id) {
+            this.logger.log(`Create product ${product.title} for ${user_id}`);
+            const user = await this.userModel
+                .findOne({ _id: user_id })
+                .select('-password -products -address -role -__v')
+                .exec();
+            const createdItem = {
+                ...product,
+                owner: user,
+            };
+            return this.productModel.create(createdItem);
+        }
+        return null;
+    }
+
+    async update(_id: string, product: UpdateProductDto): Promise<IProduct | null> {
+        this.logger.log(`Update product ${product.name}`);
+        return this.productModel.findByIdAndUpdate({ _id }, product);
     }
 }
