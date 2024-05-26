@@ -54,7 +54,7 @@ export class ImageService {
     }
 
     async update(_id: string, image: UpdateImageDto): Promise<IImage | null> {
-        this.logger.log(`Update product ${image.name}`);
+        this.logger.log(`Update product ${image.filename}`);
         return this.imageModel.findByIdAndUpdate({ _id }, image);
     }
 }

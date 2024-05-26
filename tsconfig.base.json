@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "types": ["node","Multer"],
     "paths": {
       "@sharemunity-workspace/backend/auth": ["libs/backend/auth/src/index.ts"],
       "@sharemunity-workspace/backend/dto": ["libs/backend/dto/src/index.ts"],
@@ -33,4 +34,5 @@
     }
   },
   "exclude": ["node_modules", "tmp"]
+  
 }

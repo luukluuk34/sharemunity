@@ -19,16 +19,26 @@ import {
  * new to-do items
  */
 export class CreateImageDto implements ICreateImage {
-    @IsString()
-    @IsNotEmpty()
-    name!:string
     
     @IsString()
     @IsNotEmpty()
-    type!:string
-    
+    filename!:string
+
+    @IsString()
     @IsNotEmpty()
-    data!:Buffer
+    encoding!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    mimetype!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    path!:string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    size!:number;
 }
 
 export class UpsertImageDto implements IUpsertImage {
@@ -38,25 +48,27 @@ export class UpsertImageDto implements IUpsertImage {
 
     @IsString()
     @IsNotEmpty()
-    name!:string
+    filename!:string
+
+    @IsString()
+    @IsNotEmpty()
+    encoding!: string;
     
     @IsString()
     @IsNotEmpty()
-    type!:string
-    
-    @IsNotEmpty()
-    data!:Buffer
-}
+    mimetype!: string;
 
+    @IsString()
+    @IsNotEmpty()
+    path!:string;
+
+    @IsNumber()
+    @IsNotEmpty()
+    size!:number;
+
+}
 export class UpdateImageDto implements IUpdateImage {
     @IsString()
     @IsNotEmpty()
-    name!:string
-    
-    @IsString()
-    @IsNotEmpty()
-    type!:string
-    
-    @IsNotEmpty()
-    data!:Buffer
+    filename!:string
 }

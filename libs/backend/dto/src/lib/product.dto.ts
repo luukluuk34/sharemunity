@@ -20,13 +20,6 @@ import { Image } from '@sharemunity-workspace/backend/features';
  * new to-do items
  */
 export class CreateProductDto implements ICreateProduct {
-    @IsString()
-    @IsNotEmpty()
-    owner!: IUserIdentity;
-
-    @IsString()
-    @IsNotEmpty()
-    enjoyer!: IUserIdentity;
 
     @IsString()
     @IsNotEmpty()
@@ -38,11 +31,7 @@ export class CreateProductDto implements ICreateProduct {
 
     @IsDate()
     @IsNotEmpty()
-    maxUseTime!: Date;
-
-    @IsString()
-    @IsNotEmpty()
-    status!: ProductStatus;
+    maxUseTime!: number;
 
     @IsNotEmpty()
     images!: Image[];
@@ -72,7 +61,7 @@ export class UpsertProductDto implements IUpsertProduct {
 
     @IsDate()
     @IsNotEmpty()
-    maxUseTime!: Date;
+    maxUseTime!: number;
 
     @IsString()
     @IsNotEmpty()
@@ -97,7 +86,7 @@ export class UpdateProductDto implements IUpdateProduct {
 
     @IsDate()
     @IsNotEmpty()
-    maxUseTime!: Date;
+    maxUseTime!:number;
 
     @IsString()
     @IsNotEmpty()

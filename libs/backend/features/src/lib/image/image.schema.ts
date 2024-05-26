@@ -12,13 +12,19 @@ export class Image implements IImage {
     id!: string;
 
     @Prop({required:true})
-    name!: string;
+    filename!: string;
 
     @Prop({required:true})
-    type!: string;
+    encoding!: string;
 
     @Prop({required:true})
-    data!: Buffer;
+    mimetype!: string;
+
+    @Prop({required:true})
+    path!:string;
+    @Prop({required:true})
+    size!:number;
+
 
 }
 

@@ -18,14 +18,14 @@ export interface IProduct {
     enjoyer:Enjoyer;
     name:string;
     description:string;
-    maxUseTime:Date;
+    maxUseTime:number;
     status:ProductStatus;
     images:IImage[];
 }
 
 export type ICreateProduct = Pick<
     IProduct,
-    'owner'| 'enjoyer' | 'name' | 'description' | 'maxUseTime' | 'status' | 'images'
+    'name' | 'description' | 'maxUseTime' | 'images'
 >;
 
 export type IUpdateProduct = Partial<Omit<IProduct, 'id'>>;

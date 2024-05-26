@@ -2,14 +2,17 @@ import { Id } from "./id.type";
 
 export interface IImage{
     id:Id
-    name:string,
-    type:string,
-    data:Buffer
+    filename:string,
+    encoding:string,
+    mimetype:string;
+    path:string;
+    size:number;
 }
+
 
 export type ICreateImage = Pick<
     IImage,
-    'name'| 'type' | 'data'
+    'filename'| 'encoding' | 'mimetype' | 'path'| 'size'
 >;
 
 export type IUpdateImage = Partial<Omit<IImage, 'id'>>;

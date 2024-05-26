@@ -23,18 +23,14 @@ export class Product implements IProduct {
     @Prop({required:true})
     description!: string;
 
-    @Prop({required:true, default: new Date()})
-    maxUseTime: Date = new Date();
+    @Prop({required:true, default: 0})
+    maxUseTime!: number;
 
-    @Prop({
-        default: [],
-        type: [MongooseSchema.Types.ObjectId],
-        ref: 'Images',
-      })
+    @Prop({required:true})
     images:IImage[] = [];
 
-    @Prop({ required: true, type: ProductStatus })
-    status: ProductStatus = ProductStatus.Available;
+    @Prop({ required: true, type: String,enum:ProductStatus, default:ProductStatus.Available })
+    status!: ProductStatus;
 
 }
 
