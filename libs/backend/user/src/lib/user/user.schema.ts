@@ -49,13 +49,6 @@ export class User implements IUser {
     default: UserRole.Guest,
   })
   role: UserRole = UserRole.Guest;
-
-  @Prop({
-    default: [],
-    type: [MongooseSchema.Types.ObjectId],
-    ref: 'Products',
-  })
-  products: IProduct[] = [];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

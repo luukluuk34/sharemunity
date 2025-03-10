@@ -31,7 +31,25 @@ export class Product implements IProduct {
 
     @Prop({ required: true, type: String,enum:ProductStatus, default:ProductStatus.Available })
     status!: ProductStatus;
+}
 
+@Schema()
+export class Image implements IImage {
+
+    @Prop({required:true})
+    filename!: string;
+
+    @Prop({required:true})
+    encoding!: string;
+
+    @Prop({required:true})
+    mimetype!: string;
+
+    @Prop({required:true})
+    path!:string;
+    
+    @Prop({required:true})
+    size!:number;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

@@ -31,9 +31,7 @@ export interface IUserInfo extends IUserRegistration {
 /**
  * All user information, incl. domain entities
  */
-export interface IUser extends IUserInfo {
-    products: IProduct[];
-}
+export interface IUser extends IUserInfo {}
 
 export type ICreateUser = Pick<IUser, 'password' | 'emailAddress'>;
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;

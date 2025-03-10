@@ -10,18 +10,18 @@ export class UserService {
     private readonly logger: Logger = new Logger(UserService.name);
 
     constructor(
-        @InjectModel(UserModel.name) private userModel: Model<UserDocument> // @InjectModel(Meal.name) private meetupModel: Model<MealDocument>
+        @InjectModel(UserModel.name) private userModel: Model<UserDocument>
     ) {}
 
     async findAll(): Promise<IUserInfo[]> {
         this.logger.log(`Finding all items`);
-        const items = await this.userModel.find();
+        const items = await this.userModel.find().populate('products');
         return items;
     }
 
     async findOne(_id: string): Promise<IUser | null> {
         this.logger.log(`finding user with id ${_id}`);
-        const item = await this.userModel.findOne({ _id }).exec();
+        const item = await this.userModel.findOne({ _id }).populate('products').exec();
         if (!item) {
             this.logger.debug('Item not found');
         }

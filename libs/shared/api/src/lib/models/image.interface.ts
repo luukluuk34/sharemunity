@@ -1,7 +1,6 @@
 import { Id } from "./id.type";
 
 export interface IImage{
-    id:Id
     filename:string,
     encoding:string,
     mimetype:string;
@@ -15,6 +14,6 @@ export type ICreateImage = Pick<
     'filename'| 'encoding' | 'mimetype' | 'path'| 'size'
 >;
 
-export type IUpdateImage = Partial<Omit<IImage, 'id'>>;
+export type IUpdateImage = Partial<IImage>;
 export type IUpsertImage = IImage;
 

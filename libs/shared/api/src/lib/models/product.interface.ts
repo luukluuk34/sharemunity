@@ -8,7 +8,6 @@ export enum ProductStatus {
     InUse = 'InUse',
 }
 
-
 type Owner = IUserIdentity;
 type Enjoyer = IUserIdentity;
 

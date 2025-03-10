@@ -20,7 +20,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ApiResponseInterceptor);
 
 
-  const port = process.env.PORT || 3000;
+  const port = environment.port || 3000;
+  Logger.log("Prod: " + environment.production)
   await app.listen(port);
   Logger.log(
     `Data API is running on: http://localhost:${port}/${globalPrefix}`

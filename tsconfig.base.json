@@ -30,6 +30,9 @@
       ],
       "@sharemunity-workspace/ui": ["libs/sharemunity/ui/src/index.ts"],
       "@sharemunity-workspace/user": ["libs/backend/user/src/index.ts"],
+
+
+      
       "@sharemunity/shared/util-env": ["libs/shared/util-env/src/index.ts"]
     }
   },

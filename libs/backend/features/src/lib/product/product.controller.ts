@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Request, UploadedFiles, UseGuards,Headers, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request, UploadedFiles, UseGuards,Headers, UseInterceptors, Logger } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { IProduct } from '@sharemunity-workspace/shared/api';
 import {CreateProductDto} from '@sharemunity-workspace/backend/dto'
@@ -7,10 +7,11 @@ import { FilesInterceptor} from '@nestjs/platform-express';
 import {Multer, diskStorage} from 'multer';
 import {environment} from '@sharemunity/shared/util-env';
 import { FirebaseService } from '../firebase/firebase.service';
+import { LocalImageFileInterceptor } from '@sharemunity-workspace/backend/dto';
 
 @Controller('product')
 export class ProductController {
-    
+    private readonly logger: Logger = new Logger(ProductController.name);
     constructor(private productService: ProductService,private firebaseRepository:FirebaseService) {}
 
     @Get('')
@@ -25,25 +26,18 @@ export class ProductController {
 
     @Post('')
     @UseGuards(AuthGuard)
-    @UseInterceptors(FilesInterceptor('images', 10, {
-        storage: diskStorage({
-            destination: './uploads',
-            filename: (req, file, cb) => {
-                console.log("using interceptor");
-                const fieldname = `${Date.now()}-${file.originalname}`;
-                cb(null, fieldname);
-            },
-        }),
-    }))
+    @LocalImageFileInterceptor()
     create(
         @Request() req:any,
         @Body() data: CreateProductDto,
         @UploadedFiles() images:Array<Express.Multer.File>
     ): Promise<IProduct | null> {
-        console.log('FormData: ', req.body);
-        console.log('Uploaded Files: ', images);
-        console.log('Data: ', data);
-        
+        images.forEach((file) => {
+            if (!file.filename){
+                const timestamp = Date.now();
+                file.filename = `${timestamp}-${file.originalname}`;
+            }
+        });
 
         return this.productService.create(req);
     }

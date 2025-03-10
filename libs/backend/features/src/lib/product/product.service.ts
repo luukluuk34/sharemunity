@@ -10,6 +10,7 @@ import {
 import { UserDocument, User as UserModel } from '@sharemunity-workspace/user';
 import { FirebaseService } from '../firebase/firebase.service';
 import * as fs from 'fs';
+import { environment } from '@sharemunity/shared/util-env';
 
 @Injectable()
 export class ProductService {
@@ -22,11 +23,6 @@ export class ProductService {
     private readonly firebaseService: FirebaseService
   ) {}
 
-  /**
-   * Zie https://mongoosejs.com/docs/populate.html#population
-   *
-   * @returns
-   */
   async findAll(): Promise<IProduct[]> {
     this.logger.log(`Finding all items`);
     const items = await this.productModel
@@ -48,6 +44,7 @@ export class ProductService {
   async create(req: any): Promise<IProduct | null> {
     var product = req.body;
     product['images'] = [];
+    this.logger.log(req.body);
     for (let i = 0; i < req.files.length; i++) {
       const file = req.files[i];
       product['images'][i] = {
@@ -57,9 +54,12 @@ export class ProductService {
         path: file.path,
         size: file.size,
       };
-      await this.uploadImage(file);
+      if(environment.production){
+        this.logger.log("Uploading image from product: ", product);
+        const path = await this.firebaseService.uploadImage(file);
+        product['images'][i].path = path;
+      } 
     }
-
     const user_id = req.user.user_id;
     if (product && user_id) {
       this.logger.log(`Create product ${product.name} for ${user_id}`);
@@ -74,59 +74,15 @@ export class ProductService {
 
       this.logger.log(createdItem);
 
-      return this.productModel.create(createdItem);
+      const return_prod = this.productModel.create(createdItem);
+      await this.userModel.findByIdAndUpdate(
+        user_id,
+        {$push: {products:product._id}},
+        {new: true, useFindAndModify:false}
+      );
+      return return_prod;
     }
     return null;
-  }
-
-  async uploadImage(file: any) {
-    const storage = this.firebaseService.getStorageInstance();
-    const bucket = storage.bucket();
-    try {
-      return await new Promise((resolve, reject) => {
-        this.logger.debug('Doing the filestream');
-        const path = './uploads/' + file.filename;
-        const fileStream = fs.createReadStream(path);
-        const uploadStream = bucket.file(file.filename).createWriteStream({
-          contentType: file.mimetype,
-        });
-
-        this.logger.debug('uploading the filestream ' + file.filename);
-
-        fileStream.pipe(uploadStream);
-
-        fileStream.on('error', (error) => {
-          this.logger.error('Error in fileStream: ' + error);
-          reject(error);
-        });
-
-        uploadStream.on('error', (error) => {
-          this.logger.error('Error in uploadStream: ' + error);
-          reject(error);
-        });
-
-        uploadStream.on('finish', () => {
-          const imageUrl = `https://storage.googleapis.com/${bucket.name}/${file.filename}`;
-          console.log(imageUrl);
-          this.logger.debug('Finished uploading the filestream');
-          try {
-            fs.unlink(path, (err) => {
-              if (err) {
-                this.logger.error('Error deleting the file:', err);
-                return;
-              }
-              this.logger.error('File deleted successfully');
-            });
-          } catch (err) {
-            this.logger.error('Error deleting the local file');
-          }
-          resolve(imageUrl);
-        });
-      });
-    } catch (error) {
-      this.logger.error('Error uploading file:', error);
-      return null; // Handle the error accordingly
-    }
   }
 
   async update(
