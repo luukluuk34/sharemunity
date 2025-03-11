@@ -45,3 +45,4 @@ Thumbs.db
 /libs/backend/features/src/lib/firebase/*
 /libs/backend/features/src/lib/firebase/firebase-sharemunity-firebase-adminsdk-u42tx-46782ded0a.json
 libs/backend/features/src/lib/firebase/firebase-sharemunity-firebase-adminsdk-u42tx-46782ded0a.json
+.env

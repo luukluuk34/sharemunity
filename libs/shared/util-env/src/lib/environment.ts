@@ -5,5 +5,4 @@ export const environment: IEnvironment = {
     port: 0,
     dataApiUrl: 'dummy',
     storage: '',
-    firebase_admin_cred:""
 };

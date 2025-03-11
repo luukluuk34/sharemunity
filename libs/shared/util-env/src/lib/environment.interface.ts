@@ -4,5 +4,4 @@ export interface IEnvironment {
     dataApiUrl:string;
     storage:string;
 
-    firebase_admin_cred:string;
 }

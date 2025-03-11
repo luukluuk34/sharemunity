@@ -1,8 +1,7 @@
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 import { environment } from '@sharemunity/shared/util-env';
-
-const serviceAccount = require('./firebase-sharemunity-firebase-adminsdk-u42tx-46782ded0a.json');
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class FirebaseService {
@@ -10,9 +9,19 @@ export class FirebaseService {
 
   private readonly storage: admin.storage.Storage;
 
-  constructor(){
+  constructor(private configService: ConfigService){
+    const firebaseCredentials = this.configService.get<string>('FIREBASE_CREDENTIALS');
+    if(!firebaseCredentials){
+      throw new Error("Firebase Credentials are missing in environment variables!");
+    }
+    let parsedCredentials: admin.ServiceAccount;
+    try{
+      parsedCredentials = JSON.parse(firebaseCredentials) as admin.ServiceAccount;
+    }catch(error){
+      throw new Error("Invalid FIREBASE_CREDENTIALS JSON FORMAT");
+    }
     admin.initializeApp({
-      credential:admin.credential.cert(serviceAccount),
+      credential:admin.credential.cert(parsedCredentials),
       storageBucket:'firebase-sharemunity.appspot.com'
     })
     this.storage = admin.storage();

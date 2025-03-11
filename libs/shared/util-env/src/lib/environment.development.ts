@@ -5,7 +5,6 @@ export const environment: IEnvironment = {
     port: 3000,
     dataApiUrl: 'localhost:3000/api',
     storage: './uploads',
-    
-    firebase_admin_cred:""
+
 
   };

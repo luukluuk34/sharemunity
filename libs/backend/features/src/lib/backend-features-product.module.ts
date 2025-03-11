@@ -11,6 +11,7 @@ import { FirebaseModule } from "./firebase/firebase.module";
 import { FirebaseService } from "./firebase/firebase.service";
 import { ReservationController } from "./reservation/reservation.controller";
 import { ReservationService } from "./reservation/reservation.service";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
     imports: [
