@@ -1,0 +1,10 @@
+<div>
+    <p>sharemunity community list</p>
+    <p>whaat</p>
+</div>
+<div *ngFor="let community of communities">
+    <h2>{{community.name}}</h2>
+    <p>Beschrijving: {{community.description}}</p>
+    <p>{{community.communityImage.path}}</p>
+    <img height="300px" width="600px" [src]="community.communityImage.path">
+</div>

@@ -4,6 +4,7 @@
   "sourceRoot": "apps/data-api/src",
   "projectType": "application",
   "targets": {
+    
       "build": {
           "executor": "@nx/webpack:webpack",
           "outputs": ["{options.outputPath}"],

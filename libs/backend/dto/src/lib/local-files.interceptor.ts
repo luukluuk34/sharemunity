@@ -10,6 +10,7 @@ export function LocalImageFileInterceptor() {
                 storage: diskStorage({
                     destination: './uploads',
                     filename: (req, file, cb) => {
+                        console.log('test');
                         const fieldname = `${Date.now()}-${file.originalname}`;
                         cb(null, fieldname);
                     },

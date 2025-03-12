@@ -15,7 +15,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const corsOptions: CorsOptions = {};
+  const corsOptions: CorsOptions = {
+    origin:'http://localhost:4200',
+    methods:['GET','POST','PUT','DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials:true
+  };
   app.enableCors(corsOptions);
   app.useGlobalInterceptors(new ApiResponseInterceptor);
 

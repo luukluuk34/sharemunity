@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "types": ["node","Multer"],
+    "types": ["node", "Multer"],
     "paths": {
       "@sharemunity-workspace/backend/auth": ["libs/backend/auth/src/index.ts"],
       "@sharemunity-workspace/backend/dto": ["libs/backend/dto/src/index.ts"],
@@ -30,12 +30,8 @@
       ],
       "@sharemunity-workspace/ui": ["libs/sharemunity/ui/src/index.ts"],
       "@sharemunity-workspace/user": ["libs/backend/user/src/index.ts"],
-
-
-      
       "@sharemunity/shared/util-env": ["libs/shared/util-env/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
-  
 }
