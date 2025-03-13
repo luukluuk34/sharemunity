@@ -1,0 +1,7 @@
+.content-wrapper {
+    max-width: 1204px; /* A4 width in pixels at 96dpi */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    
+  }

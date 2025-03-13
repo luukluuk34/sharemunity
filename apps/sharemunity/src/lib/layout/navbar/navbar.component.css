@@ -10,3 +10,16 @@
   text-decoration: none;
   box-shadow: none;
 }
+
+.navbar-custom{
+  background: linear-gradient(to right, #fc67fa, #f4c4f3);
+  color:white;
+  
+}
+
+.content-wrapper {
+  max-width: 1004px; /* A4 width in pixels at 96dpi */
+  margin: 0 auto;
+  padding: 20px;
+
+}
