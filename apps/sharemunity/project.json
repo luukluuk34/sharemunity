@@ -19,7 +19,11 @@
           "apps/sharemunity/src/favicon.ico",
           "apps/sharemunity/src/assets"
         ],
-        "styles": ["apps/sharemunity/src/styles.css"],
+        "styles": [
+          "apps/sharemunity/src/styles.css",
+          "node_modules/bootstrap/dist/css/bootstrap.min.css"
+        
+        ],
         "scripts": []
       },
       "configurations": {
