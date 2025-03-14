@@ -23,7 +23,7 @@ body {
   justify-content: center;
 }
 
-.username{
+.email{
   width: 76%;
   color: rgb(38, 50, 56);
   font-weight: 700;
@@ -67,7 +67,7 @@ form.form1 {
   font-family: 'Ubuntu', sans-serif;
 }
 
-.username:focus,
+.email:focus,
 .pass:focus {
   border: 2px solid rgba(0, 0, 0, 0.18) !important;
 }

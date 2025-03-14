@@ -5,10 +5,22 @@ import { FeaturesModule } from '@sharemunity-workspace/sharemunity/features'
 import { LoginComponent } from "../lib/authentication/login/login.component";
 import { RegisterComponent } from "../lib/authentication/register/register.component";
 import { NavbarComponent } from "../lib/layout/navbar/navbar.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule, RouterLink,RouterLinkActive, FeaturesModule, LoginComponent, RegisterComponent, NavbarComponent],
+  imports: [
+    NxWelcomeComponent,
+    RouterModule, 
+    RouterLink,
+    RouterLinkActive, 
+    ReactiveFormsModule,
+    FormsModule,
+    FeaturesModule, 
+    LoginComponent, 
+    RegisterComponent, 
+    NavbarComponent],
   selector: 'sharemunity-workspace-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

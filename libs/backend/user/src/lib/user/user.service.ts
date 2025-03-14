@@ -15,13 +15,13 @@ export class UserService {
 
     async findAll(): Promise<IUserInfo[]> {
         this.logger.log(`Finding all items`);
-        const items = await this.userModel.find().populate('products');
+        const items = await this.userModel.find();
         return items;
     }
 
     async findOne(_id: string): Promise<IUser | null> {
         this.logger.log(`finding user with id ${_id}`);
-        const item = await this.userModel.findOne({ _id }).populate('products').exec();
+        const item = await this.userModel.findOne({ _id }).exec();
         if (!item) {
             this.logger.debug('Item not found');
         }

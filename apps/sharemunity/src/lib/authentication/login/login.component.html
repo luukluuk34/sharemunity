@@ -1,9 +1,9 @@
 <div class="loginForm">
     <p class="sign">Sign in</p>
-    <form class="form1">
-      <input class="username" type="text" placeholder="Username">
-      <input class="pass" type="password" placeholder="Password">
-      <a class="submit">Sign in</a>
+    <form class="form1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input class="email" type="text" placeholder="E-mail" formControlName="emailAddress" required>
+      <input class="pass" type="password" placeholder="Password" formControlName="password" required>
+      <a class="submit" (click)="onSubmit()">Sign in</a>
       <p class="register"><a routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">No account? Register!</a></p>
     </form>                    
 </div>

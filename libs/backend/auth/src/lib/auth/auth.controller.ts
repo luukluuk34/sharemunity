@@ -26,6 +26,7 @@ export class AuthController {
     @Post('login')
     async login(@Body() credentials: IUserCredentials): Promise<IUserIdentity> {
         this.logger.log('Login');
+        this.logger.log(credentials)
         return await this.authService.login(credentials);
     }
 
