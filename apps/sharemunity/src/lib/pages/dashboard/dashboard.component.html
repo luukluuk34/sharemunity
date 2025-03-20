@@ -1,2 +1,20 @@
 
-<p class="title" *ngIf="user"> Welcome, {{user.name}}</p>
+<div>
+    <p class="title" *ngIf="user"> Welcome, {{user.name}}</p>
+    <div *ngIf="!user">
+        <sharemunity-workspace-login></sharemunity-workspace-login>
+    </div>
+    <div *ngIf="user">
+        <div>
+            <h5>My communities</h5>
+            <sharemunity-community-list filterType="owned"></sharemunity-community-list>
+        </div>
+        <div *ngIf="">
+            <h5>Joined Communties</h5>
+            <sharemunity-community-list filterType="joined"></sharemunity-community-list>
+        </div>
+
+    </div>
+
+</div>
+

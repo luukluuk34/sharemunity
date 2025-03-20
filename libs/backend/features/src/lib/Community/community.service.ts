@@ -35,6 +35,29 @@ export class CommunityService {
         return communities;
     }
 
+    async findJoinedCommunities(_id:string): Promise<ICommunity[]>{
+        this.logger.log('Finding all communities')
+        const communities = await this.communityModel
+            .find({members:{$in:[_id]}})
+            .populate('owner', 'name emailAddress address')
+            .populate('members','name emailAddress address')
+            .populate('products', 'name')
+            .exec()
+        this.logger.log(`Sending back: ${communities}`)
+        return communities;
+    }
+
+    async findOwnedCommunities(_id:string): Promise<ICommunity[]>{
+        const communities = await this.communityModel
+            .find({owner:_id})
+            .populate('owner', 'name emailAddress address')
+            .populate('members','name emailAddress address')
+            .populate('products', 'name')
+            .exec()
+        this.logger.log(`Sending back: ${communities}`)
+        return communities;
+    }
+
     async findOne(_id: string): Promise<ICommunity | null>{
        this.logger.log(`Finding community with id ${_id}`)
         const community = await this.communityModel.findOne({_id}).exec();

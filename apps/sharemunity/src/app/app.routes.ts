@@ -8,5 +8,6 @@ export const appRoutes: Route[] = [
     {path:'login',component:LoginComponent},
     {path:'register',component:RegisterComponent},
     {path:'dashboard',component:DashboardComponent},
-    {path:'user-detail/:id',component:UserDetailComponent}
+    {path:'user-detail/:id',component:UserDetailComponent},
+    {path:'', redirectTo:'/dashboard',pathMatch:'full'}
 ];

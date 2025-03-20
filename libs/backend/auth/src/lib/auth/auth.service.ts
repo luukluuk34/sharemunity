@@ -9,7 +9,7 @@ import {
     UserDocument
 } from '@sharemunity-workspace/user';
 import { JwtService } from '@nestjs/jwt';
-import { IUserCredentials, IUserIdentity } from '@sharemunity-workspace/shared/api';
+import { IUser, IUserCredentials, IUserIdentity } from '@sharemunity-workspace/shared/api';
 import { CreateUserDto } from '@sharemunity-workspace/backend/dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -75,4 +75,5 @@ export class AuthService {
         const createdItem = await this.userModel.create(user);
         return createdItem;
     }
+
 }

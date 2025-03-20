@@ -50,3 +50,6 @@ libs/backend/features/src/lib/firebase/firebase-sharemunity-firebase-adminsdk-u4
 .uploads/*
 uploads
 uploads/*
+.fakepasswords.txt
+fakepasswords
+fakepasswords.txt

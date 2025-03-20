@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'sharemunity-workspace-login',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule,ReactiveFormsModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

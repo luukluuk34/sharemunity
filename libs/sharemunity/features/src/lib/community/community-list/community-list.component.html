@@ -1,10 +1,8 @@
-<div>
-    <p>sharemunity community list</p>
-    <p>whaat</p>
-</div>
-<div *ngFor="let community of communities">
-    <h2>{{community.name}}</h2>
-    <p>Beschrijving: {{community.description}}</p>
-    <p>{{community.communityImage.path}}</p>
-    <img height="300px" width="600px" [src]="community.communityImage.path">
+<div *ngFor="let community of communities" class="card" style="width:26rem;">
+    <img class="card-img-top" [src]="community.communityImage.path">
+    <div class="card-body">
+        <p class="card-title title">{{community.name}}</p>
+        <p class="card-text">{{community.description}}</p>
+        <a href="#" class="btn btn-primary">View community</a>
+    </div>
 </div>

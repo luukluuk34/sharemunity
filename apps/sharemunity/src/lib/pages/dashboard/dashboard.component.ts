@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IUser, IUserIdentity } from '@sharemunity-workspace/shared/api';
 import { UserService } from 'libs/sharemunity/features/src/lib/user/user.service';
+import { LoginComponent } from "../../authentication/login/login.component";
+import { FeaturesModule } from "../../../../../../libs/sharemunity/features/src/lib/features.module";
 
 @Component({
   selector: 'sharemunity-workspace-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoginComponent, FeaturesModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

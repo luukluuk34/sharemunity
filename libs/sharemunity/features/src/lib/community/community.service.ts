@@ -28,7 +28,6 @@ export class CommunityService {
      */
     public list(options?: any): Observable<ICommunity[] | null> {
         console.log(`list ${this.endpoint}`);
-
         return this.http
             .get<ApiResponse<ICommunity[]>>(this.endpoint, {
                 ...options,
