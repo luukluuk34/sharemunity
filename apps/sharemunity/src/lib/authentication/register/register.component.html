@@ -1,10 +1,10 @@
 <div class="registerForm">
     <p class="register">Register</p>
-    <form class="form1">
-      <input class="username" type="text" placeholder="Username">
-      <input class="email" type="email" placeholder="test@test.com">
-      <input class="pass" type="password" placeholder="Password">
-      <input class="address" type="text" placeholder="Address">
+    <form class="form1" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <input class="username" type="text" placeholder="Username" formControlName="name">
+      <input class="email" type="email" placeholder="test@test.com" formControlName="emailAddress">
+      <input class="pass" type="password" placeholder="Password" formControlName="password">
+      <input class="address" type="text" placeholder="Address" formControlName="address">
       <a class="submit" (click)="onSubmit()">Register</a>
     </form>                    
 </div>

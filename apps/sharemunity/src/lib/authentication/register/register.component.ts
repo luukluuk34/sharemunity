@@ -41,7 +41,8 @@ export class RegisterComponent implements OnInit{
   }
 
   onSubmit(): void {
-    localStorage.setItem('loginData',JSON.stringify(this.registerForm.value))
+    localStorage.setItem('registerData',JSON.stringify(this.registerForm.value))
+    console.log("validating")
     if(this.registerForm.valid){
       const name = this.registerForm.value.name;
       const emailAddress = this.registerForm.value.emailAddress;
@@ -51,8 +52,6 @@ export class RegisterComponent implements OnInit{
       .register(name,emailAddress,password,address)
       .subscribe((user) => {
         if(user){
-          console.log("Registered")
-          console.log(`User: ${user.toString()}`)
           this.router.navigate(['/dashboard'])
         }
       })

@@ -13,24 +13,21 @@ import { IUser } from '@sharemunity-workspace/shared/api';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit{
-
-  isNavbarCollapsed = true;
   private authService:AuthenticationService;
-  user!:IUser | null;
-  
+  user:IUser | null = null;
 
   constructor(authService:AuthenticationService){
     this.authService = authService;
   }
 
   ngOnInit(): void {
-    this.user = this.authService.getUser()
-    console.log("Navbar component: ")
-    console.log(this.user);
+    this.authService.user$.subscribe((user) =>{
+      this.user = user;
+    })
+
   } 
 
   protected logout(): void {
-    console.log("Logging out")
     this.authService.logout();
   }
 

@@ -4,11 +4,12 @@ import { IUser, IUserIdentity } from '@sharemunity-workspace/shared/api';
 import { UserService } from 'libs/sharemunity/features/src/lib/user/user.service';
 import { LoginComponent } from "../../authentication/login/login.component";
 import { FeaturesModule } from "../../../../../../libs/sharemunity/features/src/lib/features.module";
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'sharemunity-workspace-dashboard',
   standalone: true,
-  imports: [CommonModule, LoginComponent, FeaturesModule],
+  imports: [CommonModule, LoginComponent, FeaturesModule,RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
   protected user!:IUser;
 
 
-  constructor(userService:UserService){
+  constructor(userService:UserService,private router:Router){
     this.userService = userService;
   }
   ngOnInit(): void {
@@ -30,6 +31,8 @@ export class DashboardComponent implements OnInit {
         console.log(returnUser);
         this.user = returnUser;
       });
+    }else{
+      this.router.navigate(['/login'])
     }
   }
 

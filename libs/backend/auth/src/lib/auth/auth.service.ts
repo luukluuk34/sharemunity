@@ -71,9 +71,25 @@ export class AuthService {
             this.logger.debug('user exists');
             throw new ConflictException('User already exist');
         }
-        this.logger.debug('User not found, creating');
-        const createdItem = await this.userModel.create(user);
+        this.logger.log('User not found, creating');
+        const createdItem = await this.userModel.create(user)
+            .then((user) =>{
+                this.logger.debug(`Sending back payload`);
+                this.logger.debug(user);
+                const payload = {
+                    user_id:user._id
+                };
+                return{
+                    _id:user._id,
+                    name:user.name,
+                    emailAddress:user.emailAddress,
+                    role:user.role,
+                    token: this.jwtService.sign(payload)
+                };
+            })
+        this.logger.debug(`Creating: ${createdItem}`)
+        this.logger.debug(createdItem)
         return createdItem;
-    }
+        }
 
 }

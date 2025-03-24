@@ -44,8 +44,6 @@ export class LoginComponent implements OnInit{
       .login(emailAddress,password)
       .subscribe((user) => {
         if(user){
-          console.log("Logged in")
-          console.log(`User: ${user.toString()}`)
           this.router.navigate(['/dashboard'])
         }
       })

@@ -1,9 +1,6 @@
 
 <div>
     <p class="title" *ngIf="user"> Welcome, {{user.name}}</p>
-    <div *ngIf="!user">
-        <sharemunity-workspace-login></sharemunity-workspace-login>
-    </div>
     <div *ngIf="user">
         <div>
             <h5>My communities</h5>

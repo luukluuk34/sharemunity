@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { IUser, IUserCredentials, IUserIdentity } from "@sharemunity-workspace/shared/api";
 import { User } from "@sharemunity-workspace/user";
 import { environment } from "@sharemunity/shared/util-env";
-import { map, Observable } from "rxjs";
+import { BehaviorSubject, map, Observable, Subject } from "rxjs";
 
 export const httpOptions = {
     observe: 'body',
@@ -14,7 +14,8 @@ export const httpOptions = {
 export class AuthenticationService {
     private readonly CURRENT_USER = 'currentuser';
     private readonly CURRENT_TOKEN = 'currenttoken';
-    private user:IUser | null = null;
+    private userSubject = new BehaviorSubject<IUser | null>(null);
+    user$ = this.userSubject.asObservable();
 
     endpoint = 'http://' + environment.dataApiUrl + '/auth';
    
@@ -45,7 +46,7 @@ export class AuthenticationService {
         return this.http
             .post<any>(registerEndpoint,{
                 name,
-                email,
+                emailAddress:email,
                 password,
                 address,
                 ...httpOptions
@@ -59,25 +60,26 @@ export class AuthenticationService {
             )
     }
 
-    getUser(){
-        return this.user;
-    }
     logout(){
-        localStorage.removeItem('currentuser');
-        localStorage.removeItem('token')
-        this.user = null;
+        localStorage.removeItem(this.CURRENT_USER);
+        localStorage.removeItem(this.CURRENT_TOKEN)
+        this.userSubject.next(null);
     }
 
     private saveTokenToLocalStorage(token: string): void {
         localStorage.setItem(this.CURRENT_TOKEN, token);
       }
     private saveUserToLocalStorage(user: User): void {
+        this.userSubject.next(user);
         localStorage.setItem(this.CURRENT_USER, JSON.stringify(user));
       }
+      
 
     private loadUser(){
         console.log("User already authenticated")
         const user = localStorage.getItem("currentuser");
-        this.user = user ? JSON.parse(user) : null;
+        if(user){
+            this.userSubject.next(JSON.parse(user));
+        }
     }
 }
