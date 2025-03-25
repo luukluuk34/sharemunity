@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUser, IUserCredentials, IUserIdentity } from "@sharemunity-workspace/shared/api";
-import { User } from "@sharemunity-workspace/user";
+import { User } from "@sharemunity-workspace/backend/user";
 import { environment } from "@sharemunity/shared/util-env";
 import { BehaviorSubject, map, Observable, Subject } from "rxjs";
 

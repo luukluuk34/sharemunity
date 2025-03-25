@@ -2,7 +2,7 @@ import { Controller, Get, Logger, Param, UseGuards,Post, Request, Body, Uploaded
 import { CommunityService } from "./community.service";
 import { ICommunity } from "@sharemunity-workspace/shared/api";
 import { AuthGuard } from "@sharemunity-workspace/backend/auth";
-import { LocalImageFileInterceptor, UpdateProductDto } from "@sharemunity-workspace/backend/dto";
+import { LocalImageFileInterceptor, UpdateCommunityDto, UpdateProductDto } from "@sharemunity-workspace/backend/dto";
 
 @Controller('community')
 export class CommunityController{
@@ -24,10 +24,14 @@ export class CommunityController{
     @LocalImageFileInterceptor()
     create(
         @Request() req:any,
-        @Body() data: UpdateProductDto,
+        @Body() data: UpdateCommunityDto,
         @UploadedFiles() image:Express.Multer.File
     ):Promise<ICommunity | null> {
-        this.logger.debug(image)
+        this.logger.debug("Image");
+        this.logger.debug(image);
+        this.logger.debug("Data");
+        this.logger.debug(data);
+
         req.body.communityImage = image;
         return this.communityService.create(req);
     }

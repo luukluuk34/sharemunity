@@ -7,7 +7,7 @@ import {
   CreateProductDto,
   UpdateProductDto,
 } from '@sharemunity-workspace/backend/dto';
-import { UserDocument, User as UserModel } from '@sharemunity-workspace/user';
+import { UserDocument, User as UserModel } from '@sharemunity-workspace/backend/user';
 import { FirebaseService } from '../firebase/firebase.service';
 import * as fs from 'fs';
 import { environment } from '@sharemunity/shared/util-env';

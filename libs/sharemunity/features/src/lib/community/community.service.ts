@@ -1,9 +1,10 @@
 import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
-import { ApiResponse, ICommunity, IProduct } from '@sharemunity-workspace/shared/api';
+import { ApiResponse, ICommunity, ICreateCommunity, IImage, IProduct } from '@sharemunity-workspace/shared/api';
 import { Injectable } from '@angular/core';
 import {environment} from '@sharemunity/shared/util-env';
+import { AuthenticationService } from '../user/authentication.service';
 
 /**
  * See https://angular.io/guide/http#requesting-data-from-a-server
@@ -17,7 +18,9 @@ export const httpOptions = {
     providedIn: 'root'
 })
 export class CommunityService {
+    private readonly CURRENT_TOKEN = 'currenttoken';
     endpoint = 'http://' + environment.dataApiUrl + '/community';
+   
 
     constructor(private readonly http: HttpClient) {}
 
@@ -56,6 +59,31 @@ export class CommunityService {
                 map((response: any) => response.results as ICommunity),
                 catchError(this.handleError)
             );
+    }
+
+    public create(formData:FormData): Observable<ICommunity>{
+        console.log(`Creating community ${formData.get('name')} at ${this.endpoint}`)
+
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .post<ICommunity>(this.endpoint,formData,httpOptions)
+            .pipe(
+                map((val) =>{
+                    console.log("Results: ",val)
+                    return val;
+                }),
+                catchError((error) =>{
+                    console.error("Error: ", error)
+                    throw error;
+                })
+            )
     }
 
     /**

@@ -44,7 +44,7 @@
 }
 
 .username:focus,
-.passfocus,
+.pass:focus,
 .address:focus,
 .email:focus{
     border: 2px solid rgba(0, 0, 0, 0.18) !important;

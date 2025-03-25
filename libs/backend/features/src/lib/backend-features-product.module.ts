@@ -2,7 +2,7 @@ import { FileTypeValidator, MaxFileSizeValidator, Module, ParseFilePipe } from "
 import { ProductController } from "./product/product.controller";
 import { ProductService } from "./product/product.service";
 import { MongooseModule } from "@nestjs/mongoose";
-import { User as UserModel, UserSchema } from '@sharemunity-workspace/user';
+import { User as UserModel, UserSchema } from '@sharemunity-workspace/backend/user';
 import { Product as ProductModel, ProductSchema } from './product/product.schema';
 import { Reservation as ReservationModel, ReservationSchema } from "./reservation/reservation.schema";
 import { Community as CommunityModel, CommunitySchema} from './community/community.schema';

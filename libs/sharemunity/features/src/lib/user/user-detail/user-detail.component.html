@@ -1,1 +1,14 @@
 <p>user-detail works!</p>
+
+<div *ngIf="userPage">
+    <p>NAME: {{userPage.name}}</p>
+    <p>ID: {{userPage._id}}</p>
+    <p>Address: {{userPage.address}}</p>
+    <p>{{userPage.emailAddress}}</p>
+
+    <div *ngIf="checkIfUserIsOwner()">
+        <sharemunity-product-list></sharemunity-product-list>
+        <a class="addProd">Add Product</a>
+    </div>
+</div>
+

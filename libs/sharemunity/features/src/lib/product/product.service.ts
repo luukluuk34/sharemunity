@@ -19,7 +19,7 @@ export const httpOptions = {
  */
 @Injectable()
 export class ProductService {
-    endpoint = environment.dataApiUrl + '/product';
+    endpoint = 'http://' + environment.dataApiUrl + '/product';
 
     constructor(private readonly http: HttpClient) {}
 

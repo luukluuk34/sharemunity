@@ -14,6 +14,8 @@ import { RouterLink, Router } from '@angular/router';
 export class RegisterComponent implements OnInit{
   registerForm!:FormGroup;
   authenticationService:AuthenticationService;
+
+  private readonly REGISTER_DATA = "registerData";
   
   constructor(authService:AuthenticationService, private formBuilder:FormBuilder, private router:Router){
     this.authenticationService = authService;
@@ -34,14 +36,14 @@ export class RegisterComponent implements OnInit{
         Validators.required
       ])
     });
-    const savedData = localStorage.getItem("registerData");
+    const savedData = localStorage.getItem(this.REGISTER_DATA);
     if(savedData){
       this.registerForm.setValue(JSON.parse(savedData));
     }
   }
 
   onSubmit(): void {
-    localStorage.setItem('registerData',JSON.stringify(this.registerForm.value))
+    localStorage.setItem(this.REGISTER_DATA,JSON.stringify(this.registerForm.value))
     console.log("validating")
     if(this.registerForm.valid){
       const name = this.registerForm.value.name;
@@ -52,6 +54,9 @@ export class RegisterComponent implements OnInit{
       .register(name,emailAddress,password,address)
       .subscribe((user) => {
         if(user){
+          if(localStorage.getItem(this.REGISTER_DATA) != null){
+            localStorage.removeItem(this.REGISTER_DATA);
+          }
           this.router.navigate(['/dashboard'])
         }
       })

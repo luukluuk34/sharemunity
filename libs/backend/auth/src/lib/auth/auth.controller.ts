@@ -14,7 +14,7 @@ import {
     IUserRegistration
 } from '@sharemunity-workspace/shared/api';
 import { CreateUserDto } from '@sharemunity-workspace/backend/dto';
-import { UserExistGuard } from '@sharemunity-workspace/user';
+import { UserExistGuard } from '@sharemunity-workspace/backend/user';
 
 @Controller('auth')
 export class AuthController {

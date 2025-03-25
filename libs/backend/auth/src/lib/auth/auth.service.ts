@@ -7,7 +7,7 @@ import { HttpStatus } from '@nestjs/common/enums';
 import {
     User as UserModel,
     UserDocument
-} from '@sharemunity-workspace/user';
+} from '@sharemunity-workspace/backend/user';
 import { JwtService } from '@nestjs/jwt';
 import { IUser, IUserCredentials, IUserIdentity } from '@sharemunity-workspace/shared/api';
 import { CreateUserDto } from '@sharemunity-workspace/backend/dto';

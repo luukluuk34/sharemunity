@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 
 import { Reservation as ReservationModel, ReservationtDocument } from "./reservation.schema";
-import { User as UserModel, UserDocument } from "@sharemunity-workspace/user";
+import { User as UserModel, UserDocument } from "@sharemunity-workspace/backend/user";
 import { ProductDocument, Product as ProductModel} from "../product/product.schema"
 import { Model } from "mongoose";
 import { FirebaseService } from "../firebase/firebase.service";

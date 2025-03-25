@@ -9,6 +9,9 @@ import { CommunityService } from './community/community.service';
 import { AuthenticationService } from './user/authentication.service';
 import { UserService } from './user/user.service';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { CommunityMainComponent } from './community/community-main/community-main.component';
+import { CommunityFormComponent } from './community/community-form/community-form.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -16,10 +19,14 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
       CommonModule,
       HttpClientModule,
       ProductDetailComponent,
-      UserDetailComponent
+      UserDetailComponent,
+      CommunityMainComponent,
+      CommunityFormComponent,
+      RouterModule,
+      ProductListComponent
     ],
-    declarations: [ProductListComponent,CommunityListComponent],
-    providers: [ProductService,CommunityService,AuthenticationService, UserService],
+    declarations: [CommunityListComponent],
+    providers: [ProductService,CommunityService,AuthenticationService,UserService],
     exports:[ProductListComponent,ProductDetailComponent,CommunityListComponent]
   })
   export class FeaturesModule {}

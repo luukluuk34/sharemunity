@@ -1,7 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CommunityDocument, Community as CommunityModel } from "./community.schema";
-import { UserDocument, User as UserModel } from "@sharemunity-workspace/user";
+import { UserDocument, User as UserModel } from "@sharemunity-workspace/backend/user";
 
 import { Model } from "mongoose";
 import { ICommunity } from "@sharemunity-workspace/shared/api";
@@ -69,6 +69,7 @@ export class CommunityService {
     
     async create(req:any): Promise<ICommunity | null>{
         var community = req.body;
+        this.logger.debug("-------------------------------------------")
         this.logger.debug(community);
         community['communityImage'] = {
             filename: req.body.communityImage[0].filename,
