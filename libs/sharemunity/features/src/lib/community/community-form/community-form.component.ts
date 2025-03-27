@@ -59,6 +59,9 @@ export class CommunityFormComponent implements OnInit{
       formData.append('description',this.communityForm.value.description);
       formData.append('images',this.selectedFile,this.selectedFile.name);
       this.commService.create(formData).subscribe(community => {console.log(community)});
+      
+      //LOCAL STORAGE MUST BE CLEARED BE SURE USER CAN BE OBSERVED
+      //localStorage.clear();
       this.resetFileInput();
     }
 

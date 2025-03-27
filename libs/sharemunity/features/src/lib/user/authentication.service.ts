@@ -82,4 +82,5 @@ export class AuthenticationService {
             this.userSubject.next(JSON.parse(user));
         }
     }
+
 }

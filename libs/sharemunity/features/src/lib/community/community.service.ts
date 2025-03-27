@@ -19,6 +19,8 @@ export const httpOptions = {
 })
 export class CommunityService {
     private readonly CURRENT_TOKEN = 'currenttoken';
+
+    //TODO Delete in prod
     endpoint = 'http://' + environment.dataApiUrl + '/community';
    
 
@@ -62,7 +64,7 @@ export class CommunityService {
     }
 
     public create(formData:FormData): Observable<ICommunity>{
-        console.log(`Creating community ${formData.get('name')} at ${this.endpoint}`)
+        console.log(`Creating community ${formData.get('name')} at ${this.endpoint}`);
 
         const token = localStorage.getItem(this.CURRENT_TOKEN);
         const httpOptions = {

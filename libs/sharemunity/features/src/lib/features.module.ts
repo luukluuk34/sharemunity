@@ -12,6 +12,7 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { CommunityMainComponent } from './community/community-main/community-main.component';
 import { CommunityFormComponent } from './community/community-form/community-form.component';
 import { RouterModule } from '@angular/router';
+import { ProductFormComponent } from './product/product-form/product-form.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { RouterModule } from '@angular/router';
       CommunityMainComponent,
       CommunityFormComponent,
       RouterModule,
-      ProductListComponent
+      ProductListComponent,
+      ProductFormComponent
     ],
     declarations: [CommunityListComponent],
     providers: [ProductService,CommunityService,AuthenticationService,UserService],

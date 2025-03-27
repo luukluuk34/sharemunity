@@ -5,6 +5,7 @@ import { UserService } from 'libs/sharemunity/features/src/lib/user/user.service
 import { LoginComponent } from "../../authentication/login/login.component";
 import { FeaturesModule } from "../../../../../../libs/sharemunity/features/src/lib/features.module";
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 
 @Component({
   selector: 'sharemunity-workspace-dashboard',
@@ -15,19 +16,18 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   private userService:UserService;
-  protected user!:IUser;
+  protected user:IUser | null = null;
+  protected authService:AuthenticationService;
 
-
-  constructor(userService:UserService,private router:Router){
+  constructor(userService:UserService,private router:Router, authenticationService:AuthenticationService){
     this.userService = userService;
+    this.authService = authenticationService;
   }
   ngOnInit(): void {
     console.log(localStorage)
-    let currentUser = localStorage.getItem('currentuser');
-    if(currentUser != null){
-      console.log("Current token")
-      const _id = JSON.parse(currentUser)._id;
-      this.userService.read(_id).subscribe((returnUser) => {
+    this.authService.user$.subscribe(user =>{this.user = user})
+    if(this.user != null){
+      this.userService.read(this.user._id).subscribe((returnUser) => {
         console.log(returnUser);
         this.user = returnUser;
       });

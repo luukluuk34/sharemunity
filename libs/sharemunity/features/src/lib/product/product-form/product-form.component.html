@@ -1,0 +1,28 @@
+<div class="productForm">
+    <p class="productTitle">Add product</p>
+    <form class="form1" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <input class="inputProductForm" type="text" placeholder="Product Name" formControlName="name" />
+        <input class="inputProductForm" type="text" placeholder="Enter description about the product"
+            formControlName="description" />
+        <input class="inputProductForm" type="number" placeholder="Enter amount of weeks people can reserve it"
+            formControlName="maxUseTime" />
+
+        <div class="custom-file">
+            <input id="files" type="file" accept="image/*" multiple
+                (change)="onFileSelected($event)" hidden />
+            <label for="files" class="file-label">
+                <span>Add Image</span>
+            </label>
+            <div *ngFor="let file of invalidFiles;">
+                <p>File: {{file.name}} is not a valid file type please upload a jpg or png</p>
+            </div>
+            <div class="image-container">
+                <div *ngFor="let image of selectedImages; let i = index" class="previewWrapper">
+                    <img [src]="image.path" [alt]="image.filename" class="preview-img">
+                    <span class="delete" (click)="deleteFromList(i)">X</span>
+                </div>
+            </div>
+        </div>
+        <a class="submit" (click)="onSubmit()">Create</a>
+    </form>
+</div>

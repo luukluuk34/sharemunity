@@ -1,0 +1,143 @@
+.productForm {
+  background-color: #ffffff;
+  width: 470px;
+  min-height: 450px;
+  height: auto;
+  margin: 7em auto;
+  border-radius: 1.5em;
+  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+  padding-bottom: 30px;
+}
+.productTitle {
+  padding-top: 40px;
+  color: #8c55aa;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 28px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.custom-file {
+  display: flex;
+  flex-direction: column; /* Ensures elements stack vertically */
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  padding: 5px;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  background: linear-gradient(to right,#88d75e,#73aa55);
+}
+
+.file-label:hover {
+  background-color: #0056b3;
+}
+
+.addingImage{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f8f9fa;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: fit-content;
+}
+
+.image-container {
+  display: inline-flex;
+  position:relative;
+  flex-wrap: wrap; /* Allows images to be inline and wrap when needed */
+  gap: 10px; /* Adds space between images */
+  justify-content: center;
+  width: 100%;
+}
+
+.previewWrapper{
+  position: relative;
+  display: inline-block; 
+}
+
+.preview-img {
+  width: 140px; /* You can adjust the size of the preview */
+  height: 130px;
+  border-radius: 10px;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 1px 7px;
+  font-weight: bold;
+  z-index: 3; /* Ensure it appears above the image */
+  border: none;
+}
+.delete:hover{
+  font-weight: bold;
+}
+
+.file-label:hover {
+  background-color: #0056b3;
+}
+
+.inputProductForm {
+  width: 76%;
+  color: rgb(38, 50, 56);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: rgba(136, 126, 126, 0.04);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 50px;
+  margin-left: 50px;
+  text-align: center;
+  margin-bottom: 27px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.submit {
+  cursor: pointer;
+  border-radius: 5em;
+  color: #fff;
+  background: linear-gradient(to right, #9c27b0, #e040fb);
+  border: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-family: 'Ubuntu', sans-serif;
+  margin-left: 32%;
+  font-size: 13px;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 600px) {
+  .productForm {
+    border-radius: 0px;
+  }
+}
+
+

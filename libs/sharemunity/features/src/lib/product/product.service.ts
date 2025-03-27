@@ -1,5 +1,5 @@
 import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ApiResponse, IProduct } from '@sharemunity-workspace/shared/api';
 import { Injectable } from '@angular/core';
@@ -19,6 +19,7 @@ export const httpOptions = {
  */
 @Injectable()
 export class ProductService {
+    private readonly CURRENT_TOKEN = 'currenttoken';
     endpoint = 'http://' + environment.dataApiUrl + '/product';
 
     constructor(private readonly http: HttpClient) {}
@@ -59,6 +60,30 @@ export class ProductService {
                 map((response: any) => response.results as IProduct),
                 catchError(this.handleError)
             );
+    }
+
+    public create(formData:FormData):Observable<IProduct>{
+        console.log(`Creating product at ${this.endpoint}`);
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .post<IProduct>(this.endpoint,formData,httpOptions)
+            .pipe(
+                map((val) => {
+                    console.log("Results: ", val);
+                    return val;
+                }),
+                catchError((error)=> {
+                    console.log("Error ", error)
+                    throw error;
+                })
+            )
     }
 
     /**
