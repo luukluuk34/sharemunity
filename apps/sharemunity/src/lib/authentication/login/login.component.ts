@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { IUser } from '@sharemunity-workspace/shared/api';
 
 @Component({
   selector: 'sharemunity-workspace-login',
@@ -20,9 +21,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   private readonly LOGIN_DATA = 'loginData';
-
+  protected user:IUser | null = null;
+  
   loginForm!: FormGroup;
   authenticationService: AuthenticationService;
+    
+
 
   constructor(
     authService: AuthenticationService,
@@ -32,8 +36,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.authenticationService.user$.subscribe(user => user)){
-      this.router.navigate(['/dashboard']);
+    this.authenticationService.user$.subscribe(user => this.user = user);
+    if(this.user != null){
+      this.router.navigate(['/dashboard'])
     }
 
     this.loginForm = new FormGroup({

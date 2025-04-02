@@ -27,11 +27,6 @@ export class CommunityController{
         @Body() data: UpdateCommunityDto,
         @UploadedFiles() image:Express.Multer.File
     ):Promise<ICommunity | null> {
-        this.logger.debug("Image");
-        this.logger.debug(image);
-        this.logger.debug("Data");
-        this.logger.debug(data);
-
         req.body.communityImage = image;
         return this.communityService.create(req);
     }

@@ -18,7 +18,7 @@
             </div>
             <div class="image-container">
                 <div *ngFor="let image of selectedImages; let i = index" class="previewWrapper">
-                    <img [src]="image.path" [alt]="image.filename" class="preview-img">
+                    <img [src]="this.selectedPaths[i]" [alt]="image.name" class="preview-img">
                     <span class="delete" (click)="deleteFromList(i)">X</span>
                 </div>
             </div>

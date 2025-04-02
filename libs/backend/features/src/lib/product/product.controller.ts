@@ -32,6 +32,9 @@ export class ProductController {
         @Body() data: CreateProductDto,
         @UploadedFiles() images:Array<Express.Multer.File>
     ): Promise<IProduct | null> {
+        this.logger.debug(req);
+        this.logger.debug(data);
+        this.logger.debug(images);
         images.forEach((file) => {
             if (!file.filename){
                 const timestamp = Date.now();

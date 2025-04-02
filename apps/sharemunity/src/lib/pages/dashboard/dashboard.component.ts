@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
     this.authService = authenticationService;
   }
   ngOnInit(): void {
-    console.log(localStorage)
     this.authService.user$.subscribe(user =>{this.user = user})
     if(this.user != null){
       this.userService.read(this.user._id).subscribe((returnUser) => {
@@ -32,6 +31,7 @@ export class DashboardComponent implements OnInit {
         this.user = returnUser;
       });
     }else{
+      console.log(this.user);
       this.router.navigate(['/login'])
     }
   }

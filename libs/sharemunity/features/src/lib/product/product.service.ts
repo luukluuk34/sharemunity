@@ -72,6 +72,7 @@ export class ProductService {
             observe: 'body' as const,
             responseType: 'json' as const
         };
+        console.log(formData.getAll("images"));
         return this.http
             .post<IProduct>(this.endpoint,formData,httpOptions)
             .pipe(
