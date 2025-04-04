@@ -1,10 +1,14 @@
 <div *ngIf="product">
     <p>{{product.name}}</p>
-    <button (click)="openPopup()">Add to community</button>
-
+    <button (click)="openPopupAddToCommunity()">Add to community</button>
+    <button (click)="openPopupCreateReservation()">Reserve product</button>
     <div *ngIf="checkIfUserIsOwner()">
         <button>Update Product</button>
         <button (click)="deleteProduct()">Delete Product</button>
+    </div>
+
+    <div *ngIf="createReservationForProduct" class="overlay">
+        <sharemunity-workspace-reservation-form (closePop)="closePopup()"></sharemunity-workspace-reservation-form>
     </div>
 
 

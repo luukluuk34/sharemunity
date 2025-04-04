@@ -6,7 +6,7 @@ import { User as UserModel, UserDocument } from "@sharemunity-workspace/backend/
 import { ProductDocument, Product as ProductModel} from "../product/product.schema"
 import { Model } from "mongoose";
 import { FirebaseService } from "../firebase/firebase.service";
-import { IReservaton } from "@sharemunity-workspace/shared/api";
+import { IReservaton, ReservationStatus } from "@sharemunity-workspace/shared/api";
 import { UpdateReservationDto } from "@sharemunity-workspace/backend/dto";
 
 @Injectable()
@@ -35,6 +35,20 @@ export class ReservationService {
       .exec();
     return items;
   }
+
+  async findAllWherePending(req:any): Promise<IReservaton[]>{
+    this.logger.log(`Finding all reservations that are pending`);
+    const user_id = req.user.user_id;
+    const items = await this.reservationModel
+      .find()
+      .where((reservation: IReservaton)=>{reservation.reservation_status == ReservationStatus.Pending})
+      .where((reservation:IReservaton) =>{reservation.owner._id == user_id})
+      .populate('owner','name emailAddress address')
+      .populate('enjoyer','name emailAddress address')
+      .exec();
+    return items;
+  }
+
   async findOne(_id: string): Promise<IReservaton | null> {
     this.logger.log(`finding Product with id ${_id}`);
     const item = await this.reservationModel.findOne({ _id }).exec();
@@ -45,14 +59,15 @@ export class ReservationService {
   }
 
   async create(req: any): Promise<IReservaton | null>{
+    this.logger.debug(`Creating Reservation for `)
     var reservation = req.body;
+    this.logger.debug(reservation);
     const enjoyer_id = req.user.user_id;
     const product = await this.productModel
       .findOne({_id:req.body.product})
       .exec();
 
     if(reservation && enjoyer_id && product){
-
         const enjoyer = await this.userModel
             .findOne({_id:enjoyer_id})
             .select('-password -products -address -role -_v')

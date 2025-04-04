@@ -15,6 +15,7 @@ export class ProductDetailComponent implements OnInit{
   private productService:ProductService;
   protected product:IProduct | null = null;
   protected addProductToCommunity:boolean = false;
+  createReservationForProduct:boolean = false;
 
   protected loggedInUser: IUser | null = null;
   protected authService:AuthenticationService;
@@ -47,11 +48,15 @@ export class ProductDetailComponent implements OnInit{
     
   }
  
-  openPopup(){
+  openPopupAddToCommunity(){
     this.addProductToCommunity = true;
+  }
+  openPopupCreateReservation(){
+    this.createReservationForProduct = true;
   }
 
   closePopup(){
     this.addProductToCommunity = false;
+    this.createReservationForProduct = false;
   }
 }

@@ -15,11 +15,15 @@ import { RouterModule } from '@angular/router';
 import { ProductFormComponent } from './product/product-form/product-form.component';
 import { CommunityDetailComponent } from './community/community-detail/community-detail.component';
 import { CommunityChooseListComponent } from './community/community-choose-list/community-choose-list.component';
+import { ReservationFormComponent } from './reservation/reservation-form/reservation-form.component';
+import { ReservationService } from './reservation/reservation.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
     imports: [
       CommonModule,
+      ReactiveFormsModule,
       HttpClientModule,
       UserDetailComponent,
       CommunityMainComponent,
@@ -28,8 +32,8 @@ import { CommunityChooseListComponent } from './community/community-choose-list/
       ProductListComponent,
       ProductFormComponent
     ],
-    declarations: [CommunityListComponent,ProductDetailComponent,CommunityChooseListComponent,CommunityDetailComponent],
-    providers: [ProductService,CommunityService,AuthenticationService,UserService],
+    declarations: [CommunityListComponent,ProductDetailComponent,CommunityChooseListComponent,CommunityDetailComponent,ReservationFormComponent],
+    providers: [ProductService,CommunityService,AuthenticationService,UserService,ReservationService],
     exports:[ProductListComponent,CommunityListComponent]
   })
   export class FeaturesModule {}
