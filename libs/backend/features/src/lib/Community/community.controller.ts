@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, UseGuards,Post, Request, Body, UploadedFiles } from "@nestjs/common";
+import { Controller, Get, Logger, Param, UseGuards,Post, Request, Body, UploadedFiles, Put, Delete } from "@nestjs/common";
 import { CommunityService } from "./community.service";
 import { ICommunity } from "@sharemunity-workspace/shared/api";
 import { AuthGuard } from "@sharemunity-workspace/backend/auth";
@@ -29,6 +29,20 @@ export class CommunityController{
     ):Promise<ICommunity | null> {
         req.body.communityImage = image;
         return this.communityService.create(req);
+    }
+
+    @Put(':id')
+    update(
+        @Param('id') id:string,
+        @Request() req:any,
+        @Body() data: UpdateCommunityDto,
+    ):Promise<ICommunity | null>{
+        return this.communityService.update(id,data);
+    }
+
+    @Delete(':id')
+    delete(@Param('id') id:string):Promise<ICommunity | null>{
+        return this.communityService.delete(id);
     }
     
 

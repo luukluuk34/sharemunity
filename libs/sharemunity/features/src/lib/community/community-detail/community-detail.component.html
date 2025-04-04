@@ -1,1 +1,29 @@
-<p>community-detail works!</p>
+<div *ngIf="community">
+    <p>test</p>
+    <p>{{community.name}}</p>
+    <p>{{community.communityImage.path}}</p>
+    <img class="" [src]="community.communityImage.path" height="300px" width="500px">
+    
+    <div *ngIf="checkIfUserIsOwner()">
+        <button>Update Community</button>
+        <button (click)="deleteCommunity()">Delete Community</button>
+    </div>
+
+
+
+    <div class="row productList">
+        <h2>Products</h2>
+        <div *ngFor="let prod of community.products" class="col-sm-6" style="width:18rem;">
+            <div class="card">
+                <div class="card-body">
+                    <img class="card-img-top" [src]="prod.images[0].path">
+                    <div class="">
+                        <h5>{{prod.name}}</h5>
+                        <p class="card-text">{{prod.description}}</p>
+                        <a class="ViewButton">View Product details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

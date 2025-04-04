@@ -13,13 +13,14 @@ import { CommunityMainComponent } from './community/community-main/community-mai
 import { CommunityFormComponent } from './community/community-form/community-form.component';
 import { RouterModule } from '@angular/router';
 import { ProductFormComponent } from './product/product-form/product-form.component';
+import { CommunityDetailComponent } from './community/community-detail/community-detail.component';
+import { CommunityChooseListComponent } from './community/community-choose-list/community-choose-list.component';
 
 
 @NgModule({
     imports: [
       CommonModule,
       HttpClientModule,
-      ProductDetailComponent,
       UserDetailComponent,
       CommunityMainComponent,
       CommunityFormComponent,
@@ -27,8 +28,8 @@ import { ProductFormComponent } from './product/product-form/product-form.compon
       ProductListComponent,
       ProductFormComponent
     ],
-    declarations: [CommunityListComponent],
+    declarations: [CommunityListComponent,ProductDetailComponent,CommunityChooseListComponent,CommunityDetailComponent],
     providers: [ProductService,CommunityService,AuthenticationService,UserService],
-    exports:[ProductListComponent,ProductDetailComponent,CommunityListComponent]
+    exports:[ProductListComponent,CommunityListComponent]
   })
   export class FeaturesModule {}

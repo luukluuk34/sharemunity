@@ -1,11 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ICommunity, IProduct, IUser } from '@sharemunity-workspace/shared/api';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommunityService } from '../community.service';
+import { environment } from '@sharemunity/shared/util-env';
+import { ProductService } from '../../product/product.service';
+import { AuthenticationService } from '../../user/authentication.service';
 
 @Component({
   selector: 'sharemunity-workspace-community-detail',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './community-detail.component.html',
   styleUrl: './community-detail.component.css',
 })
-export class CommunityDetailComponent {}
+export class CommunityDetailComponent implements OnInit {
+  protected community!: ICommunity;
+  protected communityProducts:IProduct[] | null = null;
+  private communityService: CommunityService;
+  private productService:ProductService;
+  private authService:AuthenticationService;
+
+  protected loggedInUser:IUser | null = null;
+
+  constructor(communityService: CommunityService,prodService:ProductService,authService:AuthenticationService,private activatedRoute: ActivatedRoute, private router:Router) {
+    this.communityService = communityService;
+    this.authService = authService;
+    this.productService = prodService;
+  }
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe((user)=>{
+      this.loggedInUser = user;
+    })
+
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let id = params.get('id');
+      this.communityService.read(id).subscribe((community) => {
+        this.community = community;
+        this.getCommnityBannerImage();
+        this.getLocalProductImages();
+      });
+    });
+  }
+
+  getCommnityBannerImage() {
+    if (this.community) {
+      console.log('Owner;' + this.community.owner._id);
+      if (this.community.communityImage?.path) {
+        this.community.communityImage.path =  this.getImageUrl(this.community.communityImage.path);
+      }
+    }
+  }
+
+  getImageUrl(localPath:string):string{
+    return localPath = 'http://' + environment.dataApiUrl + "/" + localPath.replace(/\\/g, '/');
+  }
+
+  getLocalProductImages(){
+    if(this.community){
+      this.community.products.forEach(prod=>{
+        prod.images.forEach((img)=>{
+          img.path = this.getImageUrl(img.path);
+        })
+      })
+    }
+  }
+
+  checkIfUserIsOwner(){
+    return this.loggedInUser?._id == this.community.owner._id;
+  }
+
+  deleteCommunity(){
+    if(this.community){
+      this.communityService.delete(this.community.id).subscribe();
+      this.router.navigate(["/dashboard"]);
+    }
+  }
+
+}

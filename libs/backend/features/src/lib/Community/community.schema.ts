@@ -28,10 +28,10 @@ export class Community implements ICommunity {
     @Prop({required:true, default:Date.now()})
     creationDate!: Date;
     
-    @Prop({required:false,type:MongooseSchema.Types.ObjectId,ref:'User'})
+    @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'User' }], default: [] })
     members!: IUserIdentity[];
     
-    @Prop({required:false,type:MongooseSchema.Types.ObjectId,ref:'Product'})
+    @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Product' }], default: [] })
     products!: IProduct[];
     
 }

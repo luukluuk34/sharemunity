@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location } from '@angular/common';
 import { AuthenticationService } from '../../user/authentication.service';
 import { IImage, IUser } from '@sharemunity-workspace/shared/api';
 import {
@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { uploadImageFileValidator } from '@sharemunity-workspace/sharemunity/common';
 import { ProductService } from '../product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sharemunity-workspace-product-form',
@@ -33,7 +34,9 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     authenticationService: AuthenticationService,
-    productService: ProductService
+    productService: ProductService,
+    private router:Router,
+    private _location:Location
   ) {
     this.authService = authenticationService;
     this.prodService = productService;
@@ -93,6 +96,7 @@ export class ProductFormComponent implements OnInit {
         formData.append(`images`, file, file.name);
       });
       this.prodService.create(formData).subscribe();
+      this._location.back();
     }
   }
 

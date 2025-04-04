@@ -92,4 +92,9 @@ export class ProductService {
     this.logger.log(`Update product ${product.name}`);
     return this.productModel.findByIdAndUpdate({ _id }, product);
   }
+
+  async delete(id:string):Promise<IProduct|null>{
+    this.logger.log(`Deleting product ${id}`);
+    return this.productModel.findOneAndDelete({_id:id}).exec();
+  }
 }

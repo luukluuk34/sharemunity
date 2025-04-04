@@ -38,7 +38,12 @@ export class ProductService {
                 ...httpOptions,
             })
             .pipe(
-                map((response: any) => response.results as IProduct[]),
+                map((response: any) => 
+                    response.results.map((item:any) => ({
+                        ...item,
+                        id: item._id,
+                    })) 
+            ),
                 tap(console.log),
                 catchError(this.handleError)
             );
@@ -50,14 +55,22 @@ export class ProductService {
      */
     public read(id: string | null, options?: any): Observable<IProduct> {
         console.log(`read ${this.endpoint}`);
+        const backend = this.endpoint + "/" + id
         return this.http
-            .get<ApiResponse<IProduct>>(this.endpoint, {
+            .get<ApiResponse<IProduct>>(backend, {
                 ...options,
                 ...httpOptions,
             })
             .pipe(
                 tap(console.log),
-                map((response: any) => response.results as IProduct),
+                map((response: any) =>{
+                    const product = response.results;
+                    if(product){
+                        product.id = product._id;
+                        delete product._id;
+                    }
+                    return product;
+                }),
                 catchError(this.handleError)
             );
     }
@@ -84,6 +97,32 @@ export class ProductService {
                     console.log("Error ", error)
                     throw error;
                 })
+            )
+    }
+
+    public delete(id: string | null, options?: any): Observable<IProduct> {
+        const backend = this.endpoint + "/" + id
+        console.log(`Deleting product at ${backend}`);
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .delete<IProduct>(backend,httpOptions)
+            .pipe(
+                map((val)=>{
+                    console.log("Results: ", val);
+                    return val;
+                }),
+                catchError((error)=> {
+                    console.log("Error ", error)
+                    throw error;
+                })
+        
             )
     }
 

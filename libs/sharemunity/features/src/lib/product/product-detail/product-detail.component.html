@@ -1,0 +1,14 @@
+<div *ngIf="product">
+    <p>{{product.name}}</p>
+    <button (click)="openPopup()">Add to community</button>
+
+    <div *ngIf="checkIfUserIsOwner()">
+        <button>Update Product</button>
+        <button (click)="deleteProduct()">Delete Product</button>
+    </div>
+
+
+    <div *ngIf="addProductToCommunity" id="popup1" class="overlay">
+        <sharemunity-workspace-community-choose-list (closePop)="closePopup()"></sharemunity-workspace-community-choose-list>
+    </div>
+</div>

@@ -4,6 +4,8 @@ import { ICommunity } from '@sharemunity-workspace/shared/api';
 import { CommunityService } from '../community.service';
 import { Subscription } from 'rxjs';
 import { environment } from '@sharemunity/shared/util-env';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../../product/product.service';
 
 @Component({
   selector: 'sharemunity-community-list',
@@ -15,7 +17,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   communities: ICommunity[] | null = null;
   subscription: Subscription | undefined = undefined;
 
-  constructor(private communityService: CommunityService) {}
+  constructor(private communityService: CommunityService, private router:Router) {}
 
   ngOnInit(): void {
     this.loadCommunities();
@@ -57,7 +59,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     }
   }
 
-
   getCommunities() {
     this.subscription = this.communityService.list().subscribe((results) => {
       this.communities = results;
@@ -75,37 +76,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  // getCommunitiesByOwner() {
-  //   this.subscription = this.communityService.list().subscribe((results) => {
-  //     if (this.showJoinedCommunities && results != null && this.ownerId) {
-  //       this.communities = results?.filter(
-  //         (community) =>
-  //           community.owner._id !== this.ownerId &&
-  //           community.members.some((member) => member._id === this.ownerId)
-  //       );
-  //     } else if (this.ownerId && results != null) {
-  //       this.communities = results?.filter(
-  //         (community) =>
-  //           !this.ownerId || community.owner._id.includes(this.ownerId)
-  //       );
-  //     } else {
-  //       this.communities = results;
-  //     }
-  //     if (this.communities) {
-  //       for (let community of this.communities) {
-  //         console.log('Owner;' + community);
-  //         if (community.communityImage?.path) {
-  //           community.communityImage.path =
-  //             'http://' +
-  //             environment.dataApiUrl +
-  //             '/' +
-  //             community.communityImage.path.replace(/\\/g, '/');
-  //         }
-  //       }
-  //     }
-  //   });
-  //}
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
