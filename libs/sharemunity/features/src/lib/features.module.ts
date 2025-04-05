@@ -18,6 +18,8 @@ import { CommunityChooseListComponent } from './community/community-choose-list/
 import { ReservationFormComponent } from './reservation/reservation-form/reservation-form.component';
 import { ReservationService } from './reservation/reservation.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ReservationPendingListComponent } from './reservation/reservation-pending-list/reservation-pending-list.component';
+import { MyReservationListComponent } from './reservation/my-reservation-list/my-reservation-list.component';
 
 
 @NgModule({
@@ -25,14 +27,22 @@ import { ReactiveFormsModule } from '@angular/forms';
       CommonModule,
       ReactiveFormsModule,
       HttpClientModule,
-      UserDetailComponent,
       CommunityMainComponent,
       CommunityFormComponent,
       RouterModule,
       ProductListComponent,
       ProductFormComponent
     ],
-    declarations: [CommunityListComponent,ProductDetailComponent,CommunityChooseListComponent,CommunityDetailComponent,ReservationFormComponent],
+    declarations: [
+      CommunityListComponent,
+      ProductDetailComponent,
+      CommunityChooseListComponent,
+      CommunityDetailComponent,
+      ReservationFormComponent,
+      ReservationPendingListComponent,
+      MyReservationListComponent,
+      UserDetailComponent
+    ],
     providers: [ProductService,CommunityService,AuthenticationService,UserService,ReservationService],
     exports:[ProductListComponent,CommunityListComponent]
   })

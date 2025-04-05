@@ -1,10 +1,10 @@
 import { Product } from "@sharemunity-workspace/backend/features";
 import { Id } from "./id.type";
-import { IUserIdentity } from "./user.interface";
+import { IUser, IUserIdentity } from "./user.interface";
 import { IProduct } from "./product.interface";
 
-type Owner = IUserIdentity;
-type Enjoyer = IUserIdentity;
+type Owner = IUser;
+type Enjoyer = IUser;
 
 export enum ReservationStatus{
     Pending = "Pending",

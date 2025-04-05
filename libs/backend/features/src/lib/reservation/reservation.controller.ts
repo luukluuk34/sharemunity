@@ -1,4 +1,4 @@
-import { Body, Controller, Get,Post, Logger, Param, UseGuards, Request, Req, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get,Post, Logger, Param, UseGuards, Request, Req, UseInterceptors, Put } from "@nestjs/common";
 import { ReservationService } from "./reservation.service";
 import { FirebaseService } from "../firebase/firebase.service";
 import { IReservaton } from "@sharemunity-workspace/shared/api";
@@ -18,6 +18,20 @@ export class ReservationController{
         return this.reservationService.findAll();
     }
 
+    @Get('pending')
+    @UseGuards(AuthGuard)
+    getAllPending(@Request() req:any):Promise<IReservaton[]>{
+        console.log(req.user);
+        return this.reservationService.findAllWherePending(req);
+    }
+
+    @Get('my')
+    @UseGuards(AuthGuard)
+    getMyReservations(@Request() req:any):Promise<IReservaton[]>{
+        console.log(req.user);
+        return this.reservationService.findMyReservations(req);
+    }
+
     @Get(':id')
     getOne(@Param('id') id: string): Promise<IReservaton | null>{
         return this.reservationService.findOne(id);
@@ -30,10 +44,16 @@ export class ReservationController{
         @Req() req:any,
         @Body() body:any,
     ): Promise<IReservaton | null>{
-        this.logger.debug("-----------")
-        this.logger.debug(req.body);
-        this.logger.debug(`parsed form data: `,body);
         return this.reservationService.create(req);
+    }
+
+    @Put(':id')
+    @UseGuards(AuthGuard)
+    update(
+        @Param('id') id:string,
+        @Req() req:any
+    ): Promise<IReservaton | null>{
+        return this.reservationService.update(id,req.body);
     }
 
 

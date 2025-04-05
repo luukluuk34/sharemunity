@@ -1,0 +1,21 @@
+<div>
+    <h2>My Reservations</h2>
+    <div *ngIf="myReservations" class="row">
+        <div *ngFor="let reservation of myReservations" class="card w-25">
+            <div class="card-body">
+                <h5 class="card-title">{{reservation.product.name}}</h5>
+                <p class="card-text">Reserved By: <b>{{reservation.enjoyer.name}}</b></p>
+                <p class="card-text">Message: <b>{{reservation.message}}</b></p>
+                <p class="card-text">I would like to pick this up at: <b>{{reservation.pickup_date.toISOString().split('T')[0]}}</b></p>
+                <div *ngIf="reservation.end_date">
+                    <p class="card-text">I would return it before: <b>{{reservation.end_date.toISOString().split('T')[0]}}</b></p>
+                </div>
+                <form>
+                    <select disabled class="form-select">
+                        <option selected disabled>{{reservation.reservation_status}} </option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

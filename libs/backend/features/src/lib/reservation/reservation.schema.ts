@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { IProduct, IReservaton, IUserIdentity, ReservationStatus } from '@sharemunity-workspace/shared/api';
+import { IProduct, IReservaton, IUser, IUserIdentity, ReservationStatus } from '@sharemunity-workspace/shared/api';
 import { IsMongoId } from 'class-validator';
 
 export type ReservationtDocument = Reservation & Document;
@@ -14,10 +14,10 @@ export class Reservation implements IReservaton {
     product!:IProduct;
 
     @Prop({required:true,type:MongooseSchema.Types.ObjectId, ref:'User'})
-    owner!: IUserIdentity;
+    owner!: IUser;
     
     @Prop({required:true,type:MongooseSchema.Types.ObjectId, ref:'User'})
-    enjoyer!: IUserIdentity;
+    enjoyer!: IUser;
     
     @Prop({required:true})
     message!: string;

@@ -4,12 +4,8 @@ import { AuthenticationService } from '../authentication.service';
 import { UserService } from '../user.service';
 import { IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ProductListComponent } from '../../product/product-list/product-list.component';
-
 @Component({
   selector: 'sharemunity-workspace-user-detail',
-  standalone: true,
-  imports: [CommonModule,ProductListComponent,RouterLink],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.css',
 })

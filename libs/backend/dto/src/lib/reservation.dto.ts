@@ -9,6 +9,7 @@ import {
     IProduct,
     IUpdateReservation,
     IUpsertReservation,
+    IUser,
     IUserIdentity,
     ReservationStatus
 } from '@sharemunity-workspace/shared/api';
@@ -42,11 +43,11 @@ export class UpsertReservationDto implements IUpsertReservation {
 
     @IsString()
     @IsNotEmpty()
-    owner!: IUserIdentity;
+    owner!: IUser;
 
     @IsString()
     @IsNotEmpty()
-    enjoyer!: IUserIdentity;
+    enjoyer!: IUser;
     
     @IsString()
     @IsNotEmpty()
@@ -73,7 +74,7 @@ export class UpdateReservationDto implements IUpdateReservation {
 
     @IsString()
     @IsNotEmpty()
-    enjoyer!: IUserIdentity;
+    enjoyer!: IUser;
     
     @IsString()
     @IsNotEmpty()

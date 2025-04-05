@@ -39,6 +39,60 @@ export class ReservationService {
             );
     }
 
+    public listPending(options?:any): Observable<IReservaton[] | null>{
+        const backend = this.endpoint + "/" + "pending";
+        console.log(`List ${backend}`);
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .get<ApiResponse<IReservaton[]>>(backend,httpOptions)
+            .pipe(
+                map((response:any) => 
+                    response.results.map((item:any) => ({
+                        ...item,
+                        id:item._id,
+                        pickup_date: new Date(item.pickup_date),
+                        end_date: item.end_date ? new Date(item.end_date) : null
+                    }
+                ))),
+                tap(console.log),
+                catchError(this.handleError)
+            )
+    }
+
+    public myReservations(options?:any): Observable<IReservaton[] | null>{
+        const backend = this.endpoint + "/" + "my";
+        console.log(`List ${backend}`);
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .get<ApiResponse<IReservaton[]>>(backend,httpOptions)
+            .pipe(
+                map((response:any) => 
+                    response.results.map((item:any) => ({
+                        ...item,
+                        id:item._id,
+                        pickup_date: new Date(item.pickup_date),
+                        end_date: item.end_date ? new Date(item.end_date) : null
+                    }
+                ))),
+                tap(console.log),
+                catchError(this.handleError)
+            )
+    }
+
     /**
      * Get a single item from the service.
      *
@@ -76,10 +130,6 @@ export class ReservationService {
             observe: 'body' as const,
             responseType: 'json' as const
         };
-        console.log(formData.get("product"));
-        console.log(formData.get("message"));
-        console.log(formData.get("pickup_date"));
-        console.log(formData.get("end_date"));
         
         return this.http
             .post<IReservaton>(this.endpoint,formData,httpOptions)
@@ -90,6 +140,32 @@ export class ReservationService {
                 }),
                 catchError((error)=> {
                     console.log("Error ", error)
+                    throw error;
+                })
+            )
+    }
+
+    public update(reservation:IReservaton):Observable<IReservaton>{
+        console.log(`Updating reservation at: ${reservation.id}`);
+        const backend = this.endpoint + "/" + reservation.id;
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        
+        return this.http
+            .put<IReservaton>(backend,reservation,httpOptions)
+            .pipe(
+                map((val)=>{
+                    console.log("Results: ",val)
+                    return val;
+                }),
+                catchError((error)=> {
+                    console.log("Error: ", error)
                     throw error;
                 })
             )

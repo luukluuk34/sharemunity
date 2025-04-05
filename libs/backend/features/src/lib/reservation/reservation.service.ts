@@ -36,15 +36,31 @@ export class ReservationService {
     return items;
   }
 
+  async findMyReservations(req:any):Promise<IReservaton[]>{
+    this.logger.log(`Finding all reservations that are mine`);
+    const user_id = req.user.user_id;
+    const items = await this.reservationModel
+    .find({
+      'enjoyer':user_id
+    })
+    .populate('owner','name emailAddress address')
+    .populate('enjoyer','name emailAddress address')
+    .populate('product','name status')
+    .exec();
+  return items;
+  } 
+
   async findAllWherePending(req:any): Promise<IReservaton[]>{
     this.logger.log(`Finding all reservations that are pending`);
     const user_id = req.user.user_id;
     const items = await this.reservationModel
-      .find()
-      .where((reservation: IReservaton)=>{reservation.reservation_status == ReservationStatus.Pending})
-      .where((reservation:IReservaton) =>{reservation.owner._id == user_id})
+      .find({
+        reservation_status: ReservationStatus.Pending,
+        'owner':user_id
+      })
       .populate('owner','name emailAddress address')
       .populate('enjoyer','name emailAddress address')
+      .populate('product','name status')
       .exec();
     return items;
   }
@@ -61,7 +77,7 @@ export class ReservationService {
   async create(req: any): Promise<IReservaton | null>{
     this.logger.debug(`Creating Reservation for `)
     var reservation = req.body;
-    this.logger.debug(reservation);
+    this.logger.debug(reservation)
     const enjoyer_id = req.user.user_id;
     const product = await this.productModel
       .findOne({_id:req.body.product})
@@ -84,7 +100,6 @@ export class ReservationService {
             enjoyer:enjoyer,
         }
         this.logger.log(createdReservation);
-        this.logger.log("test")
         return this.reservationModel.create(createdReservation);
     }
     return null;
