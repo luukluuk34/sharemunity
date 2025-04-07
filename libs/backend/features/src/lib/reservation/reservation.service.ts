@@ -6,7 +6,7 @@ import { User as UserModel, UserDocument } from "@sharemunity-workspace/backend/
 import { ProductDocument, Product as ProductModel} from "../product/product.schema"
 import { Model } from "mongoose";
 import { FirebaseService } from "../firebase/firebase.service";
-import { IReservaton, ReservationStatus } from "@sharemunity-workspace/shared/api";
+import { IReservation, ReservationStatus } from "@sharemunity-workspace/shared/api";
 import { UpdateReservationDto } from "@sharemunity-workspace/backend/dto";
 
 @Injectable()
@@ -26,7 +26,7 @@ export class ReservationService {
     private readonly firebaseService: FirebaseService
   ) {}
 
-  async findAll(): Promise<IReservaton[]> {
+  async findAll(): Promise<IReservation[]> {
     this.logger.log(`Finding all reservations`);
     const items = await this.reservationModel
       .find()
@@ -36,7 +36,7 @@ export class ReservationService {
     return items;
   }
 
-  async findMyReservations(req:any):Promise<IReservaton[]>{
+  async findMyReservations(req:any):Promise<IReservation[]>{
     this.logger.log(`Finding all reservations that are mine`);
     const user_id = req.user.user_id;
     const items = await this.reservationModel
@@ -50,7 +50,7 @@ export class ReservationService {
   return items;
   } 
 
-  async findAllWherePending(req:any): Promise<IReservaton[]>{
+  async findAllWherePending(req:any): Promise<IReservation[]>{
     this.logger.log(`Finding all reservations that are pending`);
     const user_id = req.user.user_id;
     const items = await this.reservationModel
@@ -65,8 +65,8 @@ export class ReservationService {
     return items;
   }
 
-  async findOne(_id: string): Promise<IReservaton | null> {
-    this.logger.log(`finding Product with id ${_id}`);
+  async findOne(_id: string): Promise<IReservation | null> {
+    this.logger.log(`finding Reservation with id ${_id}`);
     const item = await this.reservationModel.findOne({ _id }).exec();
     if (!item) {
       this.logger.debug('Item not found');
@@ -74,7 +74,16 @@ export class ReservationService {
     return item;
   }
 
-  async create(req: any): Promise<IReservaton | null>{
+  async findOneFromProdId(_id:string):Promise<IReservation | null>{
+    this.logger.log(`Finding reservation from product ID ${_id}`);
+    const item =  await this.reservationModel.findOne({product:_id}).exec()
+    if(!item){
+      this.logger.debug(`Reservation not found`);
+    }
+    return item;
+  }
+
+  async create(req: any): Promise<IReservation | null>{
     this.logger.debug(`Creating Reservation for `)
     var reservation = req.body;
     this.logger.debug(reservation)
@@ -108,9 +117,14 @@ export class ReservationService {
     async update(
       _id: string,
       reservation: UpdateReservationDto
-    ): Promise<IReservaton | null> {
+    ): Promise<IReservation | null> {
       this.logger.log(`Update reservation for product:  ${reservation.product.name}`);
       return this.reservationModel.findByIdAndUpdate({ _id }, reservation);
+    }
+
+    async delete(_id:string):Promise<IReservation | null>{
+      this.logger.log(`Deleting reservation ${_id}`);
+      return this.reservationModel.findByIdAndDelete({_id});
     }
 
 }

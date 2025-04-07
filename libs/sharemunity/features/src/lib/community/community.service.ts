@@ -23,7 +23,6 @@ export class CommunityService {
 
     //TODO Delete in prod
     endpoint = 'http://' + environment.dataApiUrl + '/community';
-   
 
     constructor(private readonly http: HttpClient) {}
 
@@ -110,11 +109,22 @@ public read(id: string | null, options?: any): Observable<ICommunity> {
             responseType: 'json' as const
         };
         return this.http
-            .post<ICommunity>(this.endpoint,formData,httpOptions)
+            .post<ApiResponse<ICommunity>>(this.endpoint,formData,httpOptions)
             .pipe(
-                map((val) =>{
-                    console.log("Results: ",val)
-                    return val;
+                map((response:any) =>{
+                    if (response.results) {
+                        response.results.id = response.results._id;
+                        delete response.results._id;
+    
+                        response.results.products = response.results.products.map((product: any) => {
+                            if (product._id) {
+                                product.id = product._id;
+                                delete product._id;
+                            }
+                            return product;
+                        });
+                    }
+                    return response.results as ICommunity;
                 }),
                 catchError((error) =>{
                     console.error("Error: ", error)
@@ -189,7 +199,7 @@ public read(id: string | null, options?: any): Observable<ICommunity> {
      * Handle errors.
      */
     public handleError(error: HttpErrorResponse): Observable<any> {
-        console.log('handleError in ProductService', error);
+        console.log('handleError in Community Service', error);
         return throwError(() => new Error(error.message));
     }
 }

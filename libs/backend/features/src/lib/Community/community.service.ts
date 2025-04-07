@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   CommunityDocument,
@@ -9,7 +9,7 @@ import {
   User as UserModel,
 } from '@sharemunity-workspace/backend/user';
 
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { ICommunity } from '@sharemunity-workspace/shared/api';
 import { environment } from '@sharemunity/shared/util-env';
 import { FirebaseService } from '../firebase/firebase.service';
@@ -61,6 +61,11 @@ export class CommunityService {
 
   async findOne(_id: string): Promise<ICommunity | null> {
     this.logger.log(`Finding community with id ${_id}`);
+
+    if(!Types.ObjectId.isValid(_id)){
+      this.logger.error(`Invalid objectId format: ${_id}`);
+      throw new BadRequestException(`Invalid ID format ${_id}`);
+    }
     const community = await this.communityModel
       .findOne({ _id })
       .populate('owner', 'name emailAddress address')
@@ -69,6 +74,7 @@ export class CommunityService {
       .exec();
     if (!community) {
       this.logger.debug(`Community not found`);
+      
     }
     return community;
   }

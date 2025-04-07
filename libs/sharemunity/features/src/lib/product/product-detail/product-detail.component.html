@@ -1,7 +1,10 @@
 <div *ngIf="product">
     <p>{{product.name}}</p>
     <button (click)="openPopupAddToCommunity()">Add to community</button>
-    <button (click)="openPopupCreateReservation()">Reserve product</button>
+    <div *ngIf="!reservation">
+        <button (click)="openPopupCreateReservation()">Reserve product</button>
+    </div>
+    
     <div *ngIf="checkIfUserIsOwner()">
         <button>Update Product</button>
         <button (click)="deleteProduct()">Delete Product</button>

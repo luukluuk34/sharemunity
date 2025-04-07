@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { IProduct, IReservaton, IUser, IUserIdentity, ReservationStatus } from '@sharemunity-workspace/shared/api';
+import { IProduct, IReservation, IUser, IUserIdentity, ReservationStatus } from '@sharemunity-workspace/shared/api';
 import { IsMongoId } from 'class-validator';
 
 export type ReservationtDocument = Reservation & Document;
 
 @Schema()
-export class Reservation implements IReservaton {
+export class Reservation implements IReservation {
     @IsMongoId()
     id!: string;
 

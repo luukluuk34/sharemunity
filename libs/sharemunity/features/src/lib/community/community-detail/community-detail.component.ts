@@ -34,10 +34,19 @@ export class CommunityDetailComponent implements OnInit {
 
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = params.get('id');
-      this.communityService.read(id).subscribe((community) => {
-        this.community = community;
-        this.getCommnityBannerImage();
-        this.getLocalProductImages();
+      this.communityService.read(id).subscribe({
+        next: (community) => {
+          this.community = community;
+          if(this.community == null){
+            this.router.navigate(['/communities'])
+          }
+          this.getCommnityBannerImage();
+          this.getLocalProductImages();
+        },
+        error: (err) => {
+          console.error(`Error updating reservation`, err)
+          this.router.navigate(['/communities'])
+        }
       });
     });
   }

@@ -21,5 +21,8 @@
   max-width: 1004px; /* A4 width in pixels at 96dpi */
   margin: 0 auto;
   padding: 20px;
+}
 
+.button{
+  cursor:pointer;
 }

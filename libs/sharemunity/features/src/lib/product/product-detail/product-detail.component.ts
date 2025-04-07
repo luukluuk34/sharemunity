@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../product.service';
-import { IProduct, IUser } from '@sharemunity-workspace/shared/api';
+import { IProduct, IReservation, IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeaturesModule } from "../../features.module";
 import { AuthenticationService } from '../../user/authentication.service';
+import { ReservationService } from '../../reservation/reservation.service';
 
 @Component({
   selector: 'sharemunity-workspace-product-detail',
@@ -13,26 +14,36 @@ import { AuthenticationService } from '../../user/authentication.service';
 })
 export class ProductDetailComponent implements OnInit{
   private productService:ProductService;
+  protected authService:AuthenticationService;
+  protected resService:ReservationService;
+
   protected product:IProduct | null = null;
+  protected reservation:IReservation | null = null;
   protected addProductToCommunity:boolean = false;
   createReservationForProduct:boolean = false;
 
   protected loggedInUser: IUser | null = null;
-  protected authService:AuthenticationService;
-
-  constructor(productService:ProductService,authService:AuthenticationService, private activatedRoute:ActivatedRoute,private router:Router){
+  
+  constructor(productService:ProductService,authService:AuthenticationService,resService:ReservationService, private activatedRoute:ActivatedRoute,private router:Router){
     this.productService = productService;
     this.authService = authService;
+    this.resService = resService;
   }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user =>{this.loggedInUser = user})
-
     this.activatedRoute.paramMap.subscribe((params) => {
       let id = params.get('id');
       this.productService.read(id).subscribe((product) => {
         this.product = product;
-      })
+        if(this.product == null){
+          this.router.navigate(['/dashboard']);
+        }
+        this.resService.getProductReservation(this.product?.id).subscribe((res)=>{
+          this.reservation = res;
+          console.log(this.reservation);
+        });
+      });
     });
   }
 
@@ -45,7 +56,6 @@ export class ProductDetailComponent implements OnInit{
       this.productService.delete(this.product?.id).subscribe();
       this.router.navigate(["/dashboard"]);
     }
-    
   }
  
   openPopupAddToCommunity(){
@@ -55,8 +65,14 @@ export class ProductDetailComponent implements OnInit{
     this.createReservationForProduct = true;
   }
 
-  closePopup(){
+  closePopup() {
     this.addProductToCommunity = false;
     this.createReservationForProduct = false;
+    if (this.product?.id) {
+      this.resService.getProductReservation(this.product.id).subscribe((res) => {
+        this.reservation = res;
+        console.log('Updated reservation:', this.reservation);
+      });
+    }
   }
 }

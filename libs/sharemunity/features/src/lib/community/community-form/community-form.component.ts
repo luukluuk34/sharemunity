@@ -5,24 +5,22 @@ import { AuthenticationService } from '../../user/authentication.service';
 import { CommunityService } from '../community.service';
 import { uploadImageFileValidator } from '@sharemunity-workspace/sharemunity/common';
 import { ICreateImage } from '@sharemunity-workspace/shared/api';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sharemunity-workspace-community-form',
-  standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
   templateUrl: './community-form.component.html',
   styleUrl: './community-form.component.css',
 })
 export class CommunityFormComponent implements OnInit{
-  private readonly SAVED_DATA = "savedData";
+  private readonly SAVED_DATA = "savedCommunityData";
   private selectedFile: File | null = null;
 
   communityForm!:FormGroup;
   authenticationService:AuthenticationService;
   commService:CommunityService;
 
-  constructor(authService:AuthenticationService,communityService:CommunityService){
+  constructor(authService:AuthenticationService,communityService:CommunityService, private router:Router){
     this.authenticationService = authService;
     this.commService = communityService;
   }
@@ -40,6 +38,7 @@ export class CommunityFormComponent implements OnInit{
       ])
     })
     const savedData = localStorage.getItem(this.SAVED_DATA);
+    console.log(savedData);
     if(savedData){
       const formData =JSON.parse(savedData)
       this.communityForm.setValue({
@@ -58,10 +57,14 @@ export class CommunityFormComponent implements OnInit{
       formData.append('name',this.communityForm.value.name);
       formData.append('description',this.communityForm.value.description);
       formData.append('images',this.selectedFile,this.selectedFile.name);
-      this.commService.create(formData).subscribe(community => {console.log(community)});
-      
-      //LOCAL STORAGE MUST BE CLEARED BE SURE USER CAN BE OBSERVED
-      //localStorage.clear();
+      this.commService.create(formData).subscribe(community => 
+        {
+          console.log(community),
+          this.router.navigate([`/communities/${community.id}`])
+          
+        });
+    
+
       this.resetFileInput();
     }
 

@@ -1,11 +1,14 @@
-<div *ngFor="let community of communities" class="card" style="width: 26rem">
-  <img class="card-img-top" [src]="community.communityImage.path" />
-  <div class="card-body">
-    <p>{{ community.communityImage.path }}</p>
-    <p class="card-title title">{{ community.name }}</p>
-    <p class="card-text">{{ community.description }}</p>
-    <a routerLink="/communities/{{ community.id }}" class="btn btn-primary"
-      >View community</a
-    >
+<div class="row">
+  <div *ngFor="let community of communities" class="card box" style="width: 18rem">
+    <img class="card-img-top" [src]="community.communityImage.path" />
+    <div class="card-body">
+      <p class="card-title title">{{ community.name }}</p>
+      <p class="card-text">{{ community.description }}</p>
+      <a routerLink="/communities/{{ community.id }}" class="btn btn-primary"
+        >View community</a
+      >
+    </div>
   </div>
 </div>
+
+

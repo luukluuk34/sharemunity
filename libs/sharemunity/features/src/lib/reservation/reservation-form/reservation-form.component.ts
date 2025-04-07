@@ -9,7 +9,7 @@ import {
 import { ReservationService } from '../reservation.service';
 import { ProductService } from '../../product/product.service';
 import { IProduct, IUser } from '@sharemunity-workspace/shared/api';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../user/authentication.service';
 
 
@@ -30,7 +30,7 @@ export class ReservationFormComponent implements OnInit {
   protected product: IProduct | null = null;
   protected loggedInUser: IUser | null = null;
 
-  constructor(resService: ReservationService, prodService: ProductService,authenticationService:AuthenticationService, private activatedRoute:ActivatedRoute) {
+  constructor(resService: ReservationService, prodService: ProductService,authenticationService:AuthenticationService, private activatedRoute:ActivatedRoute, private route:Router) {
     this.reservationService = resService;
     this.productService = prodService;
     this.authService = authenticationService;
@@ -90,15 +90,19 @@ export class ReservationFormComponent implements OnInit {
         end_date.setDate(end_date.getDate() + (maxUseWeeks * 7))
         formData.append('end_date',end_date.toISOString());
       }
-
-      this.reservationService.create(formData).subscribe();
+      this.reservationService.create(formData).subscribe({
+        next: () => {
+          this.closePopup();
+        },
+        error: (err) => console.error(err)
+      });
     }else{
       console.log("Invalid form");
     }
   }
 
 
-  closePopup(){
+  public closePopup(){
     this.closePop.emit();
   }
 }

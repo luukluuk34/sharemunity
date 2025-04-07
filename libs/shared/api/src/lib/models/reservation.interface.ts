@@ -12,7 +12,7 @@ export enum ReservationStatus{
     Declined = "Declined"
 }
 
-export interface IReservaton{
+export interface IReservation{
     id:Id,
     product:IProduct
     owner:Owner,
@@ -24,10 +24,10 @@ export interface IReservaton{
 }
 
 export type ICreateReservation = Pick<
-IReservaton,
+IReservation,
     'product'|'message'| 'pickup_date' | 'end_date'
 >;
 
-export type IUpdateReservation = Partial<Omit<IReservaton, 'id'>>;
-export type IUpsertReservation = IReservaton;
+export type IUpdateReservation = Partial<Omit<IReservation, 'id'>>;
+export type IUpsertReservation = IReservation;
 

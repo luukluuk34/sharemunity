@@ -1,7 +1,7 @@
-import { Body, Controller, Get,Post, Logger, Param, UseGuards, Request, Req, UseInterceptors, Put } from "@nestjs/common";
+import { Body, Controller, Get,Post, Logger, Param, UseGuards, Request, Req, UseInterceptors, Put, Delete } from "@nestjs/common";
 import { ReservationService } from "./reservation.service";
 import { FirebaseService } from "../firebase/firebase.service";
-import { IReservaton } from "@sharemunity-workspace/shared/api";
+import { IReservation } from "@sharemunity-workspace/shared/api";
 import { AuthGuard } from "@sharemunity-workspace/backend/auth";
 import { CreateReservationDto } from "@sharemunity-workspace/backend/dto";
 import { AnyFilesInterceptor } from "@nestjs/platform-express";
@@ -13,27 +13,33 @@ export class ReservationController{
     constructor(private reservationService: ReservationService, private firebaseRepository:FirebaseService){ }
 
     @Get('')
-    getAll(): Promise<IReservaton[]>{
+    getAll(): Promise<IReservation[]>{
         this.logger.log("test");
         return this.reservationService.findAll();
     }
 
     @Get('pending')
     @UseGuards(AuthGuard)
-    getAllPending(@Request() req:any):Promise<IReservaton[]>{
+    getAllPending(@Request() req:any):Promise<IReservation[]>{
         console.log(req.user);
         return this.reservationService.findAllWherePending(req);
     }
 
     @Get('my')
     @UseGuards(AuthGuard)
-    getMyReservations(@Request() req:any):Promise<IReservaton[]>{
+    getMyReservations(@Request() req:any):Promise<IReservation[]>{
         console.log(req.user);
         return this.reservationService.findMyReservations(req);
     }
 
+    @Get('product/:id')
+    @UseGuards(AuthGuard)
+    getReservationFromProductId(@Param('id') id:string):Promise<IReservation | null>{
+        return this.reservationService.findOneFromProdId(id);
+    }
+
     @Get(':id')
-    getOne(@Param('id') id: string): Promise<IReservaton | null>{
+    getOne(@Param('id') id: string): Promise<IReservation | null>{
         return this.reservationService.findOne(id);
     }
 
@@ -43,7 +49,7 @@ export class ReservationController{
     create(
         @Req() req:any,
         @Body() body:any,
-    ): Promise<IReservaton | null>{
+    ): Promise<IReservation | null>{
         return this.reservationService.create(req);
     }
 
@@ -52,9 +58,14 @@ export class ReservationController{
     update(
         @Param('id') id:string,
         @Req() req:any
-    ): Promise<IReservaton | null>{
+    ): Promise<IReservation | null>{
         return this.reservationService.update(id,req.body);
     }
 
+    @Delete(':id')
+    @UseGuards(AuthGuard)
+    delete(@Param('id') id:string):Promise<IReservation | null>{
+        return this.reservationService.delete(id);
+    }
 
 }

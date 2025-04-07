@@ -28,20 +28,20 @@ import { MyReservationListComponent } from './reservation/my-reservation-list/my
       ReactiveFormsModule,
       HttpClientModule,
       CommunityMainComponent,
-      CommunityFormComponent,
       RouterModule,
       ProductListComponent,
-      ProductFormComponent
     ],
     declarations: [
       CommunityListComponent,
       ProductDetailComponent,
       CommunityChooseListComponent,
       CommunityDetailComponent,
+      ProductFormComponent,
       ReservationFormComponent,
       ReservationPendingListComponent,
       MyReservationListComponent,
-      UserDetailComponent
+      UserDetailComponent,
+      CommunityFormComponent,
     ],
     providers: [ProductService,CommunityService,AuthenticationService,UserService,ReservationService],
     exports:[ProductListComponent,CommunityListComponent]

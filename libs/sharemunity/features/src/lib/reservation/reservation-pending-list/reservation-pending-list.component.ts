@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReservationService } from '../reservation.service';
-import { IReservaton, ReservationStatus } from '@sharemunity-workspace/shared/api';
+import { IReservation, ReservationStatus } from '@sharemunity-workspace/shared/api';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ReservationPendingListComponent implements OnInit {
   private reservationService:ReservationService;
-  pendingReservations:IReservaton[] | null = null;
+  pendingReservations:IReservation[] | null = null;
 
   reservationForms:{[key:string]:FormGroup} = {};
 
@@ -23,12 +23,12 @@ export class ReservationPendingListComponent implements OnInit {
     this.loadPendingReservations();
   }
 
-  onSubmit(reservation:IReservaton){
+  onSubmit(reservation:IReservation){
     const form = this.reservationForms[reservation.id];
     if(form.valid){
       console.log(reservation);
       const updatedStatus = form.value.reservation_status;
-      const newRes:IReservaton= {
+      const newRes:IReservation= {
         ...reservation,
         reservation_status:updatedStatus
       }

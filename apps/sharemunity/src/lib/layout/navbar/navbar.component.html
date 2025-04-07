@@ -8,8 +8,11 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 col-8">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" routerLink="/communities">Communities</a>
+                </li>
+                <li class="nav-item" *ngIf="user">
+                    <a class="nav-link" routerLink="user-detail/{{user._id}}">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
@@ -17,17 +20,17 @@
             </ul>
 
             <!-- Directly aligning the form to the right without <ul> -->
-            <form class="navbar-nav form-inline mt-3 my-lg-0 d-flex col-4">
+            <!-- <form class="navbar-nav form-inline mt-3 my-lg-0 d-flex col-4">
                 <input class="form-control" type="search" placeholder="Search" />
                 <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 col-8">
+            </form> -->
+            <ul class="navbar-nav mr-auto mt- mt-lg-2 col-8">
                 <li *ngIf="!user" class="nav-item active">
                     <a class="nav-link"routerLink="/login">Login</a>
                 </li>
                 <li *ngIf="user" class="nav-item">
                     <!-- <b><a class="nav-link" [routerLink]="['/user-detail',user._id]">{{user.name}}</a></b> -->
-                    <b><a class="nav-link" routerLink="user-detail/{{user._id}}">{{user.name}}</a></b>
+                    <a class="nav-link button" (click)="logout()">Logout: <b>{{user.name}}</b></a>
                 </li>
             </ul>
         </div>

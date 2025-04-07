@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'sharemunity-workspace-product-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css',
 })
@@ -88,10 +86,12 @@ export class ProductFormComponent implements OnInit {
       this.selectedImages != null &&
       this.selectedImages.length > 0
     ) {
+
+      let maxTime = this.productForm.value.maxUseTime ? this.productForm.value.maxUseTime : 0
       const formData = new FormData();
       formData.append('name', this.productForm.value.name);
       formData.append('description', this.productForm.value.description);
-      formData.append('maxUseTime', this.productForm.value.maxUseTime);
+      formData.append('maxUseTime', maxTime);
       this.selectedImages.forEach((file, index) => {
         formData.append(`images`, file, file.name);
       });

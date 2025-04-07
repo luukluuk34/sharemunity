@@ -17,7 +17,7 @@ export const appRoutes: Route[] = [
     {path:'product/form',component:ProductFormComponent},
     {path:'product/:id',component:ProductDetailComponent},
     {path:'communities',component:CommunityMainComponent},
-    {path:'communities/:id',component:CommunityDetailComponent},
     {path:'communities/form',component:CommunityFormComponent},
+    {path:'communities/:id',component:CommunityDetailComponent},
     {path:'', redirectTo:'/dashboard',pathMatch:'full'}
 ];

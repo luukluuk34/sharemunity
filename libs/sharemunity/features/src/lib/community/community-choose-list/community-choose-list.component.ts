@@ -38,8 +38,6 @@ export class CommunityChooseListComponent implements OnInit {
     
     this.subscription = this.communityService.list().subscribe((communities) => {
       let prodId = this.product.id;
-      console.log("tes-----------------",prodId)
-      console.log("aaaaaa-------------", communities)
       this.communities = (communities ?? [] )?.filter(val =>{
         if(val.products.length > 0 ){
           return !val.products.some(prod => prod.id === prodId);
@@ -49,8 +47,6 @@ export class CommunityChooseListComponent implements OnInit {
       })
     });
     
-
-
     this.communityChooseForm = this.formBuilder.group({
       selectedCommunities: this.formBuilder.array([])
     });
