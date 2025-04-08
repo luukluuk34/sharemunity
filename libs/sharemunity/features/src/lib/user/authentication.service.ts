@@ -1,9 +1,9 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUser, IUserCredentials, IUserIdentity } from "@sharemunity-workspace/shared/api";
 import { User } from "@sharemunity-workspace/backend/user";
 import { environment } from "@sharemunity/shared/util-env";
-import { BehaviorSubject, map, Observable, Subject } from "rxjs";
+import { BehaviorSubject, catchError, map, Observable, of, Subject, throwError } from "rxjs";
 
 export const httpOptions = {
     observe: 'body',
@@ -21,6 +21,7 @@ export class AuthenticationService {
    
     
     constructor(private readonly http: HttpClient) { 
+        console.log(`AuthService Constructed`, new Date(), this.constructor.name)
         this.loadUser();
     }
 
@@ -34,9 +35,15 @@ export class AuthenticationService {
                 ...httpOptions })
             .pipe(
                 map((val) =>{
+                    console.log("------------------")
+                    console.log(val.results.token)
                     this.saveUserToLocalStorage(val.results);
                     this.saveTokenToLocalStorage(val.results.token);
                     return val.results;
+                }),
+                catchError((error)=>{
+                    console.error(`Login failed`, error);
+                    throw error;
                 })
             )
     }
@@ -82,5 +89,10 @@ export class AuthenticationService {
             this.userSubject.next(JSON.parse(user));
         }
     }
+
+    public handleError(error: HttpErrorResponse): Observable<any> {
+        console.log('handleError in ProductService', error);
+        return throwError(() => new Error(error.message));
+    } 
 
 }

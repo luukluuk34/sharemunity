@@ -4,9 +4,14 @@
     <div class="card-body">
       <p class="card-title title">{{ community.name }}</p>
       <p class="card-text">{{ community.description }}</p>
-      <a routerLink="/communities/{{ community.id }}" class="btn btn-primary"
-        >View community</a
-      >
+      <div *ngIf="filterType === 'notJoined'">
+        <a type="button" class="btn btn-success" (click)="joinCommunity(community)">Join Community</a>
+      </div>
+      <div *ngIf="filterType != 'notJoined'" class="row">
+        <a routerLink="/communities/{{ community.id }}" class="card-button btn btn-primary col-sm">View</a>
+        <a *ngIf="filterType == 'joined'" class="card-button btn btn-danger col-sm" (click)="leaveCommunity(community)">Leave</a>
+        <a *ngIf="filterType == 'owned'" class="card-button btn btn-danger col-sm" (click)="deleteCommunity(community)">delete</a>
+      </div>
     </div>
   </div>
 </div>

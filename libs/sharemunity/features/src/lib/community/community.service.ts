@@ -4,7 +4,6 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { ApiResponse, ICommunity, ICreateCommunity, IImage, IProduct } from '@sharemunity-workspace/shared/api';
 import { Injectable } from '@angular/core';
 import {environment} from '@sharemunity/shared/util-env';
-import { AuthenticationService } from '../user/authentication.service';
 import { response } from 'express';
 
 /**
@@ -15,9 +14,7 @@ export const httpOptions = {
     responseType: 'json',
 };
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class CommunityService {
     private readonly CURRENT_TOKEN = 'currenttoken';
 
@@ -31,10 +28,23 @@ export class CommunityService {
      *
      * @options options - optional URL queryparam options
      */
-    public list(options?: any): Observable<ICommunity[] | null> {
+    public list(listString?:string,options?: any): Observable<ICommunity[] | null> {
         console.log(`list ${this.endpoint}`);
+        let backend = this.endpoint;
+        if(listString){
+            backend = backend + "/" + listString
+        }
+        console.log(`list ${backend}`);
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
         return this.http
-            .get<ApiResponse<ICommunity[]>>(this.endpoint, {
+            .get<ApiResponse<ICommunity[]>>(backend, {
                 ...options,
                 ...httpOptions,
             })

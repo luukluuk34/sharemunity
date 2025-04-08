@@ -14,6 +14,25 @@ export class CommunityController{
         return this.communityService.findAll();
     }
 
+    @Get('owned')
+    @UseGuards(AuthGuard)
+    getAllOwned(@Request() req:any): Promise<ICommunity[]>{
+        return this.communityService.findOwnedCommunities(req);
+    }
+
+    @Get('joined')
+    @UseGuards(AuthGuard)
+    getAllJoined(@Request() req:any): Promise<ICommunity[]>{
+        return this.communityService.findJoinedCommunities(req);
+    }
+
+    @Get('notJoined')
+    @UseGuards(AuthGuard)
+    getAllRest(@Request() req:any): Promise<ICommunity[]>{
+        return this.communityService.findOtherCommunities(req);
+    }
+
+
     @Get(':id')
     getOne(@Param('id') id: string): Promise<ICommunity | null> {
         return this.communityService.findOne(id);
@@ -37,6 +56,8 @@ export class CommunityController{
         @Request() req:any,
         @Body() data: UpdateCommunityDto,
     ):Promise<ICommunity | null>{
+        this.logger.debug(data);
+        
         return this.communityService.update(id,data);
     }
 

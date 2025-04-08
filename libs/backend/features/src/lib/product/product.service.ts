@@ -11,14 +11,15 @@ import { UserDocument, User as UserModel } from '@sharemunity-workspace/backend/
 import { FirebaseService } from '../firebase/firebase.service';
 import * as fs from 'fs';
 import { environment } from '@sharemunity/shared/util-env';
+import { Community as CommunityModel, CommunityDocument } from '../community/community.schema';
 
 @Injectable()
 export class ProductService {
   private readonly logger: Logger = new Logger(ProductService.name);
 
   constructor(
-    @InjectModel(ProductModel.name)
-    private productModel: Model<ProductDocument>,
+    @InjectModel(CommunityModel.name) private communityModel: Model<CommunityDocument>,
+    @InjectModel(ProductModel.name)  private productModel: Model<ProductDocument>,
     @InjectModel(UserModel.name) private userModel: Model<UserDocument>,
     private readonly firebaseService: FirebaseService
   ) {}
@@ -27,6 +28,27 @@ export class ProductService {
     this.logger.log(`Finding all items`);
     const items = await this.productModel
       .find()
+      .populate('owner', 'name emailAddress address')
+      .exec();
+    return items;
+  }
+
+  async findAllByCommunity(_id:string): Promise<IProduct[]> {
+    this.logger.log(`Finding all items`);
+    const community = await this.communityModel
+      .findById({_id})
+      .populate('products')
+      .exec();
+    if(community){
+      return community.products;
+    }
+    return [];
+  }
+
+  async findAllByUser(_id:string): Promise<IProduct[]> {
+    this.logger.log(`Finding all items`);
+    const items = await this.productModel
+      .find({owner:_id})
       .populate('owner', 'name emailAddress address')
       .exec();
     return items;

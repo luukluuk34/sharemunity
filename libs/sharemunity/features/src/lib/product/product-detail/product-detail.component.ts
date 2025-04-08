@@ -4,7 +4,7 @@ import { ProductService } from '../product.service';
 import { IProduct, IReservation, IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeaturesModule } from "../../features.module";
-import { AuthenticationService } from '../../user/authentication.service';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { ReservationService } from '../../reservation/reservation.service';
 
 @Component({

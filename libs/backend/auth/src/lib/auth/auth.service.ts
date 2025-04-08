@@ -41,7 +41,7 @@ export class AuthService {
             .findOne({
                 emailAddress: credentials.emailAddress
             })
-            .select('+password')
+            .select('+password +role')
             .exec()
             .then((user) => {
                 if (user && user.password === credentials.password) {
@@ -52,6 +52,7 @@ export class AuthService {
                         _id: user._id,
                         name: user.name,
                         emailAddress: user.emailAddress,
+                        role:user.role,
                         token: this.jwtService.sign(payload)
                     };
                 } else {
@@ -61,7 +62,7 @@ export class AuthService {
                 }
             })
             .catch((error) => {
-                return error;
+                throw error;
             });
     }
 

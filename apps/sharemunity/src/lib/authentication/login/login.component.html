@@ -1,5 +1,8 @@
 <div class="loginForm">
     <p class="sign">Sign in</p>
+    <div *ngIf="errorMessage" class="error">
+      {{errorMessage}}
+    </div>
     <form class="form1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <input class="email" type="text" placeholder="E-mail" formControlName="emailAddress" required>
       <input class="pass" type="password" placeholder="Password" formControlName="password" required>

@@ -14,20 +14,18 @@ import { IUser } from '@sharemunity-workspace/shared/api';
 
 @Component({
   selector: 'sharemunity-workspace-login',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   private readonly LOGIN_DATA = 'loginData';
   protected user:IUser | null = null;
+
+  errorMessage:string | null = null;
   
   loginForm!: FormGroup;
   authenticationService: AuthenticationService;
     
-
-
   constructor(
     authService: AuthenticationService,
     private router: Router
@@ -36,11 +34,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.user$.subscribe(user => this.user = user);
-    if(this.user != null){
-      this.router.navigate(['/dashboard'])
+  this.authenticationService.user$.subscribe(user => {
+    this.user = user;
+    if (this.user != null) {
+      console.log(this.user.name);
+      this.router.navigate(['/dashboard']);
     }
-
+  });
     this.loginForm = new FormGroup({
       emailAddress: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
@@ -58,10 +58,15 @@ export class LoginComponent implements OnInit {
       const password = this.loginForm.value.password;
       this.authenticationService
         .login(emailAddress, password)
-        .subscribe((user) => {
-          if (user) {
-            console.log('Routing towards');
-            this.router.navigate(['/dashboard']);
+        .subscribe({
+          next: (user) =>{
+            if (user) {
+              console.log('Routing towards');
+              this.router.navigate(['/dashboard']);
+            }
+          },
+          error: (error) => {
+            this.errorMessage = `Invalid email or password`;
           }
         });
     } else {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule,Location } from '@angular/common';
-import { AuthenticationService } from '../../user/authentication.service';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { IImage, IUser } from '@sharemunity-workspace/shared/api';
 import {
   FormControl,

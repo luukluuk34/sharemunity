@@ -6,8 +6,6 @@ import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'sharemunity-workspace-register',
-  standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

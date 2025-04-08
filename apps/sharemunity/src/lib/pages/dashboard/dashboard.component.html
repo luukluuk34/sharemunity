@@ -4,13 +4,29 @@
     <div *ngIf="user">
         <div>
             <h5>My communities</h5>
-            <sharemunity-community-list filterType="owned"></sharemunity-community-list>
+            <sharemunity-community-list (communityHasList)="getMyCommunities($event)" filterType="owned"></sharemunity-community-list>
+            <div *ngIf="!myCommunityEmpty">
+                <h6>No communities consider creating one.</h6>
+            </div>
         </div>
-        <div *ngIf="">
+        <div>
             <h5>Joined Communties</h5>
-            <sharemunity-community-list filterType="joined"></sharemunity-community-list>
+            <sharemunity-community-list (communityHasList)="getMyJoinedCommunities($event)" filterType="joined"></sharemunity-community-list>
+            <div *ngIf="!myJoinedCommuntiesEmpty">
+                <h6>No Joined communities consider joining one.</h6>
+            </div>
         </div>
+        <div>
+            <h5>My products</h5>
+            <div *ngIf="user && user._id">
+                <sharemunity-product-list (productHasList)="getMyProducts($event)" personalProductsId="{{user._id}}"></sharemunity-product-list>
+            </div>
+            <div *ngIf="!myProducts">
+                <h6>Consider creating some products</h6>
+            </div>
 
+        </div>
+    
     </div>
 
 </div>

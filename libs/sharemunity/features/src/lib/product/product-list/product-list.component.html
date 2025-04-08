@@ -1,7 +1,14 @@
-<div *ngFor="let product of products">
-    <h2>{{product.name}}</h2>
-    <p>Beschrijving: {{product.description}}</p>
-    <p>Status: {{product.status}} </p>
-    <a routerLink="/product/{{product.id}}" class="btn btn-primary">View prod</a>
-
+<div class="row">
+    <div *ngFor="let product of products" class="col-sm-3" style="width: 18rem;">
+        <div class="card">
+            <img class="card-img-top" [src]="product.images[0].path">
+            <div class="card-body">
+                <div class="">
+                    <h5>{{product.name}}</h5>
+                    <p class="card-text">{{product.description}}</p>
+                    <a class="ViewButton" routerLink="/product/{{product.id}}">View Product details</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -19,10 +19,15 @@ export class ProductController {
         return this.productService.findAll();
     }
 
-    @Get('all/:id')
-    getAllByCommunity(@Param('id') id:string):Promise<IProduct[]>{
-        return this.productService.findAll();
+    @Get(':communityId/products')
+    getAllByCommunity(@Param('communityId') id:string):Promise<IProduct[]>{
+        return this.productService.findAllByCommunity(id);
     }
+    @Get('user/:id')
+    getAllByUser(@Param('id') id:string):Promise<IProduct[]>{
+        return this.productService.findAllByUser(id);
+    }
+
 
     @Get(':id')
     getOne(@Param('id') id: string): Promise<IProduct | null> {

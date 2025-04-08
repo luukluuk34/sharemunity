@@ -10,8 +10,7 @@ import { ReservationService } from '../reservation.service';
 import { ProductService } from '../../product/product.service';
 import { IProduct, IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../../user/authentication.service';
-
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 
 @Component({
   selector: 'sharemunity-workspace-reservation-form',

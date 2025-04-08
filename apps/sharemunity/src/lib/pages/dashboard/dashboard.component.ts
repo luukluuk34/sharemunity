@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IUser, IUserIdentity } from '@sharemunity-workspace/shared/api';
+import { ICommunity, IUser, IUserIdentity } from '@sharemunity-workspace/shared/api';
 import { UserService } from 'libs/sharemunity/features/src/lib/user/user.service';
 import { LoginComponent } from "../../authentication/login/login.component";
 import { FeaturesModule } from "../../../../../../libs/sharemunity/features/src/lib/features.module";
@@ -9,8 +9,6 @@ import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/au
 
 @Component({
   selector: 'sharemunity-workspace-dashboard',
-  standalone: true,
-  imports: [CommonModule, LoginComponent, FeaturesModule,RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -18,6 +16,10 @@ export class DashboardComponent implements OnInit {
   private userService:UserService;
   protected user:IUser | null = null;
   protected authService:AuthenticationService;
+
+  protected myCommunityEmpty:boolean = false;
+  protected myJoinedCommuntiesEmpty:boolean = false;
+  protected myProducts:boolean = false;
 
   constructor(userService:UserService,private router:Router, authenticationService:AuthenticationService){
     this.userService = userService;
@@ -34,6 +36,18 @@ export class DashboardComponent implements OnInit {
       console.log(this.user);
       this.router.navigate(['/login'])
     }
+  }
+
+  getMyCommunities(com:boolean){
+    console.log(`Boolean: ${com}`)
+    this.myCommunityEmpty = com;
+  }
+  getMyJoinedCommunities(com:boolean){
+    console.log(`Boolean: ${com}`)
+    this.myJoinedCommuntiesEmpty = com;
+  }
+  getMyProducts(prod:boolean){
+    this.myProducts = prod;
   }
 
 

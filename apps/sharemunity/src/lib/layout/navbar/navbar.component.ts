@@ -5,8 +5,6 @@ import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/au
 import { IUser } from '@sharemunity-workspace/shared/api';
 @Component({
   selector: 'sharemunity-navbar',
-  standalone: true,
-  imports: [CommonModule,RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

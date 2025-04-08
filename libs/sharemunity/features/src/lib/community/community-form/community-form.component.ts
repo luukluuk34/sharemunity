@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms'
-import { AuthenticationService } from '../../user/authentication.service';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { CommunityService } from '../community.service';
 import { uploadImageFileValidator } from '@sharemunity-workspace/sharemunity/common';
 import { ICreateImage } from '@sharemunity-workspace/shared/api';

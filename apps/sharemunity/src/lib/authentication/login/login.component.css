@@ -3,6 +3,14 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
+
+.error{
+  color:red;
+  font-weight: bold;
+  text-align: center;
+  font-size: 18px;
+}
+
 .loginForm {
   background-color: #ffffff;
   width: 400px;

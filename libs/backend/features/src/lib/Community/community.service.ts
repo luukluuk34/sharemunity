@@ -38,10 +38,10 @@ export class CommunityService {
     return communities;
   }
 
-  async findJoinedCommunities(_id: string): Promise<ICommunity[]> {
+  async findJoinedCommunities(req: any): Promise<ICommunity[]> {
     this.logger.log('Finding all communities');
     const communities = await this.communityModel
-      .find({ members: { $in: [_id] } })
+      .find({ members: { $in: [req.user.user_id] } })
       .populate('owner', 'name emailAddress address')
       .populate('members', 'name emailAddress address')
       .populate('products', 'name description images maxUseTime status owner')
@@ -49,15 +49,31 @@ export class CommunityService {
     return communities;
   }
 
-  async findOwnedCommunities(_id: string): Promise<ICommunity[]> {
+  async findOwnedCommunities(req: any): Promise<ICommunity[]> {
+    this.logger.debug(req);
     const communities = await this.communityModel
-      .find({ owner: _id })
+      .find({ owner: req.user.user_id })
       .populate('owner', 'name emailAddress address')
       .populate('members', 'name emailAddress address')
       .populate('products', 'name')
       .exec();
     return communities;
   }
+
+  async findOtherCommunities(req:any):Promise<ICommunity[]>{
+    const communities = await this.communityModel
+    .find({ 
+      owner: {$nin: [req.user.user_id]},
+      members: {$nin: [req.user.user_id]}  
+    })
+    .populate('owner', 'name emailAddress address')
+    .populate('members', 'name emailAddress address')
+    .populate('products', 'name')
+    .exec();
+  return communities;
+  }
+  
+
 
   async findOne(_id: string): Promise<ICommunity | null> {
     this.logger.log(`Finding community with id ${_id}`);
@@ -126,7 +142,8 @@ export class CommunityService {
         description: community.description,
         communityImage: community.communityImage,
         creationDate: community.creationDate,
-        products: community.products
+        products: community.products,
+        members: community.members,
       };
     return this.communityModel
       .findByIdAndUpdate({_id}, updateData, { new: true })

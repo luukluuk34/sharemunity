@@ -4,8 +4,6 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { ApiResponse, ICommunity, ICreateCommunity, IImage, IProduct, IReservation } from '@sharemunity-workspace/shared/api';
 import { Injectable } from '@angular/core';
 import {environment} from '@sharemunity/shared/util-env';
-import { AuthenticationService } from '../user/authentication.service';
-import { response } from 'express';
 
 /**
  * See https://angular.io/guide/http#requesting-data-from-a-server

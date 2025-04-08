@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { UserService } from '../user.service';
 import { IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, RouterLink } from '@angular/router';

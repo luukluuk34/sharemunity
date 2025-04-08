@@ -6,7 +6,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { NgModule } from '@angular/core';
 import { CommunityListComponent } from './community/community-list/community-list.component';
 import { CommunityService } from './community/community.service';
-import { AuthenticationService } from './user/authentication.service';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { UserService } from './user/user.service';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { CommunityMainComponent } from './community/community-main/community-main.component';
@@ -27,9 +27,7 @@ import { MyReservationListComponent } from './reservation/my-reservation-list/my
       CommonModule,
       ReactiveFormsModule,
       HttpClientModule,
-      CommunityMainComponent,
-      RouterModule,
-      ProductListComponent,
+      RouterModule
     ],
     declarations: [
       CommunityListComponent,
@@ -42,6 +40,8 @@ import { MyReservationListComponent } from './reservation/my-reservation-list/my
       MyReservationListComponent,
       UserDetailComponent,
       CommunityFormComponent,
+      CommunityMainComponent,
+      ProductListComponent,
     ],
     providers: [ProductService,CommunityService,AuthenticationService,UserService,ReservationService],
     exports:[ProductListComponent,CommunityListComponent]

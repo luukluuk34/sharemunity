@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommunityService } from '../community.service';
 import { environment } from '@sharemunity/shared/util-env';
 import { ProductService } from '../../product/product.service';
-import { AuthenticationService } from '../../user/authentication.service';
+import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 
 @Component({
   selector: 'sharemunity-workspace-community-detail',
@@ -54,7 +54,7 @@ export class CommunityDetailComponent implements OnInit {
   getCommnityBannerImage() {
     if (this.community) {
       console.log('Owner;' + this.community.owner._id);
-      if (this.community.communityImage?.path) {
+      if (this.community.communityImage?.path && !(this.community.communityImage.path.includes(environment.dataApiUrl))) {
         this.community.communityImage.path =  this.getImageUrl(this.community.communityImage.path);
       }
     }

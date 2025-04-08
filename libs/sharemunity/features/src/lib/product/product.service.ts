@@ -49,6 +49,46 @@ export class ProductService {
             );
     }
 
+    public listByCommunity(id:string,options?: any){
+        console.log(`list ${this.endpoint}`);
+        const backend = this.endpoint + "/" +id + "/products";
+        return this.http
+            .get<ApiResponse<IProduct[]>>(backend, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                map((response: any) => 
+                    response.results.map((item:any) => ({
+                        ...item,
+                        id: item._id,
+                    })) 
+            ),
+                tap(console.log),
+                catchError(this.handleError)
+            );
+    }
+
+    public listByUser(id:string,options?: any): Observable<IProduct[] | null> {
+        console.log(`list ${this.endpoint}`);
+        const backend = this.endpoint + "/user/" + id;
+        return this.http
+            .get<ApiResponse<IProduct[]>>(backend, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                map((response: any) => 
+                    response.results.map((item:any) => ({
+                        ...item,
+                        id: item._id,
+                    })) 
+            ),
+                tap(console.log),
+                catchError(this.handleError)
+            );
+    }
+
     /**
      * Get a single item from the service.
      *

@@ -1,0 +1,44 @@
+.title{
+    text-align: center;
+}
+
+.card {
+    flex: 1 0 auto;
+  }
+
+.card-img-top{
+    height:150px;
+    width:100%;
+}
+.ViewButton{
+    cursor: pointer;
+    text-decoration:none ;
+    color: #fff;
+    background: linear-gradient(to right, #9c27b0, #e040fb);
+    border: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top:70px;
+    font-size: 16px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+}
+
+.ViewButton:hover{
+    border: 1px solid rgba(0, 0, 0, 0.18) !important;
+}
+
+.changeButton {
+    text-align: center;
+}
+
+.button {
+    opacity: 0.5;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.button:hover{
+    opacity: 1.0;
+}
