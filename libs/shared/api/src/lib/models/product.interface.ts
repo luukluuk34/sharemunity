@@ -1,6 +1,6 @@
 import {Id} from './id.type';
 import { IImage } from './image.interface';
-import { IUserIdentity } from './user.interface';
+import { IUser, IUserIdentity } from './user.interface';
 
 export enum ProductStatus {
     Available = 'Available',
@@ -8,8 +8,8 @@ export enum ProductStatus {
     InUse = 'InUse',
 }
 
-type Owner = IUserIdentity;
-type Enjoyer = IUserIdentity;
+type Owner = IUser;
+type Enjoyer = IUser;
 
 export interface IProduct {
     id:Id;

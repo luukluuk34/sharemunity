@@ -67,7 +67,11 @@ export class ReservationService {
 
   async findOne(_id: string): Promise<IReservation | null> {
     this.logger.log(`finding Reservation with id ${_id}`);
-    const item = await this.reservationModel.findOne({ _id }).exec();
+    const item = await this.reservationModel
+      .findOne({ _id })
+      .populate('enjoyer')
+      .populate('owner')
+      .exec();
     if (!item) {
       this.logger.debug('Item not found');
     }
@@ -76,7 +80,11 @@ export class ReservationService {
 
   async findOneFromProdId(_id:string):Promise<IReservation | null>{
     this.logger.log(`Finding reservation from product ID ${_id}`);
-    const item =  await this.reservationModel.findOne({product:_id}).exec()
+    const item =  await this.reservationModel
+      .findOne({product:_id})
+      .populate('enjoyer')
+      .populate('owner')
+      .exec()
     if(!item){
       this.logger.debug(`Reservation not found`);
     }

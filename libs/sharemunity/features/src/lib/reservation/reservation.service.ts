@@ -111,7 +111,14 @@ export class ReservationService {
                 ...httpOptions,
             })
             .pipe(
-                map((response: any) => response.results as IReservation[]),
+                map((response: any) => {
+                    let reservation = response.results;
+                    if(reservation){
+                        reservation.id = reservation._id;
+                        delete reservation._id;
+                    }
+                    return reservation;
+                }),
                 tap(console.log),
                 catchError(this.handleError)
             );
@@ -129,11 +136,18 @@ export class ReservationService {
             responseType: 'json' as const
         };
         return this.http
-            .get<ApiResponse<IReservation[]>>(backend, {
+            .get<ApiResponse<IReservation>>(backend, {
                 ...httpOptions,
             })
             .pipe(
-                map((response: any) => response.results as IReservation[]),
+                map((response: any) => {
+                    let reservation = response.results;
+                    if(reservation){
+                        reservation.id = reservation._id;
+                        delete reservation._id;
+                    }
+                    return reservation;
+                }),
                 tap(console.log),
                 catchError(this.handleError)
             );

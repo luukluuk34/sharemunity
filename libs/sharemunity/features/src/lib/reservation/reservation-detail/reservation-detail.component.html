@@ -1,1 +1,13 @@
-<p>reservation-detail works!</p>
+<div *ngIf="reservation">
+    <div class="reservationCard">
+        <h5>{{reservation.product.name}}</h5>
+        <p> Reserved By: <b>{{reservation.enjoyer.name}}</b></p>
+        <i><p>{{reservation.message}}</p></i>
+        <p>Pickup at: {{reservation.pickup_date.getDate()}}-{{reservation.pickup_date.getMonth()}}-{{reservation.pickup_date.getFullYear()}}</p>
+        <p *ngIf="reservation.end_date">Delivered back before: {{reservation.end_date.getDate()}}-{{reservation.end_date.getMonth()}}-{{reservation.end_date.getFullYear()}}</p>
+        <div *ngIf="loggedInUser && reservation.reservation_status == reservationStatus.Pending && reservation.enjoyer._id == loggedInUser._id ||loggedInUser && reservation.reservation_status == reservationStatus.Accepted && loggedInUser._id == reservation.owner._id">
+            <button class="btn btn-danger" (click)="deleteReservation()">Remove</button>
+        </div>
+        
+    </div>
+</div>

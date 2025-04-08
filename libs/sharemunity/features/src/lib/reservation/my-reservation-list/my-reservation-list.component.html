@@ -5,6 +5,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{reservation.product.name}}</h5>
                 <p class="card-text">Reserved By: <b>{{reservation.enjoyer.name}}</b></p>
+                <p class="card-text">Owned by; <b>{{reservation.owner.name}}</b></p>
                 <p class="card-text">Message: <b>{{reservation.message}}</b></p>
                 <p class="card-text">I would like to pick this up at: <b>{{reservation.pickup_date.toISOString().split('T')[0]}}</b></p>
                 <div *ngIf="reservation.end_date">

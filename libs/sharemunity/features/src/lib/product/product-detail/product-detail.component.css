@@ -28,3 +28,25 @@ h1{
   width: 200px;
   height:300px;
 }
+
+.product-top-header{
+  text-align: center;
+}
+
+.product-text-wrapper{
+  /* text-align: center; */
+  font-size: 20px;
+  width: 300px;
+  /* justify-content: center; */
+  margin: auto;
+  margin-top: 40px;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}

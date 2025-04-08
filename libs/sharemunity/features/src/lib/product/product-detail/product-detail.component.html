@@ -1,26 +1,31 @@
 <div *ngIf="product">
   <h1>{{ product.name }}</h1>
 
-  <div class="product-image-wrapper">
-    <div *ngFor="let img of product.images">
-      <img [src]="img.path" class="product-image" />
+  <div class="product-top-header">
+    <h5><i>Owner: {{product.owner.name}}</i></h5>
+    <div *ngIf="!reservation && !checkIfUserIsOwner()">
+        <p *ngIf="product.maxUseTime">You can reserve this for up to: {{product.maxUseTime}} weeks</p>
+        <button class="btn btn-secondary" (click)="openPopupCreateReservation()">Reserve product</button>
+      </div>
+    <div class="product-image-wrapper">
+      <div *ngFor="let img of product.images">
+        <img [src]="img.path" class="product-image" />
+      </div>
     </div>
-  </div>
-  <h5>{{product.owner.name}}</h5>
-
-  <div *ngIf="!reservation && !checkIfUserIsOwner()">
-    <button class="btn btn-secondary" (click)="openPopupCreateReservation()">Reserve product</button>
+    <div class="product-text-wrapper">
+        <p>{{product.description}}</p>
+    </div>
   </div>
 
   <div *ngIf="reservation">
-    <sharemunity-workspace-reservation-detail></sharemunity-workspace-reservation-detail>
+    <sharemunity-workspace-reservation-detail (reservationDeleted)="reservationDeleted()" [reservationId]="reservation.id"></sharemunity-workspace-reservation-detail>
   </div>
 
 
-  <div *ngIf="checkIfUserIsOwner()">
+  <div *ngIf="checkIfUserIsOwner()" class="buttonDiv">
     <button class="btn btn-success" (click)="openPopupAddToCommunity()">Add to community</button>
-    <button class="btn btn-info">Update Product</button>
-    <button class="btn btn-danger" (click)="deleteProduct()">Delete Product</button>
+    <button *ngIf="!reservation" class="btn btn-info">Update Product</button>
+    <button *ngIf="!reservation" class="btn btn-danger" (click)="deleteProduct()">Delete Product</button>
   </div>
 
   <div *ngIf="createReservationForProduct" class="overlay">

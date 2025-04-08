@@ -10,6 +10,7 @@ import {
     ICreateProduct,
     IUpdateProduct,
     IUpsertProduct,
+    IUser,
     IUserIdentity,
     ProductStatus
 } from '@sharemunity-workspace/shared/api';
@@ -45,11 +46,11 @@ export class UpsertProductDto implements IUpsertProduct {
 
     @IsString()
     @IsNotEmpty()
-    owner!: IUserIdentity;
+    owner!: IUser;
 
     @IsString()
     @IsNotEmpty()
-    enjoyer!: IUserIdentity;
+    enjoyer!: IUser;
 
     @IsString()
     @IsNotEmpty()
@@ -74,7 +75,7 @@ export class UpsertProductDto implements IUpsertProduct {
 export class UpdateProductDto implements IUpdateProduct {
     @IsString()
     @IsNotEmpty()
-    enjoyer!: IUserIdentity;
+    enjoyer!: IUser;
 
     @IsString()
     @IsNotEmpty()

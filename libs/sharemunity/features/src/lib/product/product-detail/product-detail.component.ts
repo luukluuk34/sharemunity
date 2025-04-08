@@ -68,6 +68,10 @@ export class ProductDetailComponent implements OnInit {
       'http://' + environment.dataApiUrl + '/' + localPath.replace(/\\/g, '/'));
   }
 
+  reservationDeleted(){
+    this.reservation = null;
+  }
+
   getLocalProductImages() {
     if (this.product) {
       this.product.images.forEach((img) => {
@@ -77,7 +81,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   checkIfUserIsOwner(): boolean {
-    return this.loggedInUser?._id == this.product?.owner;
+    return this.loggedInUser?._id == this.product?.owner._id;
   }
 
   deleteProduct() {
