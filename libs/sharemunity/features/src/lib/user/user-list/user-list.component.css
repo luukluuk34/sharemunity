@@ -1,0 +1,70 @@
+  .overflow-x {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    /* border: 1px solid hsl(0 0% 80%); */
+    border-radius: 1ex;
+    background-color: var(--surface2);
+    padding: 2rem;
+  }
+  
+  .horizontal-friends-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 10ch;
+    gap: 2rem;
+  
+    & > figure {
+      display: grid;
+      gap: 1ex;
+      margin: 0;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .2s ease-in-out;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+  
+      &:last-child::after {
+        content: "";
+        position: absolute;
+        width: 2rem;
+        height: 100%;
+        right: -2rem;
+        inline-size: 2rem;
+        block-size: 100%;
+        inset-end: -2rem;
+      }
+  
+      & > picture {
+        display: inline-block;
+        inline-size: 10ch;
+        block-size: 10ch;
+        border-radius: 50%;
+  
+        background: 
+          radial-gradient(hsl(0 0% 0% / 15%) 60%, transparent 0),
+          radial-gradient(white 65%, transparent 0),
+          linear-gradient(to top right, orange, deeppink);
+  
+        & > img {
+          display: block;
+          inline-size: 100%;
+          block-size: 100%;
+          object-fit: cover;
+          clip-path: circle(42%);
+        }
+      }
+  
+      & > figcaption {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+
+      
+    }
+  }

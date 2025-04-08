@@ -21,4 +21,7 @@
             </div>
         </div>
     </div>
+    <div *ngIf="!myReservations || myReservations.length == 0">
+        <p>You do not have any reservations</p>
+    </div>
 </div>

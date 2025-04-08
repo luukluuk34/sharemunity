@@ -2,14 +2,16 @@ import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User as UserModel, UserDocument } from './user.schema';
-import { IUser, IUserInfo } from '@sharemunity-workspace/shared/api';
+import { IUser, IUserIdentity, IUserInfo } from '@sharemunity-workspace/shared/api';
 import { CreateUserDto, UpdateUserDto } from '@sharemunity-workspace/backend/dto';
+import { Community as CommunityModel,CommunityDocument } from 'libs/backend/features/src/lib/community/community.schema';
 
 @Injectable()
 export class UserService {
     private readonly logger: Logger = new Logger(UserService.name);
 
     constructor(
+        @InjectModel(CommunityModel.name) private communityModel: Model<CommunityDocument>,
         @InjectModel(UserModel.name) private userModel: Model<UserDocument>
     ) {}
 
@@ -17,6 +19,18 @@ export class UserService {
         this.logger.log(`Finding all items`);
         const items = await this.userModel.find();
         return items;
+    }
+
+    async findAllInCommunity(id:string):Promise<IUserIdentity[] | null>{
+        this.logger.log(`Finding all users in community ${id}`)
+        const community = await this.communityModel
+            .findById({_id:id})
+            .populate('members')
+            .exec()
+        if(community){
+            return community.members;
+        }
+        return [];
     }
 
     async findOne(_id: string): Promise<IUser | null> {

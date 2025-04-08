@@ -15,11 +15,14 @@ export class UserService {
     constructor(private readonly http: HttpClient) { }
 
 
-    public list(options?: any): Observable<IUser[] | null> {
-        console.log(`list ${this.endpoint}`);
-
+    public list(id?:string, options?: any): Observable<IUser[] | null> {
+        let backend = this.endpoint;
+        if(id){
+            backend = backend + "/all/" + id;
+        }
+        console.log(`list ${backend}`);
         return this.http
-            .get<ApiResponse<IUser[]>>(this.endpoint, {
+            .get<ApiResponse<IUser[]>>(backend, {
                 ...options,
                 ...httpOptions,
             })

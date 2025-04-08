@@ -8,7 +8,7 @@ import {
     UseGuards
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { IUserInfo, IUser } from '@sharemunity-workspace/shared/api';
+import { IUserInfo, IUser, IUserIdentity } from '@sharemunity-workspace/shared/api';
 import { CreateUserDto, UpdateUserDto } from '@sharemunity-workspace/backend/dto';
 import { UserExistGuard } from './user-exists.guard';
 
@@ -20,6 +20,12 @@ export class UserController {
     async findAll(): Promise<IUserInfo[]> {
         return this.userService.findAll();
     }
+    @Get('all/:id')
+    async findAllByCommunity(@Param('id') id:string):Promise<IUserIdentity[] | null>{
+        return this.userService.findAllInCommunity(id);
+    }
+
+
 
     // this method should precede the general getOne method, otherwise it never matches
     // @Get('self')

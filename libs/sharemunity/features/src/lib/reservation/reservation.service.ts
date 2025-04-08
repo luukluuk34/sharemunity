@@ -95,7 +95,7 @@ export class ReservationService {
      * Get a single item from the service.
      *
      */
-    public read(id:string,options?: any): Observable<IReservation[] | null> {
+    public read(id:string,options?: any): Observable<IReservation | null> {
         console.log(`list ${this.endpoint}`);
         const backend = this.endpoint + "/" + id;
         const token = localStorage.getItem(this.CURRENT_TOKEN);

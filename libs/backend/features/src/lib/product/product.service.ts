@@ -56,7 +56,11 @@ export class ProductService {
 
   async findOne(_id: string): Promise<IProduct | null> {
     this.logger.log(`finding Product with id ${_id}`);
-    const item = await this.productModel.findOne({ _id }).exec();
+    const item = await this.productModel
+      .findOne({ _id })
+      .populate('owner')
+      .populate('enjoyer')
+      .exec();
     if (!item) {
       this.logger.debug('Item not found');
     }

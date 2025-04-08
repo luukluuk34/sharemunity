@@ -20,6 +20,8 @@ import { ReservationService } from './reservation/reservation.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReservationPendingListComponent } from './reservation/reservation-pending-list/reservation-pending-list.component';
 import { MyReservationListComponent } from './reservation/my-reservation-list/my-reservation-list.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { ReservationDetailComponent } from './reservation/reservation-detail/reservation-detail.component';
 
 
 @NgModule({
@@ -37,8 +39,10 @@ import { MyReservationListComponent } from './reservation/my-reservation-list/my
       ProductFormComponent,
       ReservationFormComponent,
       ReservationPendingListComponent,
+      ReservationDetailComponent,
       MyReservationListComponent,
       UserDetailComponent,
+      UserListComponent,
       CommunityFormComponent,
       CommunityMainComponent,
       ProductListComponent,
