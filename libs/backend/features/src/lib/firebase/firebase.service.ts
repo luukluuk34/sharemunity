@@ -16,7 +16,8 @@ export class FirebaseService {
     }
     let parsedCredentials: admin.ServiceAccount;
     try{
-      parsedCredentials = JSON.parse(firebaseCredentials) as admin.ServiceAccount;
+      console.log("-test")
+      parsedCredentials = JSON.parse(Buffer.from(firebaseCredentials,'base64').toString('utf-8')) as admin.ServiceAccount;
     }catch(error){
       throw new Error("Invalid FIREBASE_CREDENTIALS JSON FORMAT");
     }
