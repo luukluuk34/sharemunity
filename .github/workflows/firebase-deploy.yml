@@ -91,7 +91,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20 # Adjust the Node.js version as needed
-          
+
       - name: Display Files 1 (Optional - for debuging)
         run: |
           ls -la
@@ -113,9 +113,9 @@ jobs:
         run: |
           ls -la dist/apps/data-api
 
-      - name: Install dependencies
-        run: |
-          npm install
+      # - name: Install dependencies
+      #   run: |
+      #     npm install
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
