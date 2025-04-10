@@ -11,6 +11,7 @@ export class CommunityController{
 
     @Get('')
     getAll(): Promise<ICommunity[]> {
+        console.log("test");
         return this.communityService.findAll();
     }
 
