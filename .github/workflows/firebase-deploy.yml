@@ -101,14 +101,13 @@ jobs:
         run: |
           ls -la
 
-
       - name: Unzip artifact for deployment
         run: |
           unzip data-api-release.zip
 
-      - name: Display Files 2 (Optional - for debuging)
+      - name: Display Files 2 (Optional - for debugging)
         run: |
-          ls -la
+          ls -la dist/apps/data-api
 
 
       - name: Remove files
