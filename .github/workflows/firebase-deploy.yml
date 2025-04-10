@@ -45,36 +45,36 @@ jobs:
           name: data-api
           path: data-api-release.zip
 
-  deploy-frontend:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
+  # deploy-frontend:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   environment:
+  #     name: 'Production'
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: sharemunity
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: sharemunity
 
-      - name: Unzip artifact for deployment
-        run: |
-          unzip sharemunity-release.zip
-      - name: Display Files (Optional - for debugging)
-        run: |
-          cd ${GITHUB_WORKSPACE}
-          ls -la
-      - name: Deploy to Firebase
-        run: |
-          npm install -g firebase-tools
-          firebase use "$APP_NAME"
-          firebase deploy --token "$FIREBASE_TOKEN" --project firebase-sharemunity --only hosting:sharemunity
-        env:
-          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
-          APP_NAME: firebase-sharemunity
+  #     - name: Unzip artifact for deployment
+  #       run: |
+  #         unzip sharemunity-release.zip
+  #     - name: Display Files (Optional - for debugging)
+  #       run: |
+  #         cd ${GITHUB_WORKSPACE}
+  #         ls -la
+  #     - name: Deploy to Firebase
+  #       run: |
+  #         npm install -g firebase-tools
+  #         firebase use "$APP_NAME"
+  #         firebase deploy --token "$FIREBASE_TOKEN" --project firebase-sharemunity --only hosting:sharemunity
+  #       env:
+  #         FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+  #         APP_NAME: firebase-sharemunity
 
   deploy-backend:
     runs-on: ubuntu-latest
@@ -97,9 +97,19 @@ jobs:
         with:
           name: data-api
 
+      - name: Display Files 1 (Optional - for debuging)
+        run: |
+          ls -la
+
+
       - name: Unzip artifact for deployment
         run: |
           unzip data-api-release.zip
+
+      - name: Display Files 2 (Optional - for debuging)
+        run: |
+          ls -la
+
 
       - name: Remove files
         run: |
@@ -107,9 +117,8 @@ jobs:
           rm -rf dist 
           rm -rf public
           rm -rf libs
-          rm -f data-api-release.zip
 
-      - name: Display Files (Optional - for debuging)
+      - name: Display Files 3 (Optional - for debuging)
         run: |
           ls -la
 
