@@ -91,13 +91,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20 # Adjust the Node.js version as needed
+          
+      - name: Display Files 1 (Optional - for debuging)
+        run: |
+          ls -la
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: data-api
 
-      - name: Display Files 1 (Optional - for debuging)
+      - name: Display Files 2 (Optional - for debuging)
         run: |
           ls -la
 
@@ -105,33 +109,13 @@ jobs:
         run: |
           unzip data-api-release.zip
 
-      - name: Display Files 2 (Optional - for debugging)
+      - name: Display Files 3 (Optional - for debugging)
         run: |
           ls -la dist/apps/data-api
 
-
-      - name: Remove files
-        run: |
-          rm -rf apps
-          rm -rf public
-          rm -rf libs
-
-      - name: Display Files 3 (Optional - for debuging)
-        run: |
-          ls -la
-
       - name: Install dependencies
         run: |
-          npm install @nestjs/common
-          npm install @nestjs/core
-          npm install @nestjs/platform-express
-          npm install axios
-          npm install class-transformer
-          npm install class-validator
-          npm install reflect-metadata
-          npm install rxjs
-          npm install tslib
-          npm install zone.js
+          npm install
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
@@ -140,4 +124,4 @@ jobs:
           app-name: 'sharemunity-api'
           slot-name: 'Production'
           publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-          package: dist
+          package: .
