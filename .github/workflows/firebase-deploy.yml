@@ -84,15 +84,6 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20 # Adjust the Node.js version as needed
-
-      - name: Display Files 1 (Optional - for debuging)
-        run: |
-          ls -la
-
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
@@ -104,7 +95,7 @@ jobs:
 
       - name: Display Files 3 (Optional - for debugging)
         run: |
-          ls -la dist/apps/data-api
+          ls -la 
 
       - name: Install dependencies
         run: |
