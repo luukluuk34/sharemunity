@@ -113,9 +113,9 @@ jobs:
         run: |
           ls -la dist/apps/data-api
 
-      # - name: Install dependencies
-      #   run: |
-      #     npm install
+      - name: Install dependencies
+        run: |
+          npm install
 
       - name: Deploy to azure Web App
         id: deploy-to-webapp
