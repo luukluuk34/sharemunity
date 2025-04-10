@@ -26,8 +26,13 @@ jobs:
 
       - name: Zip artifacts for deployment
         run: |
-          zip -r data-api-release.zip dist/apps/data-api
-          zip -r sharemunity-release.zip dist/apps/sharemunity
+          echo ${GITHUB_WORKSPACE}
+          cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ && zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
+          cd ${GITHUB_WORKSPACE}/dist/apps/sharemunity/ && zip ${GITHUB_WORKSPACE}/sharemunity-release.zip ./* -r
+
+
+      # zip -r data-api-release.zip dist/apps/data-api
+      # zip -r sharemunity-release.zip dist/apps/sharemunity
       # - name: Display Files (Optional - for debugging)
       #   run: |
       #     cd ${GITHUB_WORKSPACE}
