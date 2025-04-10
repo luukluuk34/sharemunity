@@ -109,6 +109,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npm install firebase-admin
           echo test
 
       - name: Deploy to azure Web App
