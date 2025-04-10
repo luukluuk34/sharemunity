@@ -11,7 +11,7 @@ export const httpOptions = {
 
 @Injectable()
 export class UserService {
-    endpoint = 'http://' + environment.dataApiUrl + '/user';
+    endpoint = environment.dataApiUrl + '/user';
     constructor(private readonly http: HttpClient) { }
 
 

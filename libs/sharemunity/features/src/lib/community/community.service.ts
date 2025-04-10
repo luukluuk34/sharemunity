@@ -19,7 +19,7 @@ export class CommunityService {
     private readonly CURRENT_TOKEN = 'currenttoken';
 
     //TODO Delete in prod
-    endpoint = 'http://' + environment.dataApiUrl + '/community';
+    endpoint = environment.dataApiUrl + '/community';
 
     constructor(private readonly http: HttpClient) {}
 

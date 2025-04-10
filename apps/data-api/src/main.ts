@@ -16,7 +16,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const corsOptions: CorsOptions = {
-    origin:['http://localhost:4200','http://localhost:4200/*'],
+    origin:['http://localhost:4200','http://localhost:4200/*','https://fir-sharemunity.web.app/','https://fir-sharemunity.web.app/*'],
     methods:['GET','HEAD','POST','PUT','PATCH','DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     credentials:true
@@ -26,10 +26,11 @@ async function bootstrap() {
 
 
   const port = environment.port || 3000;
+  const running = environment.dataApiUrl;
   Logger.log("Prod: " + environment.production)
   await app.listen(port);
   Logger.log(
-    `Data API is running on: http://localhost:${port}/${globalPrefix}`
+    `Data API is running on: ${environment.dataApiUrl}`
   );
 }
 

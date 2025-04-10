@@ -17,7 +17,7 @@ export class AuthenticationService {
     private userSubject = new BehaviorSubject<IUser | null>(null);
     user$ = this.userSubject.asObservable();
 
-    endpoint = 'http://' + environment.dataApiUrl + '/auth';
+    endpoint = environment.dataApiUrl + '/auth';
    
     
     constructor(private readonly http: HttpClient) { 

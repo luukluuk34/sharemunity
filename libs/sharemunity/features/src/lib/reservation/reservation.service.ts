@@ -17,7 +17,7 @@ export const httpOptions = {
 export class ReservationService {
     private readonly CURRENT_TOKEN = 'currenttoken';
 
-    endpoint = 'http://' + environment.dataApiUrl + '/reservation';
+    endpoint = environment.dataApiUrl + '/reservation';
 
     constructor(private readonly http: HttpClient) {}
 

@@ -20,7 +20,7 @@ export const httpOptions = {
 @Injectable()
 export class ProductService {
     private readonly CURRENT_TOKEN = 'currenttoken';
-    endpoint = 'http://' + environment.dataApiUrl + '/product';
+    endpoint = environment.dataApiUrl + '/product';
 
     constructor(private readonly http: HttpClient) {}
 
