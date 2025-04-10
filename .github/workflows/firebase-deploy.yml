@@ -84,9 +84,6 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -100,10 +97,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: data-api
-
-      - name: Display Files 2 (Optional - for debuging)
-        run: |
-          ls -la
 
       - name: Unzip artifact for deployment
         run: |
@@ -124,4 +117,4 @@ jobs:
           app-name: 'sharemunity-api'
           slot-name: 'Production'
           publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-          package: dist/apps/data-api
+          package: .
