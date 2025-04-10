@@ -94,16 +94,19 @@ jobs:
         with:
           name: data-api
 
+      - name: Display Files 1 (Optional - for debugging)
+        run: |
+          ls -la 
+
       - name: Unzip artifact for deployment
         run: |
           unzip data-api-release.zip
 
-      - name: Display Files 3 (Optional - for debugging)
+      - name: Display Files 2 (Optional - for debugging)
         run: |
           ls -la 
 
       - name: Install dependencies
-        working-directory: dist/apps/data-api
         run: |
           npm install
 
@@ -114,4 +117,4 @@ jobs:
           app-name: 'sharemunity-api'
           slot-name: 'Production'
           publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-          package: dist/apps/data-api
+          package: .
