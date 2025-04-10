@@ -71,6 +71,7 @@ export class ProductService {
 
     public listByUser(id:string,options?: any): Observable<IProduct[] | null> {
         console.log(`list ${this.endpoint}`);
+        console.log("--listing-----s")
         const backend = this.endpoint + "/user/" + id;
         return this.http
             .get<ApiResponse<IProduct[]>>(backend, {

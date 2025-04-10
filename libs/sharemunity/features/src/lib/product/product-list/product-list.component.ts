@@ -34,6 +34,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
         if(this.personalProductsId){
             this.subscription = this.productService.listByUser(this.personalProductsId).subscribe((results) => {
+                console.log("-----------------------")
+                
                 this.products = results;
                 this.checkIfProducts();
                 this.getLocalProductImages();
@@ -63,7 +65,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
 
       getImageUrl(localPath:string):string{
-        return localPath = 'http://' + environment.dataApiUrl + "/" + localPath.replace(/\\/g, '/');
+        return localPath = environment.dataApiUrl + "/" + localPath.replace(/\\/g, '/');
       }
     
       getLocalProductImages(){
