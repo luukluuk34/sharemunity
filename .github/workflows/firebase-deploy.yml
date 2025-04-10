@@ -76,61 +76,61 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
           APP_NAME: firebase-sharemunity
 
-  deploy-backend:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  # deploy-backend:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   environment:
+  #     name: 'Production'
+  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20 # Adjust the Node.js version as needed
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 20 # Adjust the Node.js version as needed
 
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: data-api
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: data-api
 
-      - name: Unzip artifact for deployment
-        run: |
-          unzip data-api-release.zip
+  #     - name: Unzip artifact for deployment
+  #       run: |
+  #         unzip data-api-release.zip
 
-      - name: Remove files
-        run: |
-          rm -rf apps
-          rm -rf dist 
-          rm -rf public
-          rm -rf libs
-          rm -f data-api-release.zip
+  #     - name: Remove files
+  #       run: |
+  #         rm -rf apps
+  #         rm -rf dist 
+  #         rm -rf public
+  #         rm -rf libs
+  #         rm -f data-api-release.zip
 
-      - name: Display Files (Optional - for debuging)
-        run: |
-          ls -la
+  #     - name: Display Files (Optional - for debuging)
+  #       run: |
+  #         ls -la
 
-      - name: Install dependencies
-        run: |
-          npm install @nestjs/common
-          npm install @nestjs/core
-          npm install @nestjs/platform-express
-          npm install axios
-          npm install class-transformer
-          npm install class-validator
-          npm install reflect-metadata
-          npm install rxjs
-          npm install tslib
-          npm install zone.js
+  #     - name: Install dependencies
+  #       run: |
+  #         npm install @nestjs/common
+  #         npm install @nestjs/core
+  #         npm install @nestjs/platform-express
+  #         npm install axios
+  #         npm install class-transformer
+  #         npm install class-validator
+  #         npm install reflect-metadata
+  #         npm install rxjs
+  #         npm install tslib
+  #         npm install zone.js
 
-      - name: Deploy to azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'sharemunity-api'
-          slot-name: 'Production'
-          publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-          package: .
+  #     - name: Deploy to azure Web App
+  #       id: deploy-to-webapp
+  #       uses: azure/webapps-deploy@v3
+  #       with:
+  #         app-name: 'sharemunity-api'
+  #         slot-name: 'Production'
+  #         publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
+  #         package: .
