@@ -29,7 +29,7 @@ jobs:
           echo ${GITHUB_WORKSPACE}
           cd ${GITHUB_WORKSPACE}/dist/apps/data-api/ && zip ${GITHUB_WORKSPACE}/data-api-release.zip ./* -r
           cd ${GITHUB_WORKSPACE}/dist/apps/sharemunity/ && zip ${GITHUB_WORKSPACE}/sharemunity-release.zip ./* -r
-          cd ${GITHUB_WORKSPACE} zip ${GITHUB_WORKSPACE}/sharemunity-release.zip firebase.json .firebaserc
+          cd ${GITHUB_WORKSPACE} && zip ${GITHUB_WORKSPACE}/sharemunity-release.zip firebase.json .firebaserc
       
       - name: Display Files (Optional - for debugging)
         run: |
