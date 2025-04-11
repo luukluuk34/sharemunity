@@ -52,7 +52,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         console.log('Owner;' + community);
         if (community.communityImage?.path && !(community.communityImage.path.includes(environment.dataApiUrl))) {
           community.communityImage.path =
-            'http://' +
             environment.dataApiUrl +
             '/' +
             community.communityImage.path.replace(/\\/g, '/');

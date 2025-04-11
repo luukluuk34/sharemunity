@@ -61,7 +61,7 @@ export class CommunityDetailComponent implements OnInit {
   }
 
   getImageUrl(localPath:string):string{
-    return localPath = 'http://' + environment.dataApiUrl + "/" + localPath.replace(/\\/g, '/');
+    return localPath = environment.dataApiUrl + "/" + localPath.replace(/\\/g, '/');
   }
 
   getLocalProductImages(){
