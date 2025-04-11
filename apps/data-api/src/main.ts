@@ -16,7 +16,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const corsOptions: CorsOptions = {
-    origin:['http://localhost:4200','http://localhost:4200/*','https://fir-sharemunity.web.app/','https://fir-sharemunity.web.app/*'],
+    origin:['*'],
     methods:['GET','HEAD','POST','PUT','PATCH','DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     credentials:true
