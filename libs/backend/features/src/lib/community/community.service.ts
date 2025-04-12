@@ -57,6 +57,7 @@ export class CommunityService {
       .populate('members', 'name emailAddress address')
       .populate('products', 'name')
       .exec();
+    this.logger.debug(communities);
     return communities;
   }
 

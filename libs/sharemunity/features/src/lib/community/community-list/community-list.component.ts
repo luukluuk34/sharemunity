@@ -36,6 +36,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   loadCommunities(): void {
     this.subscription = this.communityService.list(this.filterType).subscribe((data) =>{
+      console.log(data);
       this.communities = data;
       if(this.communities && this.communities?.length > 0){
         this.communityHasList.emit(true);

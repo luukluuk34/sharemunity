@@ -1,13 +1,11 @@
 <div class="row">
-    <div *ngFor="let product of products" class="col-sm-3" style="width: 18rem;">
+    <div *ngFor="let product of products; let i = index" class="col-sm-3" style="width: 18rem;">
         <div class="card">
-            <img class="card-img-top" [src]="product.images[0].path">
+            <img class="card-img-top" [src]="product.images?.[i]?.path || 'assets/default-image.jpg'" alt="{{product.name}}">
             <div class="card-body">
-                <div class="">
-                    <h5>{{product.name}}</h5>
-                    <p class="card-text">{{product.description}}</p>
-                    <a class="ViewButton" routerLink="/product/{{product.id}}">View Product details</a>
-                </div>
+                <h5>{{product.name}}</h5>
+                <p class="card-text">{{product.description}}</p>
+                <a class="ViewButton" routerLink="/product/{{product.id}}">View Product details</a>
             </div>
         </div>
     </div>
