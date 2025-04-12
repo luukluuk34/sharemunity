@@ -1,8 +1,15 @@
 const { composePlugins, withNx } = require('@nx/webpack');
 
-// Nx plugins for webpack.
 module.exports = composePlugins(withNx(), (config) => {
-  // Update the webpack config as needed here.
-  // e.g. `config.plugins.push(new MyPlugin())`
+  // Combine existing externals (if any) with firebase-admin
+  const existingExternals = config.externals || [];
+
+  config.externals = [
+    ...[].concat(existingExternals),
+    {
+      'firebase-admin': 'commonjs firebase-admin',
+    },
+  ];
+
   return config;
 });

@@ -36,6 +36,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   loadCommunities(): void {
     this.subscription = this.communityService.list(this.filterType).subscribe((data) =>{
+      console.log(data);
       this.communities = data;
       if(this.communities && this.communities?.length > 0){
         this.communityHasList.emit(true);
@@ -52,7 +53,6 @@ export class CommunityListComponent implements OnInit, OnDestroy {
         console.log('Owner;' + community);
         if (community.communityImage?.path && !(community.communityImage.path.includes(environment.dataApiUrl))) {
           community.communityImage.path =
-            'http://' +
             environment.dataApiUrl +
             '/' +
             community.communityImage.path.replace(/\\/g, '/');

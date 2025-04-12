@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         if(this.personalProductsId){
             this.subscription = this.productService.listByUser(this.personalProductsId).subscribe((results) => {
                 console.log("-----------------------")
-                
+                console.log(results);
                 this.products = results;
                 this.checkIfProducts();
                 this.getLocalProductImages();
