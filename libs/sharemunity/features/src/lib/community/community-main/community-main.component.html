@@ -1,2 +1,24 @@
-<a class="submit" routerLink="/communities/form">Create Community</a>
-<sharemunity-community-list></sharemunity-community-list>
+<div class="colwrapper">
+    <a class="submit" routerLink="/communities/form">Create Community</a>
+</div>
+
+<div class="colwrapper">
+    <h5>My Communities</h5>
+    <sharemunity-community-list (communityHasList)="getMyCommunities($event)" filterType="owned"></sharemunity-community-list>
+    <div *ngIf="!myCommunityEmpty">
+        <h6>No communities consider creating one.</h6>
+    </div>
+</div>
+
+<div class="colwrapper">
+    <h5>Joined Communities</h5>
+    <sharemunity-community-list (communityHasList)="getMyJoinedCommunities($event)" filterType="joined"></sharemunity-community-list>
+    <div *ngIf="!myJoinedCommuntiesEmpty">
+        <h6>No Joined communities consider joining one.</h6>
+    </div>
+</div> 
+<div class="colwrapper">
+    <h5>Communities</h5>
+    <sharemunity-community-list></sharemunity-community-list>
+</div>
+

@@ -10,13 +10,27 @@ import { FeaturesModule } from "../../features.module";
 })
 export class CommunityMainComponent implements OnInit{
   
-  constructor(private router:Router){
-    
+
+  protected myCommunityEmpty:boolean = false;
+  protected myJoinedCommuntiesEmpty:boolean = false;
+  protected myProducts:boolean = false;
+
+  constructor(private router:Router){}
+  
+  
+  
+  ngOnInit(): void {  }
+
+  getMyCommunities(com:boolean){
+    console.log(`Boolean: ${com}`)
+    this.myCommunityEmpty = com;
   }
-  
-  
-  
-  ngOnInit(): void {
-   
+  getMyJoinedCommunities(com:boolean){
+    console.log(`Boolean: ${com}`)
+    this.myJoinedCommuntiesEmpty = com;
   }
+  getMyProducts(prod:boolean){
+    this.myProducts = prod;
+  }
+
 }

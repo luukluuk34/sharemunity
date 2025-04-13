@@ -35,8 +35,6 @@ export class AuthenticationService {
                 ...httpOptions })
             .pipe(
                 map((val) =>{
-                    console.log("------------------")
-                    console.log(val.results.token)
                     this.saveUserToLocalStorage(val.results);
                     this.saveTokenToLocalStorage(val.results.token);
                     return val.results;
@@ -65,6 +63,10 @@ export class AuthenticationService {
                     return val.results;
                 })
             )
+    }
+
+    isLoggedIn():boolean{
+        return !!this.userSubject.getValue();
     }
 
     logout(){

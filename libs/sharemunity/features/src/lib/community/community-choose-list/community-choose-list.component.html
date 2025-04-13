@@ -1,15 +1,21 @@
-<div class="popup">
-  <form (ngSubmit)="addProductToCommunity()">
-    <legend>Choose community</legend>
+<div class="overlay">
+  <div class="popup-content">
     <a class="close" (click)="closePopup()">&times;</a>
-    <div *ngFor="let community of communities">
-      <input
-        type="checkbox"
-        id="{{ community.id }}"
-        (change)="onCheckBoxChange($event, community)"
-      />
-      <label for="{{community.id}}"> {{ community.name }}</label>
-    </div>
-    <a class="submit" (click)="addProductToCommunity()">Add product </a>
-  </form>
+    <form (ngSubmit)="addProductToCommunity()">
+      <legend>Choose Community</legend>
+
+      <div class="checkbox-group">
+        <div *ngFor="let community of communities" class="checkbox-item">
+          <input
+            type="checkbox"
+            [id]="community.id"
+            (change)="onCheckBoxChange($event, community)"
+          />
+          <label [for]="community.id">{{ community.name }}</label>
+        </div>
+      </div>
+
+      <button type="submit" class="submit">Add Product</button>
+    </form>
+  </div>
 </div>

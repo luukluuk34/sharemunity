@@ -1,42 +1,65 @@
-<div *ngIf="product">
-  <h1>{{ product.name }}</h1>
+<div *ngIf="product" class="product-container">
 
-  <div class="product-top-header">
-    <h5><i>Owner: {{product.owner.name}}</i></h5>
-    <div *ngIf="!reservation && !checkIfUserIsOwner()">
-        <p *ngIf="product.maxUseTime">You can reserve this for up to: {{product.maxUseTime}} weeks</p>
-        <button class="btn btn-secondary" (click)="openPopupCreateReservation()">Reserve product</button>
-      </div>
-    <div class="product-image-wrapper">
-      <div *ngFor="let img of product.images">
-        <img [src]="img.path" class="product-image" />
-      </div>
-    </div>
-    <div class="product-text-wrapper">
-        <p>{{product.description}}</p>
+  <h1 class="product-title">{{ product.name }}</h1>
+
+  <div class="product-meta">
+    <h5 class="owner"><i>Owner: {{ product.owner.name }}</i></h5>
+
+    <div *ngIf="!reservation && !checkIfUserIsOwner()" class="reserve-box">
+      <p *ngIf="product.maxUseTime">
+        Reserve for up to <strong>{{ product.maxUseTime }}</strong> weeks
+      </p>
+      <button class="submit" (click)="openPopupCreateReservation()">Reserve product</button>
     </div>
   </div>
 
-  <div *ngIf="reservation">
-    <sharemunity-workspace-reservation-detail (reservationDeleted)="reservationDeleted()" [reservationId]="reservation.id"></sharemunity-workspace-reservation-detail>
+  <div class="product-main">
+    <div class="image-gallery">
+      <div class="main-image">
+        <img [src]="selectedImage || product.images[0]?.path" (error)="onImageError($event)" />
+      </div>
+    
+      <div class="thumbnail-row">
+        <img 
+          *ngFor="let img of product.images" 
+          [src]="img.path" 
+          (click)="selectImage(img.path)" 
+          [class.active]="img.path === selectedImage"
+          class="thumbnail" 
+          (error)="onImageError($event)"
+        />
+      </div>
+    </div>
+    
+
+    <div class="product-description">
+      <p>{{ product.description }}</p>
+    </div>
   </div>
 
+  <div *ngIf="reservation" class="reservation-wrapper">
+    <sharemunity-workspace-reservation-detail
+      (reservationDeleted)="reservationDeleted()"
+      [reservationId]="reservation.id">
+    </sharemunity-workspace-reservation-detail>
+  </div>
 
-  <div *ngIf="checkIfUserIsOwner()" class="buttonDiv">
-    <button class="btn btn-success" (click)="openPopupAddToCommunity()">Add to community</button>
-    <button *ngIf="!reservation" class="btn btn-info">Update Product</button>
-    <button *ngIf="!reservation" class="btn btn-danger" (click)="deleteProduct()">Delete Product</button>
+  <div *ngIf="checkIfUserIsOwner()" class="product-actions">
+    <button class="submit" (click)="openPopupAddToCommunity()">Add to community</button>
+    <button *ngIf="!reservation" class="submit">Update Product</button>
+    <button *ngIf="!reservation" class="submit" (click)="deleteProduct()">Delete Product</button>
   </div>
 
   <div *ngIf="createReservationForProduct" class="overlay">
-    <sharemunity-workspace-reservation-form
-      (closePop)="closePopup()"
-    ></sharemunity-workspace-reservation-form>
+    <div class="popup-content">
+      <sharemunity-workspace-reservation-form (closePop)="closePopup()"></sharemunity-workspace-reservation-form>
+    </div>
   </div>
 
-  <div *ngIf="addProductToCommunity" id="popup1" class="overlay">
-    <sharemunity-workspace-community-choose-list
-      (closePop)="closePopup()"
-    ></sharemunity-workspace-community-choose-list>
+  <div *ngIf="addProductToCommunity" class="overlay"> 
+    <div class="popup-content">
+      <sharemunity-workspace-community-choose-list (closePop)="closePopup()"></sharemunity-workspace-community-choose-list>
+    </div>
   </div>
+
 </div>

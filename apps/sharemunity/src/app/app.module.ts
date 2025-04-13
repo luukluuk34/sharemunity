@@ -12,6 +12,8 @@ import { CommonModule } from "@angular/common";
 import { DashboardComponent } from "../lib/pages/dashboard/dashboard.component";
 import { FooterComponent } from "../lib/layout/footer/footer.component";
 import { appRoutes } from "./app.routes";
+import { DashboardGuestComponent } from "../lib/pages/dashboard-guest/dashboard-guest.component";
+import { DashboardWrapperComponent } from "../lib/pages/dashboard-wrapper/dashboard-wrapper.component";
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { appRoutes } from "./app.routes";
     RegisterComponent, 
     NavbarComponent,    
     DashboardComponent,
+    DashboardGuestComponent,
+    DashboardWrapperComponent,
     FooterComponent,
       ],
   imports: [

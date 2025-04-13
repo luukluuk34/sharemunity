@@ -8,11 +8,26 @@ import { CommunityFormComponent } from 'libs/sharemunity/features/src/lib/commun
 import { ProductFormComponent } from 'libs/sharemunity/features/src/lib/product/product-form/product-form.component';
 import { CommunityDetailComponent } from 'libs/sharemunity/features/src/lib/community/community-detail/community-detail.component';
 import { ProductDetailComponent } from 'libs/sharemunity/features/src/lib/product/product-detail/product-detail.component';
+import { DashboardWrapperComponent } from '../lib/pages/dashboard-wrapper/dashboard-wrapper.component';
+import { DashboardGuestComponent } from '../lib/pages/dashboard-guest/dashboard-guest.component';
 
 export const appRoutes: Route[] = [
     {path:'login',component:LoginComponent},
     {path:'register',component:RegisterComponent},
-    {path:'dashboard',component:DashboardComponent},
+    {
+        path:'dashboard',
+        component:DashboardWrapperComponent, 
+        children:[
+            {
+                path:'loggedin', component:DashboardComponent
+            },
+            {
+                path:'guest', component:DashboardGuestComponent
+            },
+            {
+                path: '', redirectTo: 'guest', pathMatch: 'full'
+            }
+    ]},
     {path:'user-detail/:id',component:UserDetailComponent},
     {path:'product/form',component:ProductFormComponent},
     {path:'product/:id',component:ProductDetailComponent},

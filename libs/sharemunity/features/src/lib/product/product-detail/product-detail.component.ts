@@ -26,6 +26,7 @@ export class ProductDetailComponent implements OnInit {
   protected reservation: IReservation | null = null;
   protected addProductToCommunity: boolean = false;
   createReservationForProduct: boolean = false;
+  selectedImage: string | null = null;
 
   protected loggedInUser: IUser | null = null;
 
@@ -64,8 +65,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getImageUrl(localPath: string): string {
-    return (localPath =
-      'http://' + environment.dataApiUrl + '/' + localPath.replace(/\\/g, '/'));
+    let path = (localPath = environment.dataApiUrl + '/' + localPath.replace(/\\/g, '/'));
+    return path;
   }
 
   reservationDeleted(){
@@ -78,6 +79,13 @@ export class ProductDetailComponent implements OnInit {
         img.path = this.getImageUrl(img.path);
       });
     }
+  }
+  onImageError(event:Event){
+    const target = event.target as HTMLImageElement;
+    target.src = 'assets/default-image.jpg';
+  }
+  selectImage(path: string): void {
+    this.selectedImage = path;
   }
 
   checkIfUserIsOwner(): boolean {
