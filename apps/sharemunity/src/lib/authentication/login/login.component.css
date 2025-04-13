@@ -1,11 +1,10 @@
 body {
   background-color: #f3ebf6;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Montserrat';
 }
 
-
-.error{
-  color:red;
+.error {
+  color: red;
   font-weight: bold;
   text-align: center;
   font-size: 18px;
@@ -22,16 +21,16 @@ body {
 
 .sign {
   padding-top: 40px;
-  color: #8c55aa;
-  font-family: 'Ubuntu', sans-serif;
+  color: #006da3;
+  font-family: 'Montserrat';
   font-weight: bold;
   font-size: 28px;
-  display:flex;
+  display: flex;
   align-self: center;
   justify-content: center;
 }
 
-.email{
+.email {
   width: 76%;
   color: rgb(38, 50, 56);
   font-weight: 700;
@@ -48,7 +47,7 @@ body {
   margin-left: 46px;
   text-align: center;
   margin-bottom: 27px;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Montserrat';
 }
 
 form.form1 {
@@ -72,7 +71,6 @@ form.form1 {
   margin-left: 46px;
   text-align: center;
   margin-bottom: 27px;
-  font-family: 'Ubuntu', sans-serif;
 }
 
 .email:focus,
@@ -81,28 +79,56 @@ form.form1 {
 }
 
 .submit {
+  background-color: #006da3;
+  color: white;
+  padding: 0.4rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 5em;
-  color: #fff;
-  background: linear-gradient(to right, #9c27b0, #e040fb);
-  border: 0;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  font-family: 'Ubuntu', sans-serif;
+  transition: background-color 0.3s ease;
   margin-left: 35%;
-  font-size: 13px;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  font-family: 'Montserrat';
+}
+
+.submit:hover {
+  background-color: #8dd6f5;
+}
+
+.submit:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.submit:hover {
+  background-color: #8dd6f5;
+}
+
+.submit:focus {
+  box-shadow: rgba(59, 117, 211, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.submit:disabled {
+  background-color: #8dd6f5;
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: default;
+}
+
+.submit:active {
+  background-color: #006da3;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }
 
 .register {
   text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.12);
   color: #000000;
   padding-top: 15px;
-  display:flex;
+  display: flex;
   align-self: center;
   justify-content: center;
+  font-family: 'Montserrat';
 }
 
 a {

@@ -6,20 +6,53 @@
   margin-bottom: 30px;
 }
 
-.addProd {
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 5em;
-  color: #fff;
-  background: linear-gradient(to right, #9c27b0, #e040fb);
-  border: 0;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  font-family: 'Ubuntu', sans-serif;
-  margin-bottom: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+.addRouterItem{
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0; /* optional: adds vertical spacing */
 }
+
+.addProd {
+  background-color: #006da3;
+  color: white;
+  padding: 0.4rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Montserrat';
+  text-decoration: none;
+  text-align: center;
+}
+
+.addProd:hover {
+  background-color: #8dd6f5;
+}
+
+.addProd:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.addProd:hover {
+  background-color: #8dd6f5;
+}
+
+.addProd:focus {
+  box-shadow: rgba(59, 117, 211, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.addProd:disabled {
+  background-color: #8dd6f5;
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: default;
+}
+
+.addProd:active {
+  background-color: #006da3;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+

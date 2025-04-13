@@ -1,4 +1,19 @@
+@font-face {
+  font-family: Montserrat;
+  src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+}
+body {
+  font-family: 'Montserrat';
+  font-weight: 400;
+}
+
+p{
+  font-family: 'Montserrat';
+  font-weight: normal;
+}
+
 .card-title.title {
+  font-family: 'Montserrat';
   font-size: 1.1rem;
   font-weight: bold;
   color: #222;
@@ -29,6 +44,7 @@
 }
 
 .card-button {
+  font-family: 'Montserrat';
   font-size: 12px;
   font-weight: bold;
   margin-left: 10px;
@@ -71,6 +87,7 @@
   gap: 0.75rem;
 }
 .card-button  {
+  font-family: 'Montserrat';
   appearance: none;
   background-color: #006da3;
   border: 1px solid rgba(27, 31, 35, .15);

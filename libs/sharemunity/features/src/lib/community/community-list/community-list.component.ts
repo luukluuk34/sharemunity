@@ -103,6 +103,16 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     return returnBool;
   }
 
+  itemloggedInInCommunity(community:ICommunity):boolean{
+    let returnBool = false;
+    community.products.forEach((item)=>{
+      if(this.loggedInUser && item.owner._id == this.loggedInUser._id){
+      }
+    })
+
+    return returnBool;
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
   }

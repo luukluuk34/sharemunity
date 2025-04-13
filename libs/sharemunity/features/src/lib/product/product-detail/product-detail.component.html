@@ -9,7 +9,7 @@
       <p *ngIf="product.maxUseTime">
         Reserve for up to <strong>{{ product.maxUseTime }}</strong> weeks
       </p>
-      <button class="submit" (click)="openPopupCreateReservation()">Reserve product</button>
+      <button class="submit" (click)="openPopupCreateReservation()">Reserve Item</button>
     </div>
   </div>
 
@@ -46,8 +46,8 @@
 
   <div *ngIf="checkIfUserIsOwner()" class="product-actions">
     <button class="submit" (click)="openPopupAddToCommunity()">Add to community</button>
-    <button *ngIf="!reservation" class="submit">Update Product</button>
-    <button *ngIf="!reservation" class="submit" (click)="deleteProduct()">Delete Product</button>
+    <button *ngIf="!reservation" class="submit">Update Item</button>
+    <button *ngIf="!reservation" class="submit" (click)="deleteProduct()">Delete Item</button>
   </div>
 
   <div *ngIf="createReservationForProduct" class="overlay">

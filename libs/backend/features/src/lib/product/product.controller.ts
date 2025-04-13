@@ -55,7 +55,6 @@ export class ProductController {
     @Delete(':id')
     @UseGuards(AuthGuard)
     delete(@Param('id') id: string){
-        this.logger.debug("-------deleting--------")
         return this.productService.delete(id);
     }
 

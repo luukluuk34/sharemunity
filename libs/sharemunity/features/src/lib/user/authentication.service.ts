@@ -69,6 +69,10 @@ export class AuthenticationService {
         return !!this.userSubject.getValue();
     }
 
+    getUserInfo():IUser | null{
+        return this.userSubject.getValue();
+    }
+
     logout(){
         localStorage.removeItem(this.CURRENT_USER);
         localStorage.removeItem(this.CURRENT_TOKEN)

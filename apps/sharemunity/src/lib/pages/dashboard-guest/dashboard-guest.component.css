@@ -1,3 +1,14 @@
+@font-face {
+  font-family: Montserrat;
+  src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+}
+
+
+body {
+  font-family: 'Montserrat';
+  font-weight: 400;
+}
+
 .dashboard-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -25,12 +36,16 @@
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: #333;
+  font-weight: bold;
+  font-family: 'Montserrat';
 }
 
 .display p {
   font-size: 1rem;
   color: #555;
   line-height: 1.6;
+  font-family: 'Montserrat';
+  font-weight:normal;
 }
 
 .displaybutton {
@@ -38,6 +53,9 @@
   display: flex;
   justify-content: center;
   padding-top: 2rem;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  
 }
 
 .button-3 {

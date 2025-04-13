@@ -2,10 +2,49 @@
   text-align: center;
 }
 
-.card {
-  flex: 1 0 auto;
+body {
+  font-family: 'Montserrat';
+  font-weight: 400;
 }
 
+p{
+  font-family: 'Montserrat';
+  font-weight: normal;
+}
+
+h5{
+  font-family: 'Montserrat';
+  font-weight: bold;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Better alignment for uneven cards */
+  gap: 1.5rem; /* Even spacing between cards */
+}
+.card{
+  width: 18rem;
+  background-color: #FFBA52;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  img.card-img-top {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+}
 .card-text{
     display: -webkit-box;
     -webkit-line-clamp: 6; /* number of lines */
@@ -15,30 +54,70 @@
 }
 
 
-.card-img-top {
-  height: 150px;
-  width: 100%;
+.card-text{
+  display: -webkit-box;
+  -webkit-line-clamp: 6; /* number of lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.ViewButton {
-  cursor: pointer;
-  text-decoration: none;
+
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.ViewButton  {
+  font-family: 'Montserrat';
+  appearance: none;
+  background-color: #006da3;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
   color: #fff;
-  background: linear-gradient(to right, #9c27b0, #e040fb);
-  border: 0;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  font-family: 'Ubuntu', sans-serif;
-  margin-top: 70px;
-  font-size: 16px;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 30px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.ViewButton:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
 }
 
 .ViewButton:hover {
-  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+  background-color: #8dd6f5;
 }
 
+.ViewButton:focus {
+  box-shadow: rgba(59, 117, 211, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.ViewButton:disabled {
+  background-color: #8dd6f5;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.ViewButton:active {
+  background-color: #006da3;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
 .changeButton {
   text-align: center;
 }

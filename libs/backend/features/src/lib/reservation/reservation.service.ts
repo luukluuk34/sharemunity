@@ -6,7 +6,7 @@ import { User as UserModel, UserDocument } from "@sharemunity-workspace/backend/
 import { ProductDocument, Product as ProductModel} from "../product/product.schema"
 import { Model } from "mongoose";
 import { FirebaseService } from "../firebase/firebase.service";
-import { IReservation, ReservationStatus } from "@sharemunity-workspace/shared/api";
+import { IReservation, ProductStatus, ReservationStatus } from "@sharemunity-workspace/shared/api";
 import { UpdateReservationDto } from "@sharemunity-workspace/backend/dto";
 
 @Injectable()
@@ -96,7 +96,7 @@ export class ReservationService {
     var reservation = req.body;
     this.logger.debug(reservation)
     const enjoyer_id = req.user.user_id;
-    const product = await this.productModel
+    let product = await this.productModel
       .findOne({_id:req.body.product})
       .exec();
 
@@ -116,6 +116,8 @@ export class ReservationService {
             product:product,
             enjoyer:enjoyer,
         }
+        product.status = ProductStatus.Reserved;
+        await product.save();
         this.logger.log(createdReservation);
         return this.reservationModel.create(createdReservation);
     }

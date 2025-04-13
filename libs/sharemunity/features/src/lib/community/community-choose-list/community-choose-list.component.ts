@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommunityService } from '../community.service';
 import { Subscription } from 'rxjs';
-import { ICommunity, IProduct } from '@sharemunity-workspace/shared/api';
+import { ICommunity, IProduct, IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../product/product.service';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AuthenticationService } from '../../user/authentication.service';
 
 @Component({
   selector: 'sharemunity-workspace-community-choose-list',
@@ -20,10 +21,10 @@ export class CommunityChooseListComponent implements OnInit {
 
   protected communityChooseForm!:FormGroup;
   protected product!:IProduct;
+  protected loggedInUser:IUser | null = null;
 
 
-
-  constructor(private formBuilder:FormBuilder,private router:Router,private communityService: CommunityService,private productService:ProductService,private activatedRoute:ActivatedRoute){
+  constructor(private auth:AuthenticationService,private formBuilder:FormBuilder,private router:Router,private communityService: CommunityService,private productService:ProductService,private activatedRoute:ActivatedRoute){
 
   }
 
@@ -35,15 +36,17 @@ export class CommunityChooseListComponent implements OnInit {
         this.product = product;
       })
     })
+
+    this.loggedInUser = this.auth.getUserInfo();
     
     this.subscription = this.communityService.list().subscribe((communities) => {
       let prodId = this.product.id;
       this.communities = (communities ?? [] )?.filter(val =>{
-        if(val.products.length > 0 ){
-          return !val.products.some(prod => prod.id === prodId);
-        }else{
-          return true;
-        }
+        const isOwner = val.owner._id === this.loggedInUser?._id;
+        const isMember = val?.members?.some(member => member?._id === this.loggedInUser?._id);
+        const isUserPartOfCommunity = isOwner || isMember;
+        const isProductInCommunity = val?.products?.some(prod => prod?.id === prodId);
+        return isUserPartOfCommunity && !isProductInCommunity;
       })
     });
     
@@ -54,6 +57,7 @@ export class CommunityChooseListComponent implements OnInit {
 
   onCheckBoxChange(event:any, community:ICommunity){
     const selectedCommunities = this.communityChooseForm.get('selectedCommunities') as FormArray;
+    console.log(community);
     if(event.target.checked){
       selectedCommunities.push(this.formBuilder.control(community));
     }else{
@@ -68,6 +72,7 @@ export class CommunityChooseListComponent implements OnInit {
   addProductToCommunity(){
     const coms = (this.communityChooseForm.get('selectedCommunities') as FormArray).value as ICommunity[];
     if(this.product != null){
+      console.log('coms')
       coms.forEach((com)=>{
         Array.isArray(com.products) ? com.products.push(this.product) : com.products =[this.product]
         this.communityService.update(com).subscribe(()=>{

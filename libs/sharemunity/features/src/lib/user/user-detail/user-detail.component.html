@@ -5,8 +5,8 @@
     <p>{{ userPage.emailAddress }}</p>
   </div>
 
-  <div *ngIf="checkIfUserIsOwner()">
-    <a class="addProd" routerLink="/product/form">Add Product</a>
+  <div *ngIf="checkIfUserIsOwner()" class="addRouterItem">
+    <a class="addProd" routerLink="/product/form">Add Item</a>
   </div>
   <sharemunity-product-list personalProductsId="{{ userPage._id }}"></sharemunity-product-list>
   <div *ngIf="checkIfUserIsOwner()">
