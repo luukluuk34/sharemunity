@@ -14,35 +14,70 @@
     height:150px;
     width:100%;
 }
-.ViewButton{
-    cursor: pointer;
-    text-decoration:none ;
-    color: #fff;
-    background: linear-gradient(to right, #9c27b0, #e040fb);
-    border: 0;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-family: 'Ubuntu', sans-serif;
-    margin-top:70px;
-    font-size: 16px;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+.submit  {
+  font-family: 'Montserrat';
+  appearance: none;
+  background-color: #8dd6f5;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 30px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
-.ViewButton:hover{
-    border: 1px solid rgba(0, 0, 0, 0.18) !important;
+.submit:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.submit:hover {
+  background-color: #006da3;
+}
+
+.submit:focus {
+  box-shadow: rgba(59, 117, 211, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.submit:disabled {
+  background-color: #8dd6f5;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.submit:active {
+  background-color: #8dd6f5;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
 .changeButton {
+    display: flex;
+    justify-content: center;
     text-align: center;
 }
 
-.button {
+/* .button {
     opacity: 0.5;
     margin-top: 10px;
     margin-left: 10px;
 }
 .button:hover{
     opacity: 1.0;
-}
+} */

@@ -4,7 +4,7 @@
       {{errorMessage}}
     </div>
     <form class="form1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <input class="email" type="text" placeholder="E-mail" formControlName="emailAddress" required>
+      <input  class="email" type="text" placeholder="E-mail" formControlName="emailAddress" required>
       <input class="pass" type="password" placeholder="Password" formControlName="password" required>
       <a class="submit" (click)="onSubmit()">Sign in</a>
       <p class="register"><a [routerLink]="['/register']" routerLinkActive="active" ariaCurrentWhenActive="page">No account? Register!</a></p>

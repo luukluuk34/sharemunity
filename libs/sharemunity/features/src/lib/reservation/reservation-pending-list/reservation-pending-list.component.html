@@ -18,7 +18,9 @@
                         <option [ngValue]="reservationStatus.Accepted">{{reservationStatus.Accepted}}</option>
                         <option [ngValue]="reservationStatus.Declined">{{reservationStatus.Declined}}</option>
                     </select>
-                    <input type="button" class="btn btn-primary mt-2" (click)="onSubmit(reservation)" value="Confirm" [disabled]="reservationForms[reservation.id].value.reservation_status === reservationStatus.Pending">
+                    <div class="center-button">
+                        <input type="button" class="ViewButton" (click)="onSubmit(reservation)" value="Confirm" [disabled]="reservationForms[reservation.id].value.reservation_status === reservationStatus.Pending">
+                    </div>    
                 </form>
             </div>
         </div>

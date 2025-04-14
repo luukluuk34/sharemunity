@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ICommunity, IUser } from '@sharemunity-workspace/shared/api';
 import { CommunityService } from '../community.service';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,9 @@ import { AuthenticationService } from '../../user/authentication.service';
 export class CommunityListComponent implements OnInit, OnDestroy {
   @Input() filterType: 'owned' | 'joined' | 'notJoined' = 'notJoined';
   @Output() communityHasList = new EventEmitter<boolean>();
+
+  @Input() refreshTrigger:boolean = false
+  @Output() communityChange = new EventEmitter<string>();
 
 
   communities: ICommunity[] | null = null;
@@ -33,6 +36,11 @@ export class CommunityListComponent implements OnInit, OnDestroy {
 
   }
 
+  ngOnChanges(changes:SimpleChanges){
+    if(changes['refreshTrigger']){
+      this.loadCommunities();
+    }
+  }
 
   loadCommunities(): void {
     this.subscription = this.communityService.list(this.filterType).subscribe((data) =>{
@@ -67,6 +75,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
       community.members.push(this.loggedInUser)
       this.communityService.update(community).subscribe(()=>{
         this.loadCommunities();
+        this.communityChange.emit(community.id);
       });
     }else{
       console.log("Not logged in")
@@ -81,6 +90,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
       community.members = communityMembers;
       this.communityService.update(community).subscribe(()=>{
         this.loadCommunities();
+        this.communityChange.emit(community.id);
       });
     }
   }

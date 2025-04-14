@@ -10,6 +10,7 @@ import { CommunityDetailComponent } from 'libs/sharemunity/features/src/lib/comm
 import { ProductDetailComponent } from 'libs/sharemunity/features/src/lib/product/product-detail/product-detail.component';
 import { DashboardWrapperComponent } from '../lib/pages/dashboard-wrapper/dashboard-wrapper.component';
 import { DashboardGuestComponent } from '../lib/pages/dashboard-guest/dashboard-guest.component';
+import { ReservationOverviewComponent } from 'libs/sharemunity/features/src/lib/reservation/reservation-overview/reservation-overview.component';
 
 export const appRoutes: Route[] = [
     {path:'login',component:LoginComponent},
@@ -34,5 +35,6 @@ export const appRoutes: Route[] = [
     {path:'communities',component:CommunityMainComponent},
     {path:'communities/form',component:CommunityFormComponent},
     {path:'communities/:id',component:CommunityDetailComponent},
+    {path:'reservations',component:ReservationOverviewComponent},
     {path:'', redirectTo:'/dashboard',pathMatch:'full'}
 ];

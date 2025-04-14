@@ -22,6 +22,7 @@ import { ReservationPendingListComponent } from './reservation/reservation-pendi
 import { MyReservationListComponent } from './reservation/my-reservation-list/my-reservation-list.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { ReservationDetailComponent } from './reservation/reservation-detail/reservation-detail.component';
+import { ReservationOverviewComponent } from './reservation/reservation-overview/reservation-overview.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ReservationDetailComponent } from './reservation/reservation-detail/res
       ReservationPendingListComponent,
       ReservationDetailComponent,
       MyReservationListComponent,
+      ReservationOverviewComponent,
       UserDetailComponent,
       UserListComponent,
       CommunityFormComponent,

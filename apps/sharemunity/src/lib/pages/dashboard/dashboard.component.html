@@ -1,6 +1,10 @@
 
 <div>
     <p class="title" *ngIf="user"> Welcome, {{user.name}}</p>
+    <div class="buttondiv">
+        <button class="submit" routerLink="/product/form">Create Item</button>
+        <button class="submit" routerLink="/communities/form">Create Community</button>
+    </div>
     <div *ngIf="user">
         <div>
             <h5>My communities</h5>

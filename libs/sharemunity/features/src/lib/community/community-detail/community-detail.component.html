@@ -3,8 +3,8 @@
     <img class="" [src]="community.communityImage.path" height="300px" width="100%">
     
     <div *ngIf="checkIfUserIsOwner()" class="changeButton">
-        <button class="btn btn-primary button">Update Community</button>
-        <button class="btn btn-danger button" (click)="deleteCommunity()">Delete Community</button>
+        <button class="submit" routerLink="/communities/form">Update Community</button>
+        <button class="submit" (click)="deleteCommunity()">Delete Community</button>
     </div>
 
     <div>

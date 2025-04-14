@@ -8,7 +8,11 @@
     display: flex;                   
     flex-direction: column;          
     align-items: center;             
-    padding: 10px;                   
+    padding: 10px;         
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }          
 }
 
 p {
@@ -18,14 +22,56 @@ p {
     align-self: flex-start;         
 }
 
-button {
-    margin-top: 10px;
-    opacity: 0.5;
-    margin:0 auto;
-}
 
-button:hover{
-    opacity: 1.0;
-}
+.submit  {
+    font-family: 'Montserrat';
+    appearance: none;
+    background-color: #006da3;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 30px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  
+  .submit:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+  }
+  
+  .submit:hover {
+    background-color: #8dd6f5;
+  }
+  
+  .submit:focus {
+    box-shadow: rgba(59, 117, 211, 0.4) 0 0 0 3px;
+    outline: none;
+  }
+  
+  .submit:disabled {
+    background-color: #8dd6f5;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+  }
+  
+  .submit:active {
+    background-color: #006da3;
+    box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+  }
 
 

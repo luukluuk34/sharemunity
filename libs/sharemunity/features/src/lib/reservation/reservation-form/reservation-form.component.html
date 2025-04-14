@@ -1,31 +1,22 @@
 <div *ngIf="product && loggedInUser" class="overlay">
-    <div class="popup-content">
-      <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
-        <legend>Reservation: {{ product.name }}</legend>
-        <a class="close" (click)="closePopup()">&times;</a>
-  
-        <div class="form-group">
-          <input
-            class="message"
-            type="text"
-            placeholder="Message (optional)"
-            formControlName="message"
-          />
-        </div>
-  
-        <div class="form-group">
-          <input
-            class="pickup_date"
-            type="date"
-            formControlName="pickup_date"
-          />
-          <p *ngIf="product.maxUseTime != 0">
-            You can only reserve this product for {{ product.maxUseTime }} weeks.
-          </p>
-        </div>
-  
-        <button type="submit" class="submit">Reserve</button>
-      </form>
-    </div>
+  <div class="popup-content">
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+      <legend>Reservation: {{ product.name }}</legend>
+      <a class="close" (click)="closePopup()">&times;</a>
+
+      <div class="form-group">
+        <input class="message" type="text" placeholder="Message (optional)" formControlName="message"/>
+      </div>
+
+      <div class="form-group">
+        <label for="pickup_date">Date of pickup: </label>
+        <input class="pickup_date" type="date" formControlName="pickup_date" />
+        <p *ngIf="product.maxUseTime != 0">
+          You can only borrow this item for {{ product.maxUseTime }} weeks.
+        </p>
+      </div>
+
+      <button type="submit" class="submit">Reserve</button>
+    </form>
   </div>
-  
+</div>

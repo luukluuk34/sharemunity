@@ -12,13 +12,13 @@
 
 <div class="colwrapper">
     <h5>Joined Communities</h5>
-    <sharemunity-community-list (communityHasList)="getMyJoinedCommunities($event)" filterType="joined"></sharemunity-community-list>
+    <sharemunity-community-list (communityChange)="onCommunityChange($event)" [refreshTrigger]="refreshNotJoined" (communityHasList)="getMyJoinedCommunities($event)" filterType="joined"></sharemunity-community-list>
     <div *ngIf="!myJoinedCommuntiesEmpty">
         <h6>No Joined communities consider joining one.</h6>
     </div>
 </div> 
 <div class="colwrapper">
     <h5>Communities</h5>
-    <sharemunity-community-list></sharemunity-community-list>
+    <sharemunity-community-list (communityChange)="onCommunityChange($event)" [refreshTrigger]="refreshNotJoined"></sharemunity-community-list>
 </div>
 
