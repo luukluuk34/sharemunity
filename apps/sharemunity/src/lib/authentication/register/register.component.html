@@ -1,5 +1,8 @@
 <div class="registerForm">
     <p class="register">Register</p>
+    <div *ngIf="errorMessage" class="error">
+      {{errorMessage}}
+    </div>
     <form class="form1" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <input class="username" type="text" placeholder="Username" formControlName="name">
       <input class="email" type="email" placeholder="test@test.com" formControlName="emailAddress">

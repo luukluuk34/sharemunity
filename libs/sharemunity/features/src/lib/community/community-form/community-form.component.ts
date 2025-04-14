@@ -63,8 +63,6 @@ export class CommunityFormComponent implements OnInit{
           this.router.navigate([`/communities/${community.id}`])
           
         });
-    
-
       this.resetFileInput();
     }
 
@@ -94,5 +92,6 @@ export class CommunityFormComponent implements OnInit{
       fileInput.value = '';
     }
     this.selectedFile = null;
+    localStorage.removeItem(this.SAVED_DATA);
   }
 }

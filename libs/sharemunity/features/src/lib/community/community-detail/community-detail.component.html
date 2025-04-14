@@ -1,6 +1,6 @@
 <div *ngIf="community">
     <h1 class="title">{{community.name}} community</h1>
-    <img class="" [src]="community.communityImage.path" height="300px" width="100%">
+    <img class="" [src]="community.communityImage.path" height="300px" width="100%" alt="{{community.communityImage.filename}}">
     
     <div *ngIf="checkIfUserIsOwner()" class="changeButton">
         <button class="submit" routerLink="/communities/form">Update Community</button>

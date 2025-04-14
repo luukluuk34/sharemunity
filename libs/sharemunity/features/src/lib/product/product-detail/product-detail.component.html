@@ -4,7 +4,7 @@
 
   <div class="product-meta">
     <h5 class="owner"><i>Owner: {{ product.owner.name }}</i></h5>
-
+    <p>{{product.owner.address}}</p>
     <div *ngIf="!reservation && !checkIfUserIsOwner()" class="reserve-box">
       <p *ngIf="product.maxUseTime">
         Reserve for up to <strong>{{ product.maxUseTime }}</strong> weeks
@@ -16,12 +16,13 @@
   <div class="product-main">
     <div class="image-gallery">
       <div class="main-image">
-        <img [src]="selectedImage || product.images[0]?.path" (error)="onImageError($event)" />
+        <img [src]="selectedImage || product.images[0]?.path" (error)="onImageError($event)" alt="standard image" />
       </div>
     
       <div class="thumbnail-row">
         <img 
           *ngFor="let img of product.images" 
+          alt="{{img.filename}}"
           [src]="img.path" 
           (click)="selectImage(img.path)" 
           [class.active]="img.path === selectedImage"

@@ -96,6 +96,7 @@ export class ProductFormComponent implements OnInit {
         formData.append(`images`, file, file.name);
       });
       this.prodService.create(formData).subscribe();
+      localStorage.removeItem(this.SAVED_PRODUCT_DATA);
       this._location.back();
     }
   }

@@ -12,6 +12,7 @@ import { RouterLink, Router } from '@angular/router';
 export class RegisterComponent implements OnInit{
   registerForm!:FormGroup;
   authenticationService:AuthenticationService;
+  errorMessage:string | null = null;
 
   private readonly REGISTER_DATA = "registerData";
   
@@ -50,14 +51,25 @@ export class RegisterComponent implements OnInit{
       const password = this.registerForm.value.password;
       const address = this.registerForm.value.address;
       this.authenticationService
+        .register(name,emailAddress,password,address)
+        .subscribe({
+          next:(user) =>{
+            if(user){
+              if(localStorage.getItem(this.REGISTER_DATA) != null){
+                localStorage.removeItem(this.REGISTER_DATA);
+              }
+              this.router.navigate(['/dashboard'])
+            }
+          },
+          error:(error) =>{
+            this.errorMessage = `Please fill in a valid form`;
+          }
+        })
+      
+      this.authenticationService
       .register(name,emailAddress,password,address)
       .subscribe((user) => {
-        if(user){
-          if(localStorage.getItem(this.REGISTER_DATA) != null){
-            localStorage.removeItem(this.REGISTER_DATA);
-          }
-          this.router.navigate(['/dashboard'])
-        }
+
       })
     }
   }
