@@ -47,7 +47,7 @@
 
   <div *ngIf="checkIfUserIsOwner()" class="product-actions">
     <button class="submit" (click)="openPopupAddToCommunity()">Add to community</button>
-    <button *ngIf="!reservation" class="submit" routerLink="/product/form">Update Item</button>
+    <button *ngIf="!reservation" class="submit" (click)="route()" routerLink="/product/form">Update Item</button>
     <button *ngIf="!reservation" class="submit" (click)="deleteProduct()">Delete Item</button>
   </div>
 

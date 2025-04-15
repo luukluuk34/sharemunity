@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Request, UploadedFiles, UseGuards,Headers, UseInterceptors, Logger, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request, UploadedFiles, UseGuards,Headers, UseInterceptors, Logger, Delete, Put } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { IProduct } from '@sharemunity-workspace/shared/api';
 import {CreateProductDto} from '@sharemunity-workspace/backend/dto'
@@ -50,6 +50,28 @@ export class ProductController {
         });
 
         return this.productService.create(req);
+    }
+
+    @Put(':id')
+    @UseGuards(AuthGuard)
+    @LocalImageFileInterceptor()
+    update(
+        @Param('id') id:string,
+        @Request() req:any,
+        @Body() data: CreateProductDto,
+        @UploadedFiles() images:Array<Express.Multer.File>
+    ): Promise<IProduct | null> {
+        if(images){
+            images.forEach((file) => {
+                if (!file.filename){
+                    const timestamp = Date.now();
+                    file.filename = `${timestamp}-${file.originalname}`;
+                }
+            });
+        }
+        this.logger.debug(images);
+
+        return this.productService.update(id,req);
     }
 
     @Delete(':id')

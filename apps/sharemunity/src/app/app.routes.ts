@@ -12,6 +12,7 @@ import { DashboardWrapperComponent } from '../lib/pages/dashboard-wrapper/dashbo
 import { DashboardGuestComponent } from '../lib/pages/dashboard-guest/dashboard-guest.component';
 import { ReservationOverviewComponent } from 'libs/sharemunity/features/src/lib/reservation/reservation-overview/reservation-overview.component';
 import { CommunityUpdateFormComponent } from 'libs/sharemunity/features/src/lib/community/community-update-form/community-update-form.component';
+import { ProductUpdateFormComponent } from 'libs/sharemunity/features/src/lib/product/product-update-form/product-update-form.component';
 
 export const appRoutes: Route[] = [
     {path:'login',component:LoginComponent},
@@ -32,6 +33,7 @@ export const appRoutes: Route[] = [
     ]},
     {path:'user-detail/:id',component:UserDetailComponent},
     {path:'product/form',component:ProductFormComponent},
+    {path:'product/form/update',component:ProductUpdateFormComponent},
     {path:'product/:id',component:ProductDetailComponent},
     {path:'communities',component:CommunityMainComponent},
     {path:'communities/form',component:CommunityFormComponent},

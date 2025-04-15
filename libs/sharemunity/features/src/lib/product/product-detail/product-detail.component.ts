@@ -11,6 +11,7 @@ import { FeaturesModule } from '../../features.module';
 import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { ReservationService } from '../../reservation/reservation.service';
 import { environment } from '@sharemunity/shared/util-env';
+import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
 
 @Component({
   selector: 'sharemunity-workspace-product-detail',
@@ -35,7 +36,8 @@ export class ProductDetailComponent implements OnInit {
     authService: AuthenticationService,
     resService: ReservationService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dataTransferService:DataTransferService
   ) {
     this.productService = productService;
     this.authService = authService;
@@ -76,7 +78,9 @@ export class ProductDetailComponent implements OnInit {
   getLocalProductImages() {
     if (this.product) {
       this.product.images.forEach((img) => {
-        img.path = this.getImageUrl(img.path);
+        if(!img.path.includes(environment.dataApiUrl)){
+          img.path = this.getImageUrl(img.path);
+        }
       });
     }
   }
@@ -118,4 +122,10 @@ export class ProductDetailComponent implements OnInit {
         });
     }
   }
+
+  route(){
+    this.dataTransferService.setData(this.product);
+    this.router.navigate(['/product/form/update']);
+  }
+
 }

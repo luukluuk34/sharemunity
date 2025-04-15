@@ -141,6 +141,32 @@ export class ProductService {
             )
     }
 
+    public update(id:string,formData:FormData):Observable<IProduct>{
+        const backend = this.endpoint + "/" +id 
+        console.log(`Creating product at ${backend}`);
+
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .put<IProduct>(backend,formData,httpOptions)
+            .pipe(
+                map((val) => {
+                    console.log("Results: ", val);
+                    return val;
+                }),
+                catchError((error)=> {
+                    console.log("Error ", error)
+                    throw error;
+                })
+            )
+    }
+
     public delete(id: string | null, options?: any): Observable<IProduct> {
         const backend = this.endpoint + "/" + id
         console.log(`Deleting product at ${backend}`);

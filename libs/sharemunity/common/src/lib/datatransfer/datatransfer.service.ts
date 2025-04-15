@@ -20,6 +20,7 @@ export class DataTransferService {
     getData():any{
         const temp = this.data;
         this.data = null;
+        console.log("--------",temp)
         return temp;
     }
 }

@@ -25,6 +25,7 @@ import { ReservationDetailComponent } from './reservation/reservation-detail/res
 import { ReservationOverviewComponent } from './reservation/reservation-overview/reservation-overview.component';
 import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
 import { CommunityUpdateFormComponent } from './community/community-update-form/community-update-form.component';
+import { ProductUpdateFormComponent } from './product/product-update-form/product-update-form.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { CommunityUpdateFormComponent } from './community/community-update-form/
       ProductListComponent,
       ProductDetailComponent,
       ProductFormComponent,
+      ProductUpdateFormComponent,
       ReservationFormComponent,
       ReservationPendingListComponent,
       ReservationDetailComponent,

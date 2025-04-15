@@ -2,7 +2,7 @@ import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product as ProductModel, ProductDocument } from './product.schema';
-import { IProduct } from '@sharemunity-workspace/shared/api';
+import { IImage, IProduct } from '@sharemunity-workspace/shared/api';
 import {
   CreateProductDto,
   UpdateProductDto,
@@ -69,6 +69,7 @@ export class ProductService {
 
   async create(req: any): Promise<IProduct | null> {
     var product = req.body;
+
     product['images'] = [];
     this.logger.log(req.body);
     for (let i = 0; i < req.files.length; i++) {
@@ -111,12 +112,48 @@ export class ProductService {
     return null;
   }
 
-  async update(
-    _id: string,
-    product: UpdateProductDto
-  ): Promise<IProduct | null> {
-    this.logger.log(`Update product ${product.name}`);
-    return this.productModel.findByIdAndUpdate({ _id }, product);
+  async update(id: string, req: any): Promise<IProduct | null> {
+    console.log("- -----------------------")
+    const data = req.body;
+  
+    let keptImages: IImage[] = [];
+    try {
+      keptImages = JSON.parse(data.keptImages || '[]');
+    } catch (err) {
+      console.error('Invalid keptImages JSON');
+    }
+  
+    const finalImages: IImage[] = [...keptImages];
+  
+    const uploadedFiles: Express.Multer.File[] = req.files || [];
+    for (const file of uploadedFiles) {
+      const img: IImage = {
+        filename: file.filename,
+        encoding: file.encoding,
+        mimetype: file.mimetype,
+        path: file.path,
+        size: file.size,
+      };
+  
+      if (environment.production) {
+        const uploadedPath = await this.firebaseService.uploadImage(file);
+        img.path = uploadedPath;
+      }
+      console.log("--------------")
+      console.log(img)
+      finalImages.push(img);
+    }
+  
+    const updatedProduct = {
+      name: data.name,
+      description: data.description,
+      maxUseTime: Number(data.maxUseTime || 0),
+      images: finalImages,
+    };
+  
+    return await this.productModel.findByIdAndUpdate(id, updatedProduct, {
+      new: true,
+    });
   }
 
   async delete(id:string):Promise<IProduct|null>{
