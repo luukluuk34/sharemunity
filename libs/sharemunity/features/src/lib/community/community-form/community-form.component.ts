@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms'
 import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { CommunityService } from '../community.service';
 import { uploadImageFileValidator } from '@sharemunity-workspace/sharemunity/common';
-import { ICreateImage } from '@sharemunity-workspace/shared/api';
+import { ICommunity, ICreateImage } from '@sharemunity-workspace/shared/api';
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,8 +47,6 @@ export class CommunityFormComponent implements OnInit{
       });
     }
   }
-
-
 
   onSubmit(): void {
     localStorage.setItem(this.SAVED_DATA,JSON.stringify(this.communityForm.value));

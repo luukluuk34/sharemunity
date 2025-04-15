@@ -1,0 +1,152 @@
+.communityForm {
+  background-color: #ffffff;
+  width: 500px;
+  height:100%;
+  margin: 7em auto;
+  border-radius: 1.5em;
+  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+  padding-bottom: 30px;
+}
+
+.community {
+  padding-top: 40px;
+  color: #006da3;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 28px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.name,
+.banner {
+  width: 76%;
+  color: rgb(38, 50, 56);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: rgba(136, 126, 126, 0.04);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 50px;
+  margin-left: 50px;
+  text-align: center;
+  margin-bottom: 27px;
+}
+
+.description {
+  width: 76%;
+  height: 100px;
+  color: rgb(38, 50, 56);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: rgba(136, 126, 126, 0.04);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 50px;
+  margin-left: 50px;
+  text-align: left;
+  margin-bottom: 27px;
+}
+
+.name:focus,
+.description:focus,
+.banner:focus {
+  border: 2px solid rgba(0, 0, 0, 0.18) !important;
+}
+
+.submit {
+  background-color: #006da3;
+  color: white;
+  padding: 0.4rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Montserrat';
+  text-decoration: none;
+  justify-content: center;
+}
+
+.submit:hover {
+  background-color: #8dd6f5;
+}
+
+.submit:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.submit:hover {
+  background-color: #8dd6f5;
+}
+
+.submit:focus {
+  box-shadow: rgba(59, 117, 211, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.submit:disabled {
+  background-color: #8dd6f5;
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: default;
+}
+
+.submit:active {
+  background-color: #006da3;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+
+@media (max-width: 600px) {
+  .communityForm {
+    border-radius: 0px;
+  }
+}
+
+.image-container {
+  display: inline-flex;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.previewWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.preview-img {
+  width: 140px; /* You can adjust the size of the preview */
+  height: 130px;
+  border-radius: 10px;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem; /* optional spacing */
+}
+
+.label{
+    text-align: center;
+    margin-bottom: 3px;
+    justify-content: center;
+}

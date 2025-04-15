@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, UseGuards,Post, Request, Body, UploadedFiles, Put, Delete } from "@nestjs/common";
+import { Controller, Get, Logger, Param, UseGuards,Post, Request, Body, UploadedFiles, Put, Delete, UploadedFile } from "@nestjs/common";
 import { CommunityService } from "./community.service";
 import { ICommunity } from "@sharemunity-workspace/shared/api";
 import { AuthGuard } from "@sharemunity-workspace/backend/auth";
@@ -52,14 +52,15 @@ export class CommunityController{
     }
 
     @Put(':id')
+    @UseGuards(AuthGuard)
+    @LocalImageFileInterceptor()
     update(
         @Param('id') id:string,
         @Request() req:any,
         @Body() data: UpdateCommunityDto,
+        @UploadedFiles() image:Express.Multer.File
     ):Promise<ICommunity | null>{
-        this.logger.debug(data);
-        
-        return this.communityService.update(id,data);
+        return this.communityService.update(id,req.body,image);
     }
 
     @Delete(':id')

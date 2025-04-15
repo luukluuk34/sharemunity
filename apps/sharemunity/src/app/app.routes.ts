@@ -11,6 +11,7 @@ import { ProductDetailComponent } from 'libs/sharemunity/features/src/lib/produc
 import { DashboardWrapperComponent } from '../lib/pages/dashboard-wrapper/dashboard-wrapper.component';
 import { DashboardGuestComponent } from '../lib/pages/dashboard-guest/dashboard-guest.component';
 import { ReservationOverviewComponent } from 'libs/sharemunity/features/src/lib/reservation/reservation-overview/reservation-overview.component';
+import { CommunityUpdateFormComponent } from 'libs/sharemunity/features/src/lib/community/community-update-form/community-update-form.component';
 
 export const appRoutes: Route[] = [
     {path:'login',component:LoginComponent},
@@ -34,6 +35,7 @@ export const appRoutes: Route[] = [
     {path:'product/:id',component:ProductDetailComponent},
     {path:'communities',component:CommunityMainComponent},
     {path:'communities/form',component:CommunityFormComponent},
+    {path:'communities/form/update',component:CommunityUpdateFormComponent},
     {path:'communities/:id',component:CommunityDetailComponent},
     {path:'reservations',component:ReservationOverviewComponent},
     {path:'', redirectTo:'/dashboard',pathMatch:'full'}

@@ -6,6 +6,7 @@ import { CommunityService } from '../community.service';
 import { environment } from '@sharemunity/shared/util-env';
 import { ProductService } from '../../product/product.service';
 import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
+import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
 
 @Component({
   selector: 'sharemunity-workspace-community-detail',
@@ -21,7 +22,7 @@ export class CommunityDetailComponent implements OnInit {
 
   protected loggedInUser:IUser | null = null;
 
-  constructor(communityService: CommunityService,prodService:ProductService,authService:AuthenticationService,private activatedRoute: ActivatedRoute, private router:Router) {
+  constructor(communityService: CommunityService,prodService:ProductService,authService:AuthenticationService,private activatedRoute: ActivatedRoute, private router:Router,private dataTransfer:DataTransferService) {
     this.communityService = communityService;
     this.authService = authService;
     this.productService = prodService;
@@ -85,4 +86,8 @@ export class CommunityDetailComponent implements OnInit {
     }
   }
 
+  route(){
+    this.dataTransfer.setData(this.community);
+    this.router.navigate(['/communities/form/update']);
+  }
 }

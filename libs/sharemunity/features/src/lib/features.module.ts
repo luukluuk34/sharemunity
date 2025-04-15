@@ -23,6 +23,8 @@ import { MyReservationListComponent } from './reservation/my-reservation-list/my
 import { UserListComponent } from './user/user-list/user-list.component';
 import { ReservationDetailComponent } from './reservation/reservation-detail/reservation-detail.component';
 import { ReservationOverviewComponent } from './reservation/reservation-overview/reservation-overview.component';
+import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
+import { CommunityUpdateFormComponent } from './community/community-update-form/community-update-form.component';
 
 
 @NgModule({
@@ -34,9 +36,13 @@ import { ReservationOverviewComponent } from './reservation/reservation-overview
     ],
     declarations: [
       CommunityListComponent,
-      ProductDetailComponent,
       CommunityChooseListComponent,
       CommunityDetailComponent,
+      CommunityUpdateFormComponent,
+      CommunityFormComponent,
+      CommunityMainComponent,
+      ProductListComponent,
+      ProductDetailComponent,
       ProductFormComponent,
       ReservationFormComponent,
       ReservationPendingListComponent,
@@ -45,11 +51,9 @@ import { ReservationOverviewComponent } from './reservation/reservation-overview
       ReservationOverviewComponent,
       UserDetailComponent,
       UserListComponent,
-      CommunityFormComponent,
-      CommunityMainComponent,
-      ProductListComponent,
+
     ],
-    providers: [ProductService,CommunityService,AuthenticationService,UserService,ReservationService],
+    providers: [ProductService,CommunityService,AuthenticationService,UserService,ReservationService,DataTransferService],
     exports:[ProductListComponent,CommunityListComponent]
   })
   export class FeaturesModule {}

@@ -143,9 +143,35 @@ public read(id: string | null, options?: any): Observable<ICommunity> {
             )
     }
 
+    public updateWithForm(communityId:string,formData:FormData): Observable<ICommunity>{
+        const backend = this.endpoint + "/" + communityId;
+        console.log(`Updating community ${formData.get('name')} at ${backend}`);
+
+        const token = localStorage.getItem(this.CURRENT_TOKEN);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: `Bearer ${token}`
+            }),
+            observe: 'body' as const,
+            responseType: 'json' as const
+        };
+        return this.http
+            .put<ICommunity>(backend,formData,httpOptions)
+            .pipe(
+                map((value) => {
+                    console.log("Results: ", value);
+                    return value;
+                }),
+                catchError((error)=>{
+                    console.log("Error: ",error);
+                    throw error;
+                })
+            )
+    }
+
     public update(community:ICommunity){
         console.log(`Updating community ${community.name} at ${this.endpoint}`);
-        console.log(community);
+
         const backend = this.endpoint + "/" + community.id;
         const token = localStorage.getItem(this.CURRENT_TOKEN);
         const httpOptions = {
@@ -165,6 +191,7 @@ public read(id: string | null, options?: any): Observable<ICommunity> {
             members:community.members?.map(member => member._id) || [],
             products:community.products?.map(prod => prod.id) || [],
         };
+        console.log("Final Update")
         return this.http
             .put<ICommunity>(backend,updateCommunity,httpOptions)
             .pipe(

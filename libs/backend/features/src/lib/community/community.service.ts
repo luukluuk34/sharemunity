@@ -33,7 +33,10 @@ export class CommunityService {
       .find()
       .populate('owner', 'name emailAddress address')
       .populate('members', 'name emailAddress address')
-      .populate('products', 'id name description images maxUseTime status owner')
+      .populate(
+        'products',
+        'id name description images maxUseTime status owner'
+      )
       .exec();
     return communities;
   }
@@ -61,25 +64,23 @@ export class CommunityService {
     return communities;
   }
 
-  async findOtherCommunities(req:any):Promise<ICommunity[]>{
+  async findOtherCommunities(req: any): Promise<ICommunity[]> {
     const communities = await this.communityModel
-    .find({ 
-      owner: {$nin: [req.user.user_id]},
-      members: {$nin: [req.user.user_id]}  
-    })
-    .populate('owner', 'name emailAddress address')
-    .populate('members', 'name emailAddress address')
-    .populate('products', 'name')
-    .exec();
-  return communities;
+      .find({
+        owner: { $nin: [req.user.user_id] },
+        members: { $nin: [req.user.user_id] },
+      })
+      .populate('owner', 'name emailAddress address')
+      .populate('members', 'name emailAddress address')
+      .populate('products', 'name')
+      .exec();
+    return communities;
   }
-  
-
 
   async findOne(_id: string): Promise<ICommunity | null> {
     this.logger.log(`Finding community with id ${_id}`);
 
-    if(!Types.ObjectId.isValid(_id)){
+    if (!Types.ObjectId.isValid(_id)) {
       this.logger.error(`Invalid objectId format: ${_id}`);
       throw new BadRequestException(`Invalid ID format ${_id}`);
     }
@@ -87,11 +88,13 @@ export class CommunityService {
       .findOne({ _id })
       .populate('owner', 'name emailAddress address')
       .populate('members', 'name emailAddress address')
-      .populate('products', 'id name description images maxUseTime status owner')
+      .populate(
+        'products',
+        'id name description images maxUseTime status owner'
+      )
       .exec();
     if (!community) {
       this.logger.debug(`Community not found`);
-      
     }
     return community;
   }
@@ -105,6 +108,7 @@ export class CommunityService {
       path: req.body.communityImage[0].path,
       size: req.body.communityImage[0].size,
     };
+    console.log(community['communityImage']);
     if (environment.production) {
       this.logger.log('Uploading Image');
       const path = await this.firebaseService.uploadImage(
@@ -121,8 +125,8 @@ export class CommunityService {
         .exec();
       const createdCommunity = {
         ...community,
-        members:[],
-        products:[],
+        members: [],
+        products: [],
         owner: user,
       };
 
@@ -133,25 +137,32 @@ export class CommunityService {
 
   async update(
     _id: string,
-    community: UpdateCommunityDto
+    community: UpdateCommunityDto,
+    image?: any
   ): Promise<ICommunity | null> {
-    //TODO At member
     this.logger.log(`Updating community with ID: ${_id}`);
+    let updateData = {
+      name: community.name,
+      description: community.description,
+      communityImage: community.communityImage,
+      creationDate: community.creationDate,
+      products: community.products,
+      members: community.members,
+    };
 
-    const updateData = {
-        name: community.name,
-        description: community.description,
-        communityImage: community.communityImage,
-        creationDate: community.creationDate,
-        products: community.products,
-        members: community.members,
-      };
-    return this.communityModel
-      .findByIdAndUpdate({_id}, updateData, { new: true })
+    if (image) {
+      updateData['communityImage'] = image[0];
+      console.log(image[0]);
+    }
+
+    this.logger.debug(updateData);
+    return this.communityModel.findByIdAndUpdate({ _id }, updateData, {
+      new: true,
+    });
   }
 
-  async delete(id:string):Promise<ICommunity | null>{
+  async delete(id: string): Promise<ICommunity | null> {
     this.logger.log(`Deleting community with ID: ${id}`);
-    return this.communityModel.findOneAndDelete({_id:id}).exec();
+    return this.communityModel.findOneAndDelete({ _id: id }).exec();
   }
 }

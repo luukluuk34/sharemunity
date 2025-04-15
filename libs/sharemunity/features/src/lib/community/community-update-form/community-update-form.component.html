@@ -1,0 +1,23 @@
+<div class="communityForm">
+    <p class="community">Community Edit</p>
+    <form class="form1" [formGroup]="communityForm" (ngSubmit)="onSubmit()">
+        <input class="name" type="text" placeholder="Community Name" formControlName="name">
+        <input class="description" type="text" placeholder="Enter description about the community" formControlName="description">
+        <div class="label">
+            <label for="bannerData">Select new Image only if you want to update banner.</label>
+        </div>
+        <input class="banner" type="file" (change)="onFileSelected($event)" accept="image/*">
+        <input type="hidden" formControlName="bannerData">
+        <div *ngIf="communityForm.get('bannerData')?.errors?.['uploadImageFileValidator']">
+            Banner is invalid file type. Please upload a png or a jpg image.
+        </div>
+        <div class="image-container">
+            <div *ngIf="selectedImage" class="previewWrapper">
+                <img [src]="selectedImage.path" [alt]="selectedImage.filename" class="preview-img">
+            </div>
+        </div>
+        <div class="button-container">
+            <a class="submit" (click)="onSubmit()">Edit</a>
+        </div>
+    </form>
+</div>

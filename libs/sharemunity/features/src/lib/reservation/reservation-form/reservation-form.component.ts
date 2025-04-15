@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ReservationService } from '../reservation.service';
 import { ProductService } from '../../product/product.service';
-import { IProduct, IUser } from '@sharemunity-workspace/shared/api';
+import { ICommunity, IProduct, IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 
