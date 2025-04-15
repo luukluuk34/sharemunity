@@ -129,6 +129,7 @@ export class ReservationService {
       reservation: UpdateReservationDto
     ): Promise<IReservation | null> {
       this.logger.log(`Update reservation for product:  ${reservation.product.name}`);
+      this.logger.debug(reservation);
       return this.reservationModel.findByIdAndUpdate({ _id }, reservation);
     }
 

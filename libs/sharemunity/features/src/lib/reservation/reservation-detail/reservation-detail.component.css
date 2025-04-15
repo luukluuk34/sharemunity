@@ -46,6 +46,7 @@ p {
     touch-action: manipulation;
     vertical-align: middle;
     white-space: nowrap;
+    margin-left: 5px;
   }
   
   .submit:focus:not(:focus-visible):not(.focus-visible) {

@@ -6,6 +6,7 @@ import { Reservation } from 'libs/backend/features/src/lib/reservation/reservati
 import { Router } from '@angular/router';
 import { IUser, ReservationStatus } from '@sharemunity-workspace/shared/api';
 import { AuthenticationService } from '../../user/authentication.service';
+import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
 
 @Component({
   selector: 'sharemunity-workspace-reservation-detail',
@@ -15,12 +16,13 @@ import { AuthenticationService } from '../../user/authentication.service';
 export class ReservationDetailComponent implements OnInit {
   @Input({ required: false }) reservationId!: string;
   @Output() reservationDeleted = new EventEmitter<void>();
+  @Output() reservationChange = new EventEmitter<void>();
 
   private resService: ReservationService;
   protected loggedInUser: IUser | null = null;
   reservation: Reservation | null = null;
 
-  constructor(reservationService: ReservationService,private authService:AuthenticationService, private router: Router) {
+  constructor(reservationService: ReservationService,private authService:AuthenticationService, private router: Router, private dataTransferService:DataTransferService) {
     this.resService = reservationService;
   }
 
@@ -55,7 +57,15 @@ export class ReservationDetailComponent implements OnInit {
       });
     }
   }
+
+  sendEvent(){
+    console.log("event");
+    this.reservationChange.emit();
+  }
+
   public get reservationStatus(): typeof ReservationStatus {
     return ReservationStatus;
   }
+
+  
 }

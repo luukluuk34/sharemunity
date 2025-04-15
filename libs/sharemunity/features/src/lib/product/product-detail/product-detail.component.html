@@ -40,6 +40,7 @@
 
   <div *ngIf="reservation" class="reservation-wrapper">
     <sharemunity-workspace-reservation-detail
+      (reservationChange)="openPopupCreateReservation()"
       (reservationDeleted)="reservationDeleted()"
       [reservationId]="reservation.id">
     </sharemunity-workspace-reservation-detail>
@@ -53,7 +54,7 @@
 
   <div *ngIf="createReservationForProduct" class="overlay">
     <div class="popup-content">
-      <sharemunity-workspace-reservation-form (closePop)="closePopup()"></sharemunity-workspace-reservation-form>
+      <sharemunity-workspace-reservation-form [updateReservation]="this.reservation" (closePop)="closePopup()"></sharemunity-workspace-reservation-form>
     </div>
   </div>
 

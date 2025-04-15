@@ -13,6 +13,7 @@ import { DashboardGuestComponent } from '../lib/pages/dashboard-guest/dashboard-
 import { ReservationOverviewComponent } from 'libs/sharemunity/features/src/lib/reservation/reservation-overview/reservation-overview.component';
 import { CommunityUpdateFormComponent } from 'libs/sharemunity/features/src/lib/community/community-update-form/community-update-form.component';
 import { ProductUpdateFormComponent } from 'libs/sharemunity/features/src/lib/product/product-update-form/product-update-form.component';
+import { AboutComponent } from '../lib/layout/about/about.component';
 
 export const appRoutes: Route[] = [
     {path:'login',component:LoginComponent},
@@ -40,5 +41,6 @@ export const appRoutes: Route[] = [
     {path:'communities/form/update',component:CommunityUpdateFormComponent},
     {path:'communities/:id',component:CommunityDetailComponent},
     {path:'reservations',component:ReservationOverviewComponent},
+    {path:'about',component:AboutComponent},
     {path:'', redirectTo:'/dashboard',pathMatch:'full'}
 ];

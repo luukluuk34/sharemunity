@@ -8,9 +8,10 @@ import {
 } from '@angular/forms';
 import { ReservationService } from '../reservation.service';
 import { ProductService } from '../../product/product.service';
-import { ICommunity, IProduct, IUser } from '@sharemunity-workspace/shared/api';
+import { ICommunity, IProduct, IReservation, IUser } from '@sharemunity-workspace/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
+
 
 @Component({
   selector: 'sharemunity-workspace-reservation-form',
@@ -19,6 +20,7 @@ import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/au
 })
 export class ReservationFormComponent implements OnInit {
   @Output() closePop = new EventEmitter<void>();
+  @Input({required:false}) updateReservation:IReservation | null = null;   
   private readonly SAVED_DATA = 'savedData';
 
   reservationForm!: FormGroup;
@@ -36,6 +38,8 @@ export class ReservationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("Reservation form, -----------------");
+    console.log(this.updateReservation);
     this.authService.user$.subscribe((user)=>{
       this.loggedInUser = user;
     });
@@ -51,6 +55,14 @@ export class ReservationFormComponent implements OnInit {
       message: new FormControl(null, [Validators.required]),
       pickup_date: new FormControl(null, [Validators.required]),
     });
+
+    if(this.updateReservation){
+      const date = new Date(this.updateReservation.pickup_date);
+      const formattedDate = date.toISOString().split('T')[0];
+      this.reservationForm.patchValue({"message":this.updateReservation.message});
+      this.reservationForm.patchValue({"pickup_date":formattedDate})
+    }
+
     const savedData = localStorage.getItem(this.SAVED_DATA);
     if (savedData) {
       const formData = JSON.parse(savedData);
@@ -78,7 +90,7 @@ export class ReservationFormComponent implements OnInit {
       this.reservationForm.controls['pickup_date'].setErrors({ 'incorrect': true });
     }
     
-    if (this.reservationForm.valid && this.product?.id) {
+    if (this.reservationForm.valid && this.product?.id && !this.updateReservation) {
       console.log("Valid Form")
       const formData = new FormData();
       formData.append('product', this.product?.id);
@@ -91,11 +103,28 @@ export class ReservationFormComponent implements OnInit {
       }
       this.reservationService.create(formData).subscribe({
         next: () => {
+          localStorage.removeItem(this.SAVED_DATA);
           this.closePopup();
         },
         error: (err) => console.error(err)
       });
-    }else{
+    }else if(this.updateReservation){
+      this.updateReservation.message = this.reservationForm.value.message;
+      this.updateReservation.pickup_date = this.reservationForm.value.pickup_date;
+      if(maxUseWeeks){
+        let end_date = new Date(pickup);
+        end_date.setDate(end_date.getDate() + (maxUseWeeks * 7))
+        this.updateReservation.end_date = end_date;
+      }
+      this.reservationService.update(this.updateReservation).subscribe({
+        next: () => {
+          localStorage.removeItem(this.SAVED_DATA);
+          this.closePopup();
+        },
+        error: (err) => console.error(err)
+      });
+    }
+    else{
       console.log("Invalid form");
     }
   }

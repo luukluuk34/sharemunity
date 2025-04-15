@@ -12,7 +12,7 @@
         <label for="pickup_date">Date of pickup: </label>
         <input class="pickup_date" type="date" formControlName="pickup_date" />
         <p *ngIf="product.maxUseTime != 0">
-          You can only borrow this item for {{ product.maxUseTime }} weeks.
+          You can only borrow this for {{ product.maxUseTime }} weeks.
         </p>
       </div>
 

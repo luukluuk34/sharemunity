@@ -49,6 +49,12 @@ export class DashboardComponent implements OnInit {
   getMyProducts(prod:boolean){
     this.myProducts = prod;
   }
-
+  
+  routing(){
+    console.log("------Routing--------")
+    this.router.navigate(['/product/form'],{
+      queryParams:{returnTo: `/dashboard/loggedin`}
+    });
+  }
 
 }

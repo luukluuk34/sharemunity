@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { uploadImageFileValidator } from '@sharemunity-workspace/sharemunity/common';
 import { ProductService } from '../product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'sharemunity-workspace-product-form',
@@ -25,6 +25,7 @@ export class ProductFormComponent implements OnInit {
 
   protected user: IUser | null = null;
   protected productForm!: FormGroup;
+  protected returnPath: string = '/dashboard';
 
   invalidFiles: File[] = [];
   selectedImages: File[] = [];
@@ -34,6 +35,7 @@ export class ProductFormComponent implements OnInit {
     authenticationService: AuthenticationService,
     productService: ProductService,
     private router:Router,
+    private route:ActivatedRoute,
     private _location:Location
   ) {
     this.authService = authenticationService;
@@ -41,6 +43,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params=>{
+      if(params['returnTo']){
+        this.returnPath = params['returnTo'];
+      }
+    });
+
     this.authService.user$.subscribe((user) => {
       this.user = user;
     });
@@ -95,9 +103,11 @@ export class ProductFormComponent implements OnInit {
       this.selectedImages.forEach((file, index) => {
         formData.append(`images`, file, file.name);
       });
-      this.prodService.create(formData).subscribe();
+      this.prodService.create(formData).subscribe(()=>{
+        this.router.navigate([this.returnPath]);
+      });
       localStorage.removeItem(this.SAVED_PRODUCT_DATA);
-      this._location.back();
+      
     }
   }
 

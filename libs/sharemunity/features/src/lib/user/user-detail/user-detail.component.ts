@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/authentication.service';
 import { UserService } from '../user.service';
 import { IUser } from '@sharemunity-workspace/shared/api';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'sharemunity-workspace-user-detail',
   templateUrl: './user-detail.component.html',
@@ -16,7 +16,7 @@ export class UserDetailComponent implements OnInit {
   protected userPage:IUser | null = null;
 
 
-  constructor(authService:AuthenticationService,userService:UserService, private route:ActivatedRoute){
+  constructor(authService:AuthenticationService,userService:UserService, private route:ActivatedRoute, private router:Router){
     this.authService = authService;
     this.userService = userService;
   }
@@ -33,6 +33,13 @@ export class UserDetailComponent implements OnInit {
       })
     })
 
+  }
+
+  routing(){
+    console.log("------Routing--------")
+    this.router.navigate(['/product/form'],{
+      queryParams:{returnTo: `/user-detail/${this.userPage?._id}`}
+    });
   }
 
   checkIfUserIsOwner(id?:string):Boolean{

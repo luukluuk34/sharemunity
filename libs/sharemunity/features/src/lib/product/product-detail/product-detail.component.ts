@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../product.service';
 import {
@@ -12,6 +12,7 @@ import { AuthenticationService } from 'libs/sharemunity/features/src/lib/user/au
 import { ReservationService } from '../../reservation/reservation.service';
 import { environment } from '@sharemunity/shared/util-env';
 import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'sharemunity-workspace-product-detail',
@@ -37,7 +38,8 @@ export class ProductDetailComponent implements OnInit {
     resService: ReservationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private dataTransferService:DataTransferService
+    private dataTransferService:DataTransferService,
+    private cdr:ChangeDetectorRef
   ) {
     this.productService = productService;
     this.authService = authService;
@@ -109,17 +111,24 @@ export class ProductDetailComponent implements OnInit {
   openPopupCreateReservation() {
     this.createReservationForProduct = true;
   }
+  
 
   closePopup() {
     this.addProductToCommunity = false;
     this.createReservationForProduct = false;
     if (this.product?.id) {
+      this.reservation = null;
+      console.log("In the IF")
       this.resService
         .getProductReservation(this.product.id)
+        .pipe(
+          tap((res)=> console.log(`Fetched resevation:`, res))
+        )
         .subscribe((res) => {
-          this.reservation = res;
-          console.log('Updated reservation:', this.reservation);
+          this.reservation ={...res};
+          this.cdr.detectChanges();
         });
+        
     }
   }
 
