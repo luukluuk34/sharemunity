@@ -48,6 +48,8 @@ export class CommunityController{
         @UploadedFiles() image:Express.Multer.File
     ):Promise<ICommunity | null> {
         req.body.communityImage = image;
+        this.logger.debug(req.body);
+        this.logger.debug(image);
         return this.communityService.create(req);
     }
 
