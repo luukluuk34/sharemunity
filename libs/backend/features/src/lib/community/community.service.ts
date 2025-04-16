@@ -145,6 +145,7 @@ export class CommunityService {
     image?: any
   ): Promise<ICommunity | null> {
     this.logger.log(`Updating community with ID: ${_id}`);
+    
     let updateData = {
       name: community.name,
       description: community.description,
@@ -156,10 +157,14 @@ export class CommunityService {
 
     if (image) {
       updateData['communityImage'] = image[0];
-      console.log(image[0]);
+      if (environment.production) {
+        this.logger.log('Uploading Image');
+        const path = await this.firebaseService.uploadImage(
+          image[0]
+        );
+        updateData['communityImage'].path = path;
+      }
     }
-
-    this.logger.debug(updateData);
     return this.communityModel.findByIdAndUpdate({ _id }, updateData, {
       new: true,
     });

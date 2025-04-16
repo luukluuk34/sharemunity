@@ -85,9 +85,11 @@ export class ProductUpdateFormComponent implements OnInit {
 
       formData.append(`keptImages`,JSON.stringify(this.productImages));
 
-      this.prodService.update(this.product.id,formData).subscribe();
+      this.prodService.update(this.product.id,formData).subscribe(()=>{
+        this._location.back();
+      });
       localStorage.removeItem(this.SAVED_PRODUCT_DATA);
-      this._location.back();
+      
     }
   }
 

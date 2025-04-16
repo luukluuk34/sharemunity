@@ -5,7 +5,11 @@ import { AuthenticationService } from '../../user/authentication.service';
 import { CommunityService } from '../community.service';
 import { Router } from '@angular/router';
 import { uploadImageFileValidator } from '@sharemunity-workspace/sharemunity/common';
-import { ICommunity, ICreateImage, IImage } from '@sharemunity-workspace/shared/api';
+import {
+  ICommunity,
+  ICreateImage,
+  IImage,
+} from '@sharemunity-workspace/shared/api';
 import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfer/datatransfer.service';
 
 @Component({
@@ -16,9 +20,9 @@ import { DataTransferService } from 'libs/sharemunity/common/src/lib/datatransfe
 export class CommunityUpdateFormComponent implements OnInit {
   private readonly SAVED_DATA = 'savedCommunityData';
   private selectedFile: File | null = null;
-  selectedImage:IImage | null = null;
-  private community:ICommunity | null = null;
-  
+  selectedImage: IImage | null = null;
+  private community: ICommunity | null = null;
+
   communityForm!: FormGroup;
   private authenticationService: AuthenticationService;
   private commService: CommunityService;
@@ -27,7 +31,7 @@ export class CommunityUpdateFormComponent implements OnInit {
     authService: AuthenticationService,
     communityService: CommunityService,
     private router: Router,
-    private dataTransferService:DataTransferService
+    private dataTransferService: DataTransferService
   ) {
     this.authenticationService = authService;
     this.commService = communityService;
@@ -36,22 +40,19 @@ export class CommunityUpdateFormComponent implements OnInit {
     this.communityForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      bannerData: new FormControl(null, [
-        uploadImageFileValidator(),
-      ]),
+      bannerData: new FormControl(null, [uploadImageFileValidator()]),
     });
-    const community:ICommunity = this.dataTransferService.getData();
-    if(community){
+    const community: ICommunity = this.dataTransferService.getData();
+    if (community) {
       this.community = community;
       this.communityForm.setValue({
-        name:community.name,
-        description:community.description,
-        bannerData: null
+        name: community.name,
+        description: community.description,
+        bannerData: null,
       });
       this.selectedImage = this.community.communityImage;
-
-    }else{
-      this.router.navigate(['/dashboard'])
+    } else {
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -61,39 +62,36 @@ export class CommunityUpdateFormComponent implements OnInit {
       JSON.stringify(this.communityForm.value)
     );
 
-    if(this.communityForm.valid){
-      if(this.selectedFile && this.community){
+    if (this.communityForm.valid) {
+      if (this.selectedFile && this.community) {
         const formData = new FormData();
         formData.append('name', this.communityForm.value.name);
         formData.append('description', this.communityForm.value.description);
         formData.append('images', this.selectedFile, this.selectedFile.name);
-  
-        this.commService.updateWithForm(this.community.id, formData).subscribe((com) => {
-          console.log("Updated with new image:", com);
-          //this.router.navigate([`/communities/${com.id}`]);
-        });
-      }
-      else{
-        if(this.selectedImage && this.community){
-          const updatedCommunity:ICommunity = {
+
+        this.commService
+          .updateWithForm(this.community.id, formData)
+          .subscribe((com) => {
+            console.log('Updated with new image:', com);
+            //this.router.navigate([`/communities/${com.id}`]);
+          });
+      } else {
+        if (this.selectedImage && this.community) {
+          const updatedCommunity: ICommunity = {
             ...this.community,
-            name:this.communityForm.value.name,
-            description:this.communityForm.value.description,
-            communityImage: this.selectedImage
-          }
-          this.commService.update(updatedCommunity).subscribe((com)=>{
-            console.log("Updated: ",com);
-          })
+            name: this.communityForm.value.name,
+            description: this.communityForm.value.description,
+            communityImage: this.selectedImage,
+          };
+          this.commService.update(updatedCommunity).subscribe((com) => {
+            console.log('Updated: ', com);
+            this.resetFileInput();
+            this.router.navigate([`/communities/${this.community?.id}`]);
+          });
         }
       }
     }
-
-      // this.commService.create(formData).subscribe((community) => {
-      //   console.log(community),
-      //     this.router.navigate([`/communities/${community.id}`]);
-      // });
-      //this.resetFileInput();
-    }
+  }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
