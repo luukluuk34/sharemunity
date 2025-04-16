@@ -78,7 +78,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getLocalProductImages() {
-    if (this.product) {
+    if (this.product && !environment.production) {
       this.product.images.forEach((img) => {
         if(!img.path.includes(environment.dataApiUrl)){
           img.path = this.getImageUrl(img.path);

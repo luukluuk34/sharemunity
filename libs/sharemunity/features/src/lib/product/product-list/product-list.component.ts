@@ -83,7 +83,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   getLocalProductImages() {
-    if (this.products) {
+    if (this.products && !environment.production) {
       this.products.forEach((prod) => {
         prod.images.forEach((img) => {
           img.path = this.getImageUrl(img.path);

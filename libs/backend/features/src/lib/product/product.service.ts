@@ -75,7 +75,9 @@ export class ProductService {
     for (let i = 0; i < req.files.length; i++) {
       const file = req.files[i];
       product['images'][i] = {
-        filename: file.filename,
+        fieldname: `${Date.now()}-${file.originalname}`,
+        filename: `${Date.now()}-${file.originalname}`,
+        orignalname: `${Date.now()}-${file.originalname}`,
         encoding: file.encoding,
         mimetype: file.mimetype,
         path: file.path,
@@ -113,7 +115,6 @@ export class ProductService {
   }
 
   async update(id: string, req: any): Promise<IProduct | null> {
-    console.log("- -----------------------")
     const data = req.body;
   
     let keptImages: IImage[] = [];
@@ -128,7 +129,7 @@ export class ProductService {
     const uploadedFiles: Express.Multer.File[] = req.files || [];
     for (const file of uploadedFiles) {
       const img: IImage = {
-        filename: file.filename,
+        filename: `${Date.now()}-${file.originalname}`,
         encoding: file.encoding,
         mimetype: file.mimetype,
         path: file.path,
