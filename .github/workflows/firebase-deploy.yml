@@ -84,42 +84,42 @@ jobs:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
           APP_NAME: firebase-sharemunity
 
-  # deploy-backend:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   environment:
-  #     name: 'Production'
-  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  deploy-backend:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-  #   steps:
-  #     - name: Download artifact from build job
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: data-api
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: data-api
 
-  #     - name: Display Files 1 (Optional - for debugging)
-  #       run: |
-  #         ls -la 
+      - name: Display Files 1 (Optional - for debugging)
+        run: |
+          ls -la 
 
-  #     - name: Unzip artifact for deployment
-  #       run: |
-  #         unzip data-api-release.zip
+      - name: Unzip artifact for deployment
+        run: |
+          unzip data-api-release.zip
 
-  #     - name: Display Files 2 (Optional - for debugging)
-  #       run: |
-  #         ls -la 
+      - name: Display Files 2 (Optional - for debugging)
+        run: |
+          ls -la 
 
-  #     - name: Install dependencies
-  #       run: |
-  #         npm install
-  #         npm install firebase-admin
-  #         echo test
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install firebase-admin
+          echo test
 
-  #     - name: Deploy to azure Web App
-  #       id: deploy-to-webapp
-  #       uses: azure/webapps-deploy@v3
-  #       with:
-  #         app-name: 'sharemunity-api'
-  #         slot-name: 'Production'
-  #         publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-  #         package: .
+      - name: Deploy to azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'sharemunity-api'
+          slot-name: 'Production'
+          publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
+          package: .
