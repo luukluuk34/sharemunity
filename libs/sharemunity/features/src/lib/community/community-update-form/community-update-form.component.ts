@@ -73,7 +73,7 @@ export class CommunityUpdateFormComponent implements OnInit {
           .updateWithForm(this.community.id, formData)
           .subscribe((com) => {
             console.log('Updated with new image:', com);
-            //this.router.navigate([`/communities/${com.id}`]);
+            this.router.navigate([`/communities/${com.id}`]);
           });
       } else {
         if (this.selectedImage && this.community) {
