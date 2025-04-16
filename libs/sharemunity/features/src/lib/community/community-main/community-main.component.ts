@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink,Router, RouterModule } from '@angular/router'
 import { FeaturesModule } from "../../features.module";
 import { ICommunity } from '@sharemunity-workspace/shared/api';
+import { AuthenticationService } from '../../user/authentication.service';
 
 @Component({
   selector: 'sharemunity-workspace-community-main',
@@ -17,11 +18,17 @@ export class CommunityMainComponent implements OnInit{
   protected myProducts:boolean = false;
   refreshNotJoined = false;
 
-  constructor(private router:Router){}
+  constructor(private router:Router, private auth:AuthenticationService){
+  }
   
   
   
-  ngOnInit(): void {  }
+  ngOnInit(): void {  
+    if(!this.auth.isLoggedIn()){
+      this.router.navigate(['/dashboard'])
+    }
+
+  }
 
   getMyCommunities(com:boolean){
     console.log(`Boolean: ${com}`)
