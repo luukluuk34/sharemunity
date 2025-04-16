@@ -66,12 +66,14 @@ export class CommunityDetailComponent implements OnInit {
   }
 
   getLocalProductImages(){
-    if(this.community){
-      this.community.products.forEach(prod=>{
-        prod.images.forEach((img)=>{
-          img.path = this.getImageUrl(img.path);
+    if(!environment.production){
+      if(this.community){
+        this.community.products.forEach(prod=>{
+          prod.images.forEach((img)=>{
+            img.path = this.getImageUrl(img.path);
+          })
         })
-      })
+      }
     }
   }
 

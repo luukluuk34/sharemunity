@@ -101,14 +101,18 @@ export class CommunityService {
 
   async create(req: any): Promise<ICommunity | null> {
     var community = req.body;
+    this.logger.debug(req.body.communityImage[0].fieldname)
+    this.logger.debug(req.body.communityImage[0].originalname)
     community['communityImage'] = {
-      filename: req.body.communityImage[0].filename,
+      filename: `${Date.now()}-${req.body.communityImage[0].originalname}`,
+      fieldname: `${Date.now()}-${req.body.communityImage[0].originalname}`,
+      originalname: `${Date.now()}-${req.body.communityImage[0].originalname}`,
       encoding: req.body.communityImage[0].encoding,
       mimetype: req.body.communityImage[0].mimetype,
       path: req.body.communityImage[0].path,
       size: req.body.communityImage[0].size,
+      buffer:req.body.communityImage[0].buffer
     };
-    console.log(community['communityImage']);
     if (environment.production) {
       this.logger.log('Uploading Image');
       const path = await this.firebaseService.uploadImage(

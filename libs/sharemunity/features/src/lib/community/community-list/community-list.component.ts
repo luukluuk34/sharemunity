@@ -56,7 +56,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   }
 
   getImages(){
-    if (this.communities) {
+    if (this.communities && !environment.production) {
       for (let community of this.communities) {
         console.log('Owner;' + community);
         if (community.communityImage?.path && !(community.communityImage.path.includes(environment.dataApiUrl))) {

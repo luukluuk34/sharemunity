@@ -16,8 +16,10 @@ export class FirebaseService {
     }
     let parsedCredentials: admin.ServiceAccount;
     try{
-      console.log("-test")
-      parsedCredentials = JSON.parse(Buffer.from(firebaseCredentials,'base64').toString('utf-8')) as admin.ServiceAccount;
+      this.logger.debug("Decoded string");
+      const decoded = Buffer.from(firebaseCredentials,'base64').toString('utf-8');
+      parsedCredentials = JSON.parse(decoded) as admin.ServiceAccount;
+      this.logger.debug(parsedCredentials);
     }catch(error){
       throw new Error("Invalid FIREBASE_CREDENTIALS JSON FORMAT");
     }
@@ -35,7 +37,8 @@ export class FirebaseService {
   async uploadImage(file:Express.Multer.File): Promise<string> {
     return new Promise((resolve,reject) => {
 
-      const filename = `${file.filename}`;
+      const filename = `${file.originalname}`;
+      this.logger.debug('UploadingFileName: ',filename);
       const bucket = this.storage.bucket();
       const fileUpload = bucket.file(filename);
       const uploadStream = fileUpload.createWriteStream({
@@ -43,13 +46,15 @@ export class FirebaseService {
           contentType:file.mimetype,
         }
       });
+      this.logger.debug("Lets goooooooo");
       uploadStream.on("error", (error) => {
         this.logger.error(`Uploading of: ${filename} failed.`, error)
         reject(error)
       });
       uploadStream.on("finish",async () =>{
+        await fileUpload.makePublic();
         this.logger.log(`Uploading of: ${filename} succesful`)
-        const storageUrl = `${environment.storage}/${bucket.name}/${filename}`;
+        const storageUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
         resolve(storageUrl);
       });
       uploadStream.end(file.buffer);
