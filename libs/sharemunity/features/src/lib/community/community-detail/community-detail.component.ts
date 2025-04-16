@@ -55,7 +55,7 @@ export class CommunityDetailComponent implements OnInit {
   getCommnityBannerImage() {
     if (this.community) {
       console.log('Owner;' + this.community.owner._id);
-      if (this.community.communityImage?.path && !(this.community.communityImage.path.includes(environment.dataApiUrl))) {
+      if (!environment.production && this.community.communityImage?.path && !(this.community.communityImage.path.includes(environment.dataApiUrl))) {
         this.community.communityImage.path =  this.getImageUrl(this.community.communityImage.path);
       }
     }
