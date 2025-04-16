@@ -51,7 +51,6 @@ export class DashboardComponent implements OnInit {
   }
   
   routing(){
-    console.log("------Routing--------")
     this.router.navigate(['/product/form'],{
       queryParams:{returnTo: `/dashboard/loggedin`}
     });

@@ -10,6 +10,213 @@
         de reserveringen komen te staan in een overzicht op zowel het profiel als de Reservations pagina</p>
     <p>Als je spullen hebt die je niet erg vind om uit te lenen kan je ook een product (item) aanmaken en 
         toevoegen aan een community waaraan je deel neemt zodat de mensen in je community deze spullen eventueel kunnen lenen.</p>
-        
+</div>
+<div>
+    <h3>Sharemunity ERD</h3>
+    <img src="assets/sharemunity-erd.jpg">
+</div>
 
+<div>
+    <h3>Sharemunity MoSCoW functional requirements</h3>
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Functional Requirement</th>
+            <th>Acceptatie Criteria</th>
+            <th>Prioriteit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>F-01</td>
+            <td>Als user wil ik kunnen registreren zodat ik deel kan nemen aan de website</td>
+            <td>• In de navigatie balk is een knop registreren als een user niet ingelogd is.<br>
+            • Deze knop brengt je naar het registratie form.<br>
+            • In het registratie form zit een username input<br>
+            • In het registratie form zit een email input<br>
+            • In het registratie form zit een password input<br>
+            • In het registratie form address input<br>
+            • De user kan hier registreren.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-02</td>
+            <td>Als user wil ik kunnen inloggen zodra ik een account heb aangemaakt</td>
+            <td>• In de navigatie balk zit een knop inloggen als een user niet ingelogd is.<br>
+            • Deze knop brengt je naar het inloggen form.<br>
+            • In de inlog form zit een email input<br>
+            • In de inlog form zit een password input<br>
+            • De user kan hier inloggen</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-03</td>
+            <td>Als user zou ik snel willen uitloggen als ik niet meer aangemeld wil zijn.</td>
+            <td>• In de navigatie balk zit een knop waar je kan uitloggen als een user ingelogd is.<br>
+            • Als de user op de knop klikt wordt die uitgelogd</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-04</td>
+            <td>Als user wil ik een lijst van communities zien, waarin ik kan zien waar de community over gaat.</td>
+            <td>• Als de user navigeert naar de communities tab zie ik een overicht van communities.<br>
+            • Een my communities lijst<br>
+            • Een joined communities lijst<br>
+            • Een overige communities lijst<br>
+            • Er moet een naam weergegeven worden<br>
+            • Er moet een beschrijving weergegeven worden<br>
+            • Er moet een banner foto weergegeven worden</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-05</td>
+            <td>Als user wil ik een community kunnen joinen om te zien wat voor spullen ze aanbieden</td>
+            <td>• De lijst van overige communities heeft een join button.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-06</td>
+            <td>Als user wil ik een community kunnen verlaten, wanneer ik geen interesse meer heb in de community.</td>
+            <td>• Bij joined communities komt een knop om de community te verlaten.<br>
+            • Drukken op de knop haalt je uit de community.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-07</td>
+            <td>Als user wil ik een community kunnen aanmaken wanneer ik zie dat er nog geen community is voor mijn interesse.</td>
+            <td>• In de communities tab is er een knop communities aanmaken<br>
+            • De form heeft een name input<br>
+            • De form heeft een description input<br>
+            • De form heeft file input veld waarin je alleen png of jpg kan uploaden</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-08</td>
+            <td>Als community member wil ik de details zien van de communities waar ik deel aan neem zodat ik weet wat voor spullen ze aanbieden.</td>
+            <td>• Bij de lijst van communities is er een knop om naar de detail te gaan van de community<br>
+            • In de community detail pagina zie je de community name<br>
+            • In de community detail pagina zie je alle members die de communities gejoined zijn.<br>
+            • In de community detail pagina zie je een lijst van alle available products.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-09</td>
+            <td>Als community owner wil de community details updaten wanneer ik vind dat het een aanpassing nodig heeft</td>
+            <td>• In de community detail pagina is een update knop<br>
+            • De update form is voor gevuld met de informatie van de community.<br>
+            • Foto's moet je kunnen verwijderen maar ook toevoegen.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-10</td>
+            <td>Als community owner wil ik de community deleten als er geen interesse meer in is.</td>
+            <td>• In de community detail pagina is een delete knop.<br>
+            • Als je op de knop klikt wordt de community gedelete</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-11</td>
+            <td>Als user wil ik een product aanmaken, zodat ik items kan uitlenen aan mensen die er interesse in heben.</td>
+            <td>• In het dashboard staat een knop create item waarna je naar de add item form gaat<br>
+            • In de form staat een name input<br>
+            • In de form staat een bescrijving input<br>
+            • In de form staat een nummer input, dit is een optionele input<br>
+            • Er is een knop voor het toevoegen van images<br>
+            • De images worden gedisplayed als ze geüpload zijn</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-12</td>
+            <td>Als user wil ik een product kunnen toevoegen in communities naar keuze, zodat members deze kunnen lenen wanneer ze interesse hebben.</td>
+            <td>• In de product detail pagina zit er een add to community knop.<br>
+            • Dit is een popup met communities die je kan aankruizen.<br>
+            • De communities zijn alleen communities waaraan je deelneemt of eigenaar van bent.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-13</td>
+            <td>Als user zou ik een product willen aanpassen, wanneer ik de informatie wil updaten.</td>
+            <td>• In de product detail pagina zit er een edit product knop die je linked naar het update form.<br>
+            • In de update form is alle informatie al toegevoegd<br>
+            • Je moet images kunnen verwijderen en toevoegen.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-14</td>
+            <td>Als user zou ik de details van een product willen zien, zodat ik weet wat ik zou lenen.</td>
+            <td>• In een product lijst moet er een knop zijn waarmee ik kan navigeren naar een product-detail pagina.<br>
+            • Deze pagina heeft een titel<br>
+            • De product detail pagina kan je zien wie de eigenaar is.<br>
+            • De product detail pagina moet alle foto's laten zien van het product.<br>
+            • De product detail pagina heeft een beschrijving van het product.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-15</td>
+            <td>Als user zou ik een product willen verwijderen wanneer ik het niet meer wil uitlenen.</td>
+            <td>• De product detail pagina heeft een verwijder item knop<br>
+            • Deze knop is alleen zichtbaar voor de eigenaar die ingelogd is.</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-16</td>
+            <td>Als user wil ik in mijn homepagina een overzicht hebben van communities en items zodat ik een snel startpunt heb.</td>
+            <td>• Er is een homepagina voor een ingelogde user.<br>
+            • In de homepagina is er een lijst van communities die gemaakt zijn door de user<br>
+            • In de homepagine is een lijst van communties waar de user aan deelneemt.<br>
+            • In de homepagina is een lijst van items die van de user zijn</td>
+            <td>Could</td>
+          </tr>
+          <tr>
+            <td>F-17</td>
+            <td>Als user zou ik mijn product maar tot een beperkte tijd willen uitlenen, zodat het duidelijk is wanneer users het terugbrengen.</td>
+            <td>• Een product heeft een max use time.<br>
+            • Dit staat voor het aantal weken een user dit maximaal mag gebruiken.<br>
+            • Als dit ingevuld is komt er bij elke reservering een maximale einddatum te staan</td>
+            <td>Could</td>
+          </tr>
+          <tr>
+            <td>F-18</td>
+            <td>Als member van een community zou een product willen reserveren om het vervolgens op een afgesproken datum het op te halen.</td>
+            <td>• Als een user in de product detail pagina is er een knop bovenaan met reserve item<br>
+            • Dit is alleen als de gebruiker niet de eigenaar is.<br>
+            • Dit is alleen als het item nog niet gereserveerd is.<br>
+            • Als de user op de knop klikt komt er een popup.<br>
+            • De popup is een form<br>
+            • De popup form heeft een optioneel bericht input veld<br>
+            • De popup form heeft een date of pickup datumprikker veld</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-19</td>
+            <td>Als eigenaar van een product zou ik een reservering willen accepteren of toevoegen.</td>
+            <td>• Als een user een reservering doet krijgt de eigenaar een reservering te zien bij de reservations tab<br>
+            • In deze reservation is er een dropdown box<br>
+            • Deze dropdown box heeft een accepted en declined veld</td>
+            <td>Should</td>
+          </tr>
+          <tr>
+            <td>F-20</td>
+            <td>Als user zou ik een lijst van mijn reserveringen willen zien, zodat ik weet wie mijn spullen heeft en van wie ik spullen geleend heb.</td>
+            <td>• Er is een reservation tab waar de gebruiker op kan klikken<br>
+            • Hierin staat een lijst met reservation aanvragen<br>
+            • Hierin staat een lijst met gemaakte reservations</td>
+            <td>Must</td>
+          </tr>
+          <tr>
+            <td>F-21</td>
+            <td>Als user zou ik een reservering willen cancelen als het nog niet geaccepteerd is.</td>
+            <td>• In product detail staat een reservation detail<br>
+            • Als het nog op pending staat kan de reservering gecancelled worden.</td>
+            <td>Should</td>
+          </tr>
+          <tr>
+            <td>F-22</td>
+            <td>Als potentieele user wil ik een uitleg op de landingspagina zien om te weten waar de website over gaat</td>
+            <td>• De homepagina voor een niet ingelogde user geeft een uitleg over sharemunity</td>
+            <td>Could</td>
+          </tr>
+        </tbody>
+      </table>
 </div>
