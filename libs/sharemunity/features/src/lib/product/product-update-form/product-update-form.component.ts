@@ -69,9 +69,7 @@ export class ProductUpdateFormComponent implements OnInit {
   onSubmit() {
     if (
       this.product &&
-      this.productForm.valid &&
-      this.selectedImages != null &&
-      this.selectedImages.length > 0
+      this.productForm.valid
     ) {
 
       let maxTime = this.productForm.value.maxUseTime ? this.productForm.value.maxUseTime : 0
@@ -79,12 +77,14 @@ export class ProductUpdateFormComponent implements OnInit {
       formData.append('name', this.productForm.value.name);
       formData.append('description', this.productForm.value.description);
       formData.append('maxUseTime', maxTime);
-      this.selectedImages.forEach((file, index) => {
-        formData.append(`images`, file, file.name);
-      });
-
-      formData.append(`keptImages`,JSON.stringify(this.productImages));
-
+      if(this.selectedImages != null && this.selectedImages.length > 0){
+        this.selectedImages.forEach((file, index) => {
+          formData.append(`images`, file, file.name);
+        });
+      }
+      if(this.productImages != null && this.productImages.length >0){
+        formData.append(`keptImages`,JSON.stringify(this.productImages));
+      }
       this.prodService.update(this.product.id,formData).subscribe(()=>{
         this._location.back();
       });
